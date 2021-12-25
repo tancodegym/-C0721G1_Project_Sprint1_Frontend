@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {AuthService} from '../../service/auth.service';
+import {TokenStorageService} from '../../service/token-storage.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +11,54 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  loginForm: FormGroup;
+  username: string;
+  errorMessage = '';
+  successMessage = '';
+  roles: string[] = [];
+  returnUrl: string;
+
+  constructor(private formBuilder: FormBuilder,
+              private authService: AuthService,
+              private tokenStorageService: TokenStorageService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
+  }
 
   ngOnInit(): void {
+    this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl;
+    this.loginForm = this.formBuilder.group({
+      username: [''],
+      password: [''],
+      rememberMe: ['']
+    });
+    if (this.tokenStorageService.getToken()) {
+      const user = this.tokenStorageService.getUser();
+      this.authService.isLoggedIn = true;
+      this.roles = this.tokenStorageService.getUser().roles;
+      this.username = this.tokenStorageService.getUser().username;
+    }
+  }
+
+  onSubmit(): void {
+    this.authService.login(this.loginForm.value).subscribe(value => {
+      if (this.loginForm.value.rememberMe) {
+        this.tokenStorageService.saveTokenLocal(value.accessToken);
+        this.tokenStorageService.saveUserLocal(value);
+      } else {
+        this.tokenStorageService.saveTokenSession(value.accessToken);
+        this.tokenStorageService.saveUserSession(value);
+      }
+      this.authService.isLoggedIn = true;
+      this.roles = this.tokenStorageService.getUser().roles;
+      this.username = this.tokenStorageService.getUser().username;
+      this.loginForm.reset();
+      this.router.navigateByUrl(this.returnUrl);
+      this.successMessage = 'Đăng nhập thành công';
+    }, error => {
+      this.errorMessage = 'Đăng nhập thất bại';
+      this.authService.isLoggedIn = false;
+    });
   }
 
 }

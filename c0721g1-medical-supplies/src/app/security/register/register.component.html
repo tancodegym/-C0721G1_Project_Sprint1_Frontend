@@ -1,1 +1,84 @@
-<p>register works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <h2 class="text-center mb-3" *ngIf="h2RegisterStatus">Tạo mới tài khoản</h2>
+      <h2 class="text-center mb-3" *ngIf="h2UpdateStatus">Cập nhật tài khoản</h2>
+      <p class="text-success" *ngIf="successMessage">{{successMessage}}</p>
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-3">
+            <label for="employeeId" class="form-label">Mã nhân viên<span
+              style="color: red">(*)</span></label>
+          </div>
+          <div class="col-9">
+            <input type="text" class="form-control" id="employeeId" [(ngModel)]="codeInput"
+                   aria-describedby="employeeIdError">
+            <div id="employeeIdError" class="form-text text-danger">
+            </div>
+            <button type="submit" class="btn btn-primary" *ngIf="buttonCheckStatus" (click)="checkCode()">Kiểm tra</button>
+          </div>
+        </div>
+      </div>
+      <p class="text-danger" *ngIf="message">{{message}}</p>
+      <form *ngIf="formStatus" [formGroup]="registerForm">
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-3">
+              <label for="username" class="form-label">Tên tài khoản<span
+                style="color: red">(*)</span></label>
+            </div>
+            <div class="col-9">
+              <input type="text" class="form-control" id="username" formControlName="username"
+                     aria-describedby="usernameError">
+              <div id="usernameError" class="form-text text-danger">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-3">
+              <label for="password" class="form-label">Mật khẩu<span
+                style="color: red">(*)</span></label>
+            </div>
+            <div class="col-9">
+              <input type="password" class="form-control" id="password" formControlName="password"
+                     aria-describedby="passwordError">
+              <div id="passwordError" class="form-text text-danger">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-3">
+              <label for="role" class="form-label">Quyền<span
+                style="color: red">(*)</span></label>
+            </div>
+            <div class="col-9">
+              <select class="custom-select" id="role" aria-describedby="roleError" formControlName="role" required>
+                <option selected value="">Chọn quyền</option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+              </select>
+              <div id="roleError" class="form-text text-danger">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-12 text-center">
+              <button type="submit" class="btn btn-primary" *ngIf="buttonRegisterStatus" (click)="register()">Đăng ký</button>
+              <button type="submit" class="btn btn-primary" *ngIf="buttonUpdateStatus" (click)="update()">Cập nhật</button>
+              <button type="submit" class="btn btn-secondary">Trở về</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>
