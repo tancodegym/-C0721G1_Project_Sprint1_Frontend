@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
+import {SuppliesStatsService} from '../service/supplies-stats.service';
+import {SuppliesStats} from '../model/supplies-stats';
 
 @Component({
   selector: 'app-supplies',
@@ -7,7 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuppliesComponent implements OnInit {
 
-  constructor() { }
+  suppliesArr: SuppliesStats[];
+
+  constructor(private router: Router,
+              private suppliesService: SuppliesStatsService) {
+    this.suppliesService.getAll().subscribe(value => {
+      this.suppliesArr = value;
+    });
+  }
 
   ngOnInit(): void {
   }

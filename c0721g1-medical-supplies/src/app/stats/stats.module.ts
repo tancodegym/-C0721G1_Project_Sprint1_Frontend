@@ -6,13 +6,22 @@ import { FinancialComponent } from './financial/financial.component';
 import { PotentialCustomerComponent } from './potential-customer/potential-customer.component';
 import { SuppliesComponent } from './supplies/supplies.component';
 import { TrendingSuppliesComponent } from './trending-supplies/trending-supplies.component';
+import {HttpClientModule} from '@angular/common/http';
+import {RouterModule} from '@angular/router';
+import {AppRoutingModule} from '../app-routing.module';
+import {ReactiveFormsModule} from '@angular/forms';
+
 
 
 @NgModule({
   declarations: [FinancialComponent, PotentialCustomerComponent, SuppliesComponent, TrendingSuppliesComponent],
   imports: [
     CommonModule,
-    StatsRoutingModule
+    StatsRoutingModule,
+    HttpClientModule,
+    RouterModule.forRoot([]),
+    AppRoutingModule,
+    ReactiveFormsModule,
   ]
 })
 export class StatsModule { }

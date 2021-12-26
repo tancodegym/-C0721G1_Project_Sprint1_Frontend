@@ -1,1 +1,24 @@
-<p>supplies works!</p>
+<h2 class="text-center">Thống kê Vật Tư</h2>
+<table class="table table-hover table-striped container">
+  <thead>
+  <tr>
+    <th>Mã Vật tư</th>
+    <th>Tên Vật tư</th>
+    <th>Số lượng nhập</th>
+    <th>Số lượng bán</th>
+    <th>Số lượng tồn kho</th>
+    <th>Số lượng Vật tư hư hỏng và hết hạn</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let items of suppliesArr">
+    <td>{{items.code}}</td>
+    <td>{{items.name}}</td>
+    <td>{{items.import_quantity}}</td>
+    <td>{{items.quantity}}</td>
+    <td>{{items.normal_supplies}}</td>
+    <td>{{items.another}}</td>
+  </tr>
+  </tbody>
+
+</table>
