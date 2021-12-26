@@ -7,6 +7,9 @@ import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { LeftSideBarComponent } from './common/left-side-bar/left-side-bar.component';
 import { RightSideBarComponent } from './common/right-side-bar/right-side-bar.component';
+import {CommonModule} from "@angular/common";
+import {HomeModule} from "./home/home.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { RightSideBarComponent } from './common/right-side-bar/right-side-bar.co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CommonModule,
+    HomeModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
