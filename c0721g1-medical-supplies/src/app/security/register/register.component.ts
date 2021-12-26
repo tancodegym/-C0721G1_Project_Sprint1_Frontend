@@ -2,6 +2,7 @@ import {Component, DoCheck, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../service/auth.service';
 import {RegisterForm} from '../../model/registerForm';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -15,8 +16,6 @@ export class RegisterComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]{3,10}$')]),
     role: new FormControl('', [Validators.required])
   });
-  message = '';
-  successMessage = '';
   validateUsernameMessage = '';
   validatePasswordMessage = '';
   validateUsernameExistMessage = '';
@@ -30,7 +29,8 @@ export class RegisterComponent implements OnInit {
   h2RegisterStatus = true;
   disabledStatus = false;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private toastrService: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -39,9 +39,9 @@ export class RegisterComponent implements OnInit {
   checkCode() {
     this.authService.getRegister(this.codeInput).subscribe(value => {
       if (value === 1) {
-        this.message = 'Mã nhân viên không tồn tại';
+        this.toastrService.warning('Mã nhân viên không tồn tại.');
       } else if (value === 2) {
-        this.message = 'Mã nhân viên đã tồn tại nhưng chưa có tài khoản';
+        this.toastrService.info('Mã nhân viên đã tồn tại nhưng chưa có tài khoản. Vui lòng tạo tài khoản cho mã nhân viên này.');
         this.formStatus = true;
         this.buttonRegisterStatus = true;
         this.buttonCheckStatus = false;
@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
 
   register(): void {
     this.authService.register(this.registerForm.value, this.codeInput).subscribe(value => {
-      this.successMessage = value.message;
+      this.toastrService.success(value.message);
     }, error => {
       this.validateUsernameExistMessage = error.error;
       this.validateUsernameMessage = error.error.username;
@@ -70,7 +70,7 @@ export class RegisterComponent implements OnInit {
 
   update(): void {
     this.authService.editRegister(this.registerForm.value, this.codeInput).subscribe(value => {
-      this.successMessage = value.message;
+      this.toastrService.success(value.message);
     }, error => {
       this.validatePasswordMessage = error.error.password;
     });

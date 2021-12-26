@@ -4,7 +4,6 @@
     <div class="col-8">
       <h2 class="text-center mb-3" *ngIf="h2RegisterStatus">Tạo mới tài khoản</h2>
       <h2 class="text-center mb-3" *ngIf="h2UpdateStatus">Cập nhật tài khoản</h2>
-      <p class="text-success" *ngIf="successMessage">{{successMessage}}</p>
       <div class="mb-3">
         <div class="row">
           <div class="col-3">
@@ -21,7 +20,6 @@
           </div>
         </div>
       </div>
-      <p class="text-danger" *ngIf="message">{{message}}</p>
       <form *ngIf="formStatus" [formGroup]="registerForm">
         <div class="mb-3">
           <div class="row">

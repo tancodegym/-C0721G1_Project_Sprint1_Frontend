@@ -3,7 +3,6 @@
   <div class="row">
     <div class="col-md-5 mx-auto">
       <div class="card card-body">
-        <p class="text-danger" *ngIf="errorMessage"> {{errorMessage}}</p>
         <p class="text-success" *ngIf="successMessage"> {{successMessage}}</p>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="form-group">

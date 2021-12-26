@@ -9,8 +9,9 @@ import { LeftSideBarComponent } from './common/left-side-bar/left-side-bar.compo
 import { RightSideBarComponent } from './common/right-side-bar/right-side-bar.component';
 import {authInterceptorProviders} from './helper/auth.interceptor';
 import {SecurityModule} from './security/security.module';
-import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -21,11 +22,18 @@ import {HttpClientModule} from '@angular/common/http';
     RightSideBarComponent
   ],
   imports: [
-    CommonModule,
     BrowserModule,
     AppRoutingModule,
     SecurityModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      extendedTimeOut: 2000,
+      closeButton: true,
+      progressBar: true,
+      progressAnimation: 'increasing'
+    })
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

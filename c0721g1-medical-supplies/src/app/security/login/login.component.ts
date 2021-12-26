@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {AuthService} from '../../service/auth.service';
 import {TokenStorageService} from '../../service/token-storage.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,6 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   username: string;
-  errorMessage = '';
   successMessage = '';
   roles: string[] = [];
   returnUrl: string;
@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit {
               private authService: AuthService,
               private tokenStorageService: TokenStorageService,
               private activatedRoute: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private toastrService: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -54,9 +55,9 @@ export class LoginComponent implements OnInit {
       this.username = this.tokenStorageService.getUser().username;
       this.loginForm.reset();
       this.router.navigateByUrl(this.returnUrl);
-      this.successMessage = 'Đăng nhập thành công';
+      this.toastrService.success('Đăng nhập thành công');
     }, error => {
-      this.errorMessage = 'Đăng nhập thất bại';
+      this.toastrService.error('Đăng nhập thất bại');
       this.authService.isLoggedIn = false;
     });
   }
