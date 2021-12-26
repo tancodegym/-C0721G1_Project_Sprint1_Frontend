@@ -1,5 +1,5 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../service/auth.service';
 import {RegisterForm} from '../../model/registerForm';
 
@@ -11,12 +11,15 @@ import {RegisterForm} from '../../model/registerForm';
 export class RegisterComponent implements OnInit {
 
   registerForm = new FormGroup({
-    username: new FormControl(),
-    password: new FormControl(),
-    role: new FormControl()
+    username: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){2,8}[a-zA-Z0-9]$')]),
+    password: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]{3,10}$')]),
+    role: new FormControl('', [Validators.required])
   });
   message = '';
   successMessage = '';
+  validateUsernameMessage = '';
+  validatePasswordMessage = '';
+  validateUsernameExistMessage = '';
   registerModel: RegisterForm;
   codeInput: string;
   formStatus = false;
@@ -25,6 +28,7 @@ export class RegisterComponent implements OnInit {
   buttonCheckStatus = true;
   h2UpdateStatus = false;
   h2RegisterStatus = true;
+  disabledStatus = false;
 
   constructor(private authService: AuthService) {
   }
@@ -49,6 +53,7 @@ export class RegisterComponent implements OnInit {
         this.buttonCheckStatus = false;
         this.h2RegisterStatus = false;
         this.h2UpdateStatus = true;
+        this.disabledStatus = true;
       }
     });
   }
@@ -57,7 +62,9 @@ export class RegisterComponent implements OnInit {
     this.authService.register(this.registerForm.value, this.codeInput).subscribe(value => {
       this.successMessage = value.message;
     }, error => {
-      console.log(error);
+      this.validateUsernameExistMessage = error.error;
+      this.validateUsernameMessage = error.error.username;
+      this.validatePasswordMessage = error.error.password;
     });
   }
 
@@ -65,7 +72,19 @@ export class RegisterComponent implements OnInit {
     this.authService.editRegister(this.registerForm.value, this.codeInput).subscribe(value => {
       this.successMessage = value.message;
     }, error => {
-      console.log(error);
+      this.validatePasswordMessage = error.error.password;
     });
+  }
+
+  get username() {
+    return this.registerForm.get('username');
+  }
+
+  get password() {
+    return this.registerForm.get('password');
+  }
+
+  get role() {
+    return this.registerForm.get('role');
   }
 }
