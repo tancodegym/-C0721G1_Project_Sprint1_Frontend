@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
         this.tokenStorageService.saveTokenSession(value.accessToken);
         this.tokenStorageService.saveUserSession(value);
       }
+      console.log(this.tokenStorageService.getUser());
       this.authService.isLoggedIn = true;
       this.roles = this.tokenStorageService.getUser().roles;
       this.username = this.tokenStorageService.getUser().username;

@@ -41,7 +41,7 @@ export class AuthService {
     });
   }
   editRegister(obj: any, code: string): Observable<any> {
-    return this.httpClient.post<any>(AUTH_API + 'register-edit-password/' + code, {
+    return this.httpClient.patch<any>(AUTH_API + 'register-edit-password/' + code, {
       username: obj.username,
       password: obj.password,
       role: obj.role
