@@ -1,11 +1,12 @@
-import {Customer} from "./customer";
-import {Supplies} from "./supplies";
+import {Customer} from './customer';
+import {Supplies} from './supplies';
 
 export class OrderDetail {
-  id : number;
+  id: number;
+  // tslint:disable-next-line:variable-name
   order_date: string;
+  // tslint:disable-next-line:variable-name
   total_money: number;
-  quantity: number;
   customer: Customer;
   supplies: Supplies;
 }

@@ -1,6 +1,6 @@
-import {Salary} from "./salary";
-import {User} from "./user";
-import {Position} from "./position";
+import {Salary} from './salary';
+import {User} from './user';
+import {Position} from './position';
 
 export class Employee {
   id: number;
@@ -12,5 +12,5 @@ export class Employee {
   gender: string;
   address: string;
   user: User;
-  position: Position
+  position: Position;
 }
