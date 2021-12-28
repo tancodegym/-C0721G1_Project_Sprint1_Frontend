@@ -5,14 +5,14 @@
   </h2>
   <div class="row"  >
     <div class="col-3" style="left: 30%; top: 15px">
-      <img src="{{employee.image}}" alt="" width="150" height="150">
+<!--      <img src="{{employee.image}}" alt="" width="150" height="150">-->
     </div>
     <div class="col-9" style="right: 5%;">
       <table class="mx-auto w-auto spacing-table">
         <thead >
         <tr>
           <td>Tên tài khoản:</td>
-          <td > {{employee.user.username}}</td>
+<!--          <td > {{employee.user.username}}</td>-->
         </tr>
         <tr>
           <td>Mật khẩu:</td>
@@ -30,8 +30,8 @@
           <td>Giới tính:</td>
           <td
            [ngSwitch]="employee.gender" >
-              <span *ngSwitchCase="0">Male</span>
-              <span *ngSwitchCase="1">FeMale</span>
+              <span *ngSwitchCase="0">FeMale</span>
+              <span *ngSwitchCase="1">Male</span>
               <span *ngSwitchDefault>LGBT</span>
           </td>
         </tr>
@@ -41,7 +41,7 @@
         </tr>
         <tr>
           <td>Ngày sinh:</td>
-          <td>{{employee.birthday}}</td>
+          <td>{{employee.address}}</td>
         </tr>
         <tr>
           <td>Chức vụ:</td>

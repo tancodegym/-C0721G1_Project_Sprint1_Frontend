@@ -9,6 +9,7 @@ import { EditComponent } from './edit/edit.component';
 import { DetailComponent } from './detail/detail.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { DetailEditComponent } from './detail-edit/detail-edit.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { DetailEditComponent } from './detail-edit/detail-edit.component';
     DetailEditComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     EmployeeRoutingModule
   ]
 })
