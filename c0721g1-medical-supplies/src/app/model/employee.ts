@@ -12,5 +12,5 @@ export class Employee {
   gender: string;
   address: string;
   user: User;
-  position: Position
+  position: Position;
 }

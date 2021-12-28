@@ -7,6 +7,7 @@ import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { LeftSideBarComponent } from './common/left-side-bar/left-side-bar.component';
 import { RightSideBarComponent } from './common/right-side-bar/right-side-bar.component';
+import {SuppliesModule} from './supplies/supplies.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RightSideBarComponent } from './common/right-side-bar/right-side-bar.co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SuppliesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
