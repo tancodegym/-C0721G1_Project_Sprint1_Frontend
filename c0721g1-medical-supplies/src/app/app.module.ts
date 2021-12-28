@@ -12,6 +12,9 @@ import {SuppliesModule} from './supplies/supplies.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 
+import {environment} from '../environments/environment';
+import {AngularFireModule} from '@angular/fire';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +28,7 @@ import {ToastrModule} from 'ngx-toastr';
     AppRoutingModule,
     HttpClientModule,
     SuppliesModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 3000,

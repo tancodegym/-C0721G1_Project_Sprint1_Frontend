@@ -1,5 +1,5 @@
 // @ts-ignore
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Producer} from '../../model/producer';
 import {SuppliesType} from '../../model/supplies-type';
@@ -10,6 +10,10 @@ import {ProducerService} from '../../service/producer.service';
 import {Supplies} from '../../model/supplies';
 import {ToastrService} from 'ngx-toastr';
 
+import {formatDate} from '@angular/common';
+import {finalize} from 'rxjs/operators';
+import {AngularFireStorage} from '@angular/fire/storage';
+import {THIS_EXPR} from '@angular/compiler/src/output/output_ast';
 
 
 // @ts-ignore
@@ -22,10 +26,12 @@ export class CreateComponent implements OnInit {
   supplies: Supplies;
   producers: Producer[] = [];
   suppliesTypes: SuppliesType[] = [];
+  selectedImage: any = null;
+  codeSp: string;
   // @ts-ignore
   suppliesForm: FormGroup = new FormGroup({
-      code: new FormControl('', [Validators.required, Validators.pattern('(MVT-)(\\d{4})$')]),
-      name: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      code: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required, Validators.min(5)]),
       price: new FormControl('', [Validators.required]),
       producer: new FormControl('', [Validators.required]),
       suppliesType: new FormControl('', [Validators.required]),
@@ -43,12 +49,18 @@ export class CreateComponent implements OnInit {
               private suppliesTypeService: SuppliesTypeService,
               private producerService: ProducerService,
               private t: ToastrService,
+              @Inject(AngularFireStorage) private storage: AngularFireStorage,
               private router: Router) {
   }
 
   ngOnInit(): void {
     this.getAllSuppliesType();
     this.getAllProducer();
+    this.suppliesService.getCode().subscribe(data => {
+      this.supplies = data;
+      const a = this.supplies.id + 1;
+      this.codeSp = 'MVT-' + a;
+    });
   }
 
   getAllSuppliesType() {
@@ -63,13 +75,41 @@ export class CreateComponent implements OnInit {
     });
   }
 
+  //
+  // submit() {
+  //   const supplies = this.suppliesForm.value;
+  //   this.suppliesService.save(supplies).subscribe(data => {
+  //     // console.log(data);
+  //   }, error => {
+  //     // console.log(error);
+  //   });
+  //   this.suppliesForm.reset();
+  //   this.t.success('Thêm mới thành công');
+  // }
+  showPreview(event: any) {
+    this.selectedImage = event.target.files[0];
+  }
+
   submit() {
-    const supplies = this.suppliesForm.value;
-    this.suppliesService.save(supplies).subscribe(data => {
-      // this.supplies = data;
-    }, error => {});
-    this.suppliesForm.reset();
-    this.t.success('Thêm mới thành công');
+    // upload image to firebase
+    const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
+    const fileRef = this.storage.ref(nameImg);
+    this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
+      finalize(() => {
+        // tslint:disable-next-line:no-shadowed-variable
+        fileRef.getDownloadURL().subscribe((url) => {
+          // tslint:disable-next-line:max-line-length
+          this.suppliesForm.patchValue({image: url + ''});
+          this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
+            // this.router.navigateByUrl('supplies/list').then(r => this.t.success('Thêm mới thành công'));
+          });
+        });
+      })
+    ).subscribe();
+  }
+
+  getCurrentDateTime(): string {
+    return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');
   }
 
   get code() {

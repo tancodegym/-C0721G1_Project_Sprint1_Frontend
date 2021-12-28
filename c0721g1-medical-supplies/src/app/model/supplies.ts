@@ -7,14 +7,14 @@ export class Supplies {
   name: string;
   price: number;
   // tslint:disable-next-line:variable-name
-  production_date: string;
+  productionDate: string;
   // tslint:disable-next-line:variable-name
-  expiry_date: string;
+  expiryDate: string;
   image: string;
   introduce: string;
   // tslint:disable-next-line:variable-name
-  technical_information: string;
+  technicalInformation: string;
   producer: Producer;
   // tslint:disable-next-line:variable-name
-  supplies_type: SuppliesType;
+  suppliesType: SuppliesType;
 }

@@ -1,5 +1,5 @@
 // @ts-ignore
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Producer} from '../../model/producer';
 import {SuppliesType} from '../../model/supplies-type';
@@ -7,6 +7,11 @@ import {SuppliesService} from '../../service/supplies.service';
 import {SuppliesTypeService} from '../../service/supplies-type.service';
 import {ProducerService} from '../../service/producer.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {finalize} from 'rxjs/operators';
+import {formatDate} from '@angular/common';
+import {ToastrService} from 'ngx-toastr';
+import {AngularFireStorage} from '@angular/fire/storage';
+import {Supplies} from '../../model/supplies';
 
 // @ts-ignore
 @Component({
@@ -17,7 +22,8 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 export class EditComponent implements OnInit {
 
   suppliesEditForm: FormGroup = new FormGroup({
-      code: new FormControl('', [Validators.required, Validators.pattern('(NV-)(\\d{4})$')]),
+      id: new FormControl(),
+      code: new FormControl(),
       name: new FormControl('', [Validators.required]),
       price: new FormControl('', [Validators.required]),
       producer: new FormControl('', [Validators.required]),
@@ -31,23 +37,30 @@ export class EditComponent implements OnInit {
       image: new FormControl('', [Validators.required])
     }
   );
+  supplies: Supplies;
   producers: Producer[] = [];
   suppliesTypes: SuppliesType[] = [];
+  selectedImage: any = null;
   private id: number;
+  urlImage = 'https://i.imgur.com/7Vtlcpx.png';
 
   constructor(private suppliesService: SuppliesService,
               private suppliesTypeService: SuppliesTypeService,
               private producerService: ProducerService,
               private activatedRoute: ActivatedRoute,
+              private t: ToastrService,
+              @Inject(AngularFireStorage) private storage: AngularFireStorage,
               private router: Router) {
-    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-      this.id = +paramMap.get('id');
-    });
   }
 
   ngOnInit(): void {
     this.getAllSuppliesType();
     this.getAllProducer();
+    this.suppliesService.getCode().subscribe(data => {
+      this.supplies = data;
+      this.urlImage = this.supplies.image;
+      this.suppliesEditForm.setValue(this.supplies);
+    });
   }
 
   getAllSuppliesType() {
@@ -62,12 +75,30 @@ export class EditComponent implements OnInit {
     });
   }
 
-  editSupplies() {
-    const supplies = this.suppliesEditForm.value;
-    this.suppliesService.update(supplies).subscribe();
-    alert('Cập nhập thành công');
-    // this.router.navigateByUrl('/supplies/list');
+  showPreview(event: any) {
+    this.selectedImage = event.target.files[0];
+  }
 
+  editSupplies() {
+    // upload image to firebase
+    const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
+    const fileRef = this.storage.ref(nameImg);
+    this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
+      finalize(() => {
+        // tslint:disable-next-line:no-shadowed-variable
+        fileRef.getDownloadURL().subscribe((url) => {
+          // tslint:disable-next-line:max-line-length
+          this.suppliesEditForm.patchValue({image: url + ''});
+          this.suppliesService.update(this.suppliesEditForm.value).subscribe(() => {
+            this.router.navigateByUrl('supplies/list').then(r => this.t.success('Chỉnh sữa thành công'));
+          });
+        });
+      })
+    ).subscribe();
+  }
+
+  getCurrentDateTime(): string {
+    return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');
   }
 
   compareProducer(c1: Producer, c2: Producer): boolean {

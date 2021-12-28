@@ -4,6 +4,7 @@ import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Supplies} from '../model/supplies';
+import {SuppliesType} from '../model/supplies-type';
 
 const API_URL = 'http://localhost:8080';
 
@@ -15,10 +16,21 @@ export class SuppliesService {
 
   constructor(private http: HttpClient) {
   }
-  save(supplies: Supplies): Observable<Supplies> {
-    return this.http.post<Supplies>(API_URL + '/api/admin/supplies/create', supplies);
+
+  getAll(): Observable<Supplies[]> {
+    return this.http.get<Supplies[]>(API_URL + '/api/admin/supplies/list');
   }
-  update(supplies): Observable<Supplies> {
-    return this.http.put<Supplies>(`${API_URL}/api/admin/supplies/edit`, supplies);
+
+  save(supplies: Supplies): Observable<void> {
+    console.log(supplies);
+    return this.http.post<void>(API_URL + '/api/admin/supplies/create', supplies);
+  }
+
+  update(supplies): Observable<void> {
+    return this.http.put<void>(`${API_URL}api/admin/supplies/edit`, supplies);
+  }
+
+  getCode(): (any) {
+    return this.http.get(API_URL + '/api/admin/supplies/code');
   }
 }
