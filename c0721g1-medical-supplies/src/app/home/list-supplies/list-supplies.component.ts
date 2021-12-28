@@ -1,8 +1,11 @@
+// @ts-ignore
 import {Component, OnInit} from '@angular/core';
-import {Supplies} from "../../model/supplies";
-import {SuppliesService} from "../../service/supplies.service";
-import {Router} from "@angular/router";
+import {Supplies} from '../../model/supplies';
+import {SuppliesService} from '../../service/supplies.service';
+// @ts-ignore
+import {Router} from '@angular/router';
 
+// @ts-ignore
 @Component({
   selector: 'app-list-supplies',
   templateUrl: './list-supplies.component.html',
@@ -22,11 +25,12 @@ export class ListSuppliesComponent implements OnInit {
 
   getSuppliesList() {
     this.suppliesService.getSuppliesList().subscribe(value => {
-      this.suppliesList = value.content
+      this.suppliesList = value.content;
     });
   }
 
-  goDetail(id: number) {
-    this.router.navigateByUrl('home/detail')
-  }
+  // goDetail(id: number) {
+  //   console.log(id);
+  //   this.router.navigateByUrl('home/detail/' + id);
+  // }
 }
