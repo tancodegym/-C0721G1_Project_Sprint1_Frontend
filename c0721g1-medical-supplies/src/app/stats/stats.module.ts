@@ -9,7 +9,8 @@ import { TrendingSuppliesComponent } from './trending-supplies/trending-supplies
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from '../app-routing.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 
 
 
@@ -22,6 +23,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     RouterModule.forRoot([]),
     AppRoutingModule,
     ReactiveFormsModule,
+    BsDatepickerModule,
+    FormsModule,
   ]
 })
 export class StatsModule { }

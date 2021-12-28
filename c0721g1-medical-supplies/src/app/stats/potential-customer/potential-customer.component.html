@@ -1,33 +1,42 @@
-<h2 class="text-center">Thống Khách hàng tiềm năng</h2>
-<br>
 <div class="row">
-  <div class="col-4"></div>
-  <div class="col-4">
-    <div>
-      <canvas id="myChart"></canvas>
+  <div class="col-2"></div>
+  <div class="col-10">
+    <h2 class="text-center">Thống Khách hàng tiềm năng</h2>
+    <br>
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <div>
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+      <div class="col-4"></div>
     </div>
+
+    <br>
+
+    <table class="table table-hover table-striped container">
+      <thead>
+      <tr>
+        <th>Mã khách hàng</th>
+        <th>Tên khách hàng</th>
+        <th>Tổng số lượng đơn hàng</th>
+        <th>Tổng giá trị</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let items of potentialArr">
+        <td>{{items.code}}</td>
+        <td>{{items.name}}</td>
+        <td>{{items.quantity}}</td>
+        <td>{{items.total}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+
   </div>
-  <div class="col-4"></div>
 </div>
 
-<br>
 
-<table class="table table-hover table-striped container">
-  <thead>
-  <tr>
-    <th>Mã khách hàng</th>
-    <th>Tên khách hàng</th>
-    <th>Tổng số lượng đơn hàng</th>
-    <th>Tổng giá trị</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let items of potentialArr">
-    <td>{{items.code}}</td>
-    <td>{{items.name}}</td>
-    <td>{{items.quantity}}</td>
-    <td>{{items.total}}</td>
-  </tr>
-  </tbody>
 
-</table>

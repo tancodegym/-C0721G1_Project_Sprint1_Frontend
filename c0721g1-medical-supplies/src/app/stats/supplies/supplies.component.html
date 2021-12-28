@@ -1,24 +1,66 @@
-<h2 class="text-center">Thống kê Vật Tư</h2>
-<table class="table table-hover table-striped container">
-  <thead>
-  <tr>
-    <th>Mã Vật tư</th>
-    <th>Tên Vật tư</th>
-    <th>Số lượng nhập</th>
-    <th>Số lượng bán</th>
-    <th>Số lượng tồn kho</th>
-    <th>Số lượng Vật tư hư hỏng và hết hạn</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let items of suppliesArr">
-    <td>{{items.code}}</td>
-    <td>{{items.name}}</td>
-    <td>{{items.import_quantity}}</td>
-    <td>{{items.quantity}}</td>
-    <td>{{items.normal_supplies}}</td>
-    <td>{{items.another}}</td>
-  </tr>
-  </tbody>
+<style>
+  .bs-datepicker-head {
+    background-color: #058af0;
 
-</table>
+  }
+</style>
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-10">
+    <h2 class="text-center" style="margin:20px;">Thống kê Vật Tư</h2>
+<!--    search box-->
+    <div class="row">
+      <div class="col-6"></div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-xs-12 col-12 col-md-4 form-group mb-3">
+            <input class="form-control"  #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue">
+          </div>
+          <div class="col-xs-12 col-12 col-md-3 form-group mb-3">
+            <button class="btn btn-success" style="background: #058af0; margin-left: 7px" (click)="search()" [attr.aria-expanded]="drp.isOpen" type="button">Tìm kiếm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--chart js-->
+    <div class="row" style="margin:20px">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <canvas class="chart" id="myChart" width="100px" height="100px"></canvas>
+      </div>
+      <div class="col-4"></div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-center" style="font-weight: bold;margin:15px">
+        Biểu đồ thống kê chi tiết hoạt động kinh doanh. (Đơn vị: VND)
+      </div>
+    </div>
+
+
+
+    <table class="table table-hover table-striped container">
+      <thead>
+      <tr class="text-center">
+        <th>Mã Vật tư</th>
+        <th>Tên Vật tư</th>
+        <th>Số lượng nhập</th>
+        <th>Số lượng bán</th>
+        <th>Số lượng tồn kho</th>
+        <th>Số lượng Vật tư hư hỏng và hết hạn</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let items of suppliesArr" class="text-center">
+        <td>{{items.code}}</td>
+        <td>{{items.name}}</td>
+        <td>{{items.import_quantity}}</td>
+        <td>{{items.quantity}}</td>
+        <td>{{items.normal_supplies}}</td>
+        <td>{{items.another}}</td>
+      </tr>
+      </tbody>
+
+    </table>
+  </div>
+</div>

@@ -1,82 +1,79 @@
-<head>
-  <!--    ChartJs-->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-<h2 class="text-center">Thống kê tài chính</h2>
-
-<br>
-<h2 class="text-center text-danger">Thống kê chi tiết</h2>
-<table class="table table-hover table-striped container text-center">
-   <thead>
-   <tr>
-     <th>Tiền bán hàng</th>
-     <th>Hoàn tiền từ nhà cung cấp</th>
-     <th>Tiền nhập hàng</th>
-     <th>Tiền trả hàng của khách</th>
-     <th>Tiền hủy hàng</th>
-   </tr>
-   </thead>
-   <tbody>
-   <tr>
-     <td>{{financial.income}}</td>
-     <td>{{financial.returnMoney}}</td>
-     <td>{{financial.refund}}</td>
-     <td>{{financial.cancelled}}</td>
-     <td>{{financial.importMoney}}</td>
-   </tr>
-   </tbody>
-
- </table>
-<br>
-
-  <div class="row">
-    <div class="col-4"></div>
-    <div class="col-4"> <canvas class="chart" id="myChart" width="100px" height="100px"></canvas></div>
-    <div class="col-4"></div>
-    <br>
-  </div>
-<br>
 <div class="row">
-  <div class="col-12 text-center" style="font-weight: bold">
-    Biểu đồ thống kê chi tiết hoạt động kinh doanh. (Đơn vị: VND)
-  </div>
-</div>
-<br>
+  <div class="col-2"></div>
+  <div class="col-10">
+    <h2 style="margin:20px" class="text-center">Thống kê tài chính</h2>
+
+    <h2 style="margin:15px" class="text-center text-danger">Thống kê chi tiết</h2>
+    <table class="table table-hover table-striped container text-center">
+      <thead>
+      <tr>
+        <th>Tiền bán hàng</th>
+        <th>Hoàn tiền từ nhà cung cấp</th>
+        <th>Tiền nhập hàng</th>
+        <th>Tiền trả hàng của khách</th>
+        <th>Tiền hủy hàng</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{financial.income}}</td>
+        <td>{{financial.returnMoney}}</td>
+        <td>{{financial.refund}}</td>
+        <td>{{financial.cancelled}}</td>
+        <td>{{financial.importMoney}}</td>
+      </tr>
+      </tbody>
+
+    </table>
 
 
-
-<h2 class="text-center text-danger">Thống kê doanh thu</h2>
-<br>
-<table class="table table-hover table-striped container">
-  <thead>
-  <tr>
-    <th>Tổng Thu</th>
-    <th>Tổng chi</th>
-    <th>Lợi nhuận</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>{{this.revenue}}</td>
-    <td>{{this.totalCost}}</td>
-    <td>{{this.profit}}</td>
-  </tr>
-  </tbody>
-</table>
-<br>
-<br>
-<div class="row justify-content-center align-items-center">
-  <div class="col-6">
-    <div>
-      <canvas class="chart" id="myChart1"></canvas>
+    <div class="row" style="margin:20px">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <canvas class="chart" id="myChart" width="100px" height="100px"></canvas>
+      </div>
+      <div class="col-4"></div>
     </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-12 text-center" style="font-weight: bold">
-    Biểu đồ thống kê thu chi. (Đơn vị: VND)
+    <div class="row">
+      <div class="col-12 text-center" style="font-weight: bold;margin:15px">
+        Biểu đồ thống kê chi tiết hoạt động kinh doanh. (Đơn vị: VND)
+      </div>
+    </div>
+
+
+    <h2 class="text-center text-danger" style="margin:20px">Thống kê doanh thu</h2>
+    <br>
+    <table class="table table-hover table-striped container">
+      <thead>
+      <tr>
+        <th>Tổng Thu</th>
+        <th>Tổng chi</th>
+        <th>Lợi nhuận</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{this.revenue}}</td>
+        <td>{{this.totalCost}}</td>
+        <td>{{this.profit}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <div class="row justify-content-center align-items-center">
+      <div class="col-6">
+        <div>
+          <canvas class="chart" id="myChart1"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-center" style="font-weight: bold">
+        Biểu đồ thống kê thu chi. (Đơn vị: VND)
+      </div>
+    </div>
+
   </div>
 </div>
 
-</body>

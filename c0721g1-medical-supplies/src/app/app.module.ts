@@ -7,9 +7,13 @@ import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { LeftSideBarComponent } from './common/left-side-bar/left-side-bar.component';
 import { RightSideBarComponent } from './common/right-side-bar/right-side-bar.component';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {StatsModule} from './stats/stats.module';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import {FormsModule} from "@angular/forms";
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +27,9 @@ import {StatsModule} from './stats/stats.module';
     AppRoutingModule,
     HttpClientModule,
     StatsModule,
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

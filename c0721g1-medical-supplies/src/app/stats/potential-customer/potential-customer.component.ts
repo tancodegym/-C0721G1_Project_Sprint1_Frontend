@@ -12,21 +12,21 @@ export class PotentialCustomerComponent implements OnInit {
   potentialArr: PotentialCustomer[];
   public canvas: any;
   public ctx: any;
-  public labels: [];
 
-  public data = {
+  //data for chart
+  private data = {
     labels: []
     ,
     datasets: [{
       type: 'bar',
       label: 'Doanh Số',
-      data: [10, 20, 30, 40],
+      data: [],
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.2)'
     }, {
       type: 'line',
       label: 'Giá trị',
-      data: [50, 50, 50, 50],
+      data: [],
       fill: false,
       borderColor: 'rgb(54, 162, 235)'
     }]
@@ -36,16 +36,28 @@ export class PotentialCustomerComponent implements OnInit {
               private potentialCustomerService: PotentialCustomerService) {
     this.potentialCustomerService.getAll().subscribe(value => {
       this.potentialArr = value;
-      for(let i = 0; i < this.potentialArr.length; i++) {
-            // @ts-ignore
-        this.labels.push([i])
-      };
-      this.potentialCustomerChart(this.labels, this.data, 'myChart');
+      this.getName(value);
+      this.potentialCustomerChart("abc", this.data, 'myChart');
+
     });
   }
 
   ngOnInit(): void {
+
+
   }
+
+    //get label for Chart
+    private getName(arr: PotentialCustomer[]) {
+        for(let i = 0; i<arr.length; i++) {
+          this.data.labels.push(arr[i].name);
+          this.data.datasets[0].data.push(arr[i].quantity) ;
+          this.data.datasets[1].data.push(arr[i].total);
+    };
+  };
+
+
+
 
   private potentialCustomerChart(labels, data, myChart) {
     this.canvas = document.getElementById('myChart');
@@ -54,7 +66,7 @@ export class PotentialCustomerComponent implements OnInit {
     // @ts-ignore
     const chart = new Chart(this.ctx, {
       type: 'scatter',
-      data: data,
+      data: this.data,
       options: {
         scales: {
           y: {
@@ -64,6 +76,4 @@ export class PotentialCustomerComponent implements OnInit {
       }
     });
   }
-
-
 }
