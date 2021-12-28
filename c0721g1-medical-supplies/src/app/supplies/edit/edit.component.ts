@@ -51,12 +51,15 @@ export class EditComponent implements OnInit {
               private t: ToastrService,
               @Inject(AngularFireStorage) private storage: AngularFireStorage,
               private router: Router) {
+    this.activatedRoute.paramMap.subscribe((pa: ParamMap) => {
+      this.id = +pa.get('id');
+    });
   }
 
   ngOnInit(): void {
     this.getAllSuppliesType();
     this.getAllProducer();
-    this.suppliesService.getCode().subscribe(data => {
+    this.suppliesService.findById(this.id).subscribe(data => {
       this.supplies = data;
       this.urlImage = this.supplies.image;
       this.suppliesEditForm.setValue(this.supplies);
@@ -80,17 +83,18 @@ export class EditComponent implements OnInit {
   }
 
   editSupplies() {
-    // upload image to firebase
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const fileRef = this.storage.ref(nameImg);
     this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
       finalize(() => {
         // tslint:disable-next-line:no-shadowed-variable
         fileRef.getDownloadURL().subscribe((url) => {
+          console.log(url);
           // tslint:disable-next-line:max-line-length
           this.suppliesEditForm.patchValue({image: url + ''});
-          this.suppliesService.update(this.suppliesEditForm.value).subscribe(() => {
-            this.router.navigateByUrl('supplies/list').then(r => this.t.success('Chỉnh sữa thành công'));
+          this.suppliesService.update(this.suppliesEditForm.value).subscribe(data => {
+            console.log(data);
+            // this.router.navigateByUrl('supplies/list').then(r => this.t.success('Chỉnh sữa thành công'));
           });
         });
       })

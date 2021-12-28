@@ -75,23 +75,12 @@ export class CreateComponent implements OnInit {
     });
   }
 
-  //
-  // submit() {
-  //   const supplies = this.suppliesForm.value;
-  //   this.suppliesService.save(supplies).subscribe(data => {
-  //     // console.log(data);
-  //   }, error => {
-  //     // console.log(error);
-  //   });
-  //   this.suppliesForm.reset();
-  //   this.t.success('Thêm mới thành công');
-  // }
+
   showPreview(event: any) {
     this.selectedImage = event.target.files[0];
   }
 
   submit() {
-    // upload image to firebase
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const fileRef = this.storage.ref(nameImg);
     this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
