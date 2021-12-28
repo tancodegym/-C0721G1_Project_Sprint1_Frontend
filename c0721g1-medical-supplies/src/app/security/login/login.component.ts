@@ -4,6 +4,7 @@ import {AuthService} from '../../service/auth.service';
 import {TokenStorageService} from '../../service/token-storage.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +18,15 @@ export class LoginComponent implements OnInit {
   successMessage = '';
   roles: string[] = [];
   returnUrl: string;
+  flag = false;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
               private tokenStorageService: TokenStorageService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private toastrService: ToastrService) {
+              private toastrService: ToastrService,
+              private matDialogRef: MatDialogRef<LoginComponent>) {
   }
 
   ngOnInit(): void {
@@ -44,18 +47,19 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.authService.login(this.loginForm.value).subscribe(value => {
       if (this.loginForm.value.rememberMe) {
-        this.tokenStorageService.saveTokenLocal(value.accessToken);
-        this.tokenStorageService.saveUserLocal(value);
-      } else {
-        this.tokenStorageService.saveTokenSession(value.accessToken);
+        this.tokenStorageService.saveTokenSession(value.token);
         this.tokenStorageService.saveUserSession(value);
+        this.flag = true;
+      } else {
+        this.tokenStorageService.saveTokenLocal(value.token);
+        this.tokenStorageService.saveUserLocal(value);
       }
-      console.log(this.tokenStorageService.getUser());
       this.authService.isLoggedIn = true;
       this.roles = this.tokenStorageService.getUser().roles;
       this.username = this.tokenStorageService.getUser().username;
-      this.loginForm.reset();
-      this.router.navigateByUrl(this.returnUrl);
+      this.router.navigateByUrl('/system');
+      this.matDialogRef.close();
+      // this.router.navigateByUrl(this.returnUrl);
       this.toastrService.success('Đăng nhập thành công');
     }, error => {
       this.toastrService.error('Đăng nhập thất bại');

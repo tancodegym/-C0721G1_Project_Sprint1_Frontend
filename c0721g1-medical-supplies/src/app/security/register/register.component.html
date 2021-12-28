@@ -1,16 +1,19 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-2"></div>
-    <div class="col-8">
+    <div class="col-lg-2">
+      <app-left-side-bar></app-left-side-bar>
+    </div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-8">
       <h2 class="text-center mb-3" *ngIf="h2RegisterStatus">Tạo mới tài khoản</h2>
       <h2 class="text-center mb-3" *ngIf="h2UpdateStatus">Cập nhật tài khoản</h2>
       <div class="mb-3">
         <div class="row">
-          <div class="col-3">
+          <div class="col-lg-3">
             <label for="employeeId" class="form-label">Mã nhân viên<span
               style="color: red">(*)</span></label>
           </div>
-          <div class="col-9">
+          <div class="col-lg-9">
             <input type="text" class="form-control" id="employeeId" [(ngModel)]="codeInput"
                    aria-describedby="employeeIdError">
             <div id="employeeIdError" class="form-text text-danger">
@@ -23,11 +26,11 @@
       <form *ngIf="formStatus" [formGroup]="registerForm">
         <div class="mb-3">
           <div class="row">
-            <div class="col-3">
+            <div class="col-lg-3">
               <label for="username" class="form-label">Tên tài khoản<span
                 style="color: red">(*)</span></label>
             </div>
-            <div class="col-9">
+            <div class="col-lg-9">
               <input type="text" class="form-control" id="username" formControlName="username"
                      aria-describedby="usernameError" [readOnly]="disabledStatus">
               <div id="usernameError" class="form-text text-danger"
@@ -50,11 +53,11 @@
         </div>
         <div class="mb-3">
           <div class="row">
-            <div class="col-3">
+            <div class="col-lg-3">
               <label for="password" class="form-label">Mật khẩu<span
                 style="color: red">(*)</span></label>
             </div>
-            <div class="col-9">
+            <div class="col-lg-9">
               <input type="password" class="form-control" id="password" formControlName="password"
                      aria-describedby="passwordError">
               <div id="passwordError" class="form-text text-danger"
@@ -74,11 +77,11 @@
         </div>
         <div class="mb-3">
           <div class="row">
-            <div class="col-3">
+            <div class="col-lg-3">
               <label for="role" class="form-label">Quyền<span
                 style="color: red">(*)</span></label>
             </div>
-            <div class="col-9">
+            <div class="col-lg-9">
               <select class="custom-select" id="role" aria-describedby="roleError" formControlName="role"
                       [attr.disabled]="disabledStatus?true:null">
                 <option value="" selected>Chọn quyền</option>
@@ -96,19 +99,19 @@
         </div>
         <div class="mb-3">
           <div class="row">
-            <div class="col-12 text-center">
+            <div class="col-lg-12 text-center">
               <button type="submit" class="btn btn-primary" *ngIf="buttonRegisterStatus"
                       [disabled]="registerForm.invalid" (click)="register()">Đăng ký
               </button>
               <button type="submit" class="btn btn-primary" *ngIf="buttonUpdateStatus" [disabled]="registerForm.invalid"
                       (click)="update()">Cập nhật
               </button>
-              <button type="submit" class="btn btn-secondary">Trở về</button>
+              <button type="submit" class="btn btn-secondary" routerLink="/system">Trở về</button>
             </div>
           </div>
         </div>
       </form>
     </div>
-    <div class="col-2"></div>
+    <div class="col-lg-1"></div>
   </div>
 </div>

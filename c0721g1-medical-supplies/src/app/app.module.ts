@@ -3,37 +3,30 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './common/header/header.component';
-import { FooterComponent } from './common/footer/footer.component';
-import { LeftSideBarComponent } from './common/left-side-bar/left-side-bar.component';
-import { RightSideBarComponent } from './common/right-side-bar/right-side-bar.component';
 import {authInterceptorProviders} from './helper/auth.interceptor';
-import {SecurityModule} from './security/security.module';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import {MatButtonModule} from '@angular/material/button';
+import {SharedModule} from './shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    LeftSideBarComponent,
-    RightSideBarComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SecurityModule,
+    SharedModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut: 4000,
-      extendedTimeOut: 2000,
+      timeOut: 2000,
       closeButton: true,
       progressBar: true,
       progressAnimation: 'increasing'
-    })
+    }),
+    MatButtonModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

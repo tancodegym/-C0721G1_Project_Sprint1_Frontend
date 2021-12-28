@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../service/auth.service';
 import {RegisterForm} from '../../model/registerForm';
 import {ToastrService} from 'ngx-toastr';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,8 @@ export class RegisterComponent implements OnInit {
   disabledStatus = false;
 
   constructor(private authService: AuthService,
-              private toastrService: ToastrService) {
+              private toastrService: ToastrService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -61,6 +63,7 @@ export class RegisterComponent implements OnInit {
   register(): void {
     this.authService.register(this.registerForm.value, this.codeInput).subscribe(value => {
       this.toastrService.success(value.message);
+      this.router.navigateByUrl('/system');
     }, error => {
       this.validateUsernameExistMessage = error.error;
       this.validateUsernameMessage = error.error.username;
@@ -71,6 +74,7 @@ export class RegisterComponent implements OnInit {
   update(): void {
     this.authService.editRegister(this.registerForm.value, this.codeInput).subscribe(value => {
       this.toastrService.success(value.message);
+      this.router.navigateByUrl('/system');
     }, error => {
       this.validatePasswordMessage = error.error.password;
     });
