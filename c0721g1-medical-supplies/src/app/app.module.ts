@@ -10,6 +10,8 @@ import { RightSideBarComponent } from './common/right-side-bar/right-side-bar.co
 import {EmployeeModule} from './employee/employee.module';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     EmployeeModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]
