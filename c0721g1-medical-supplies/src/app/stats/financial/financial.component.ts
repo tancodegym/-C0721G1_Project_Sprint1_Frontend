@@ -12,14 +12,20 @@ import {angularMath} from 'angular-ts-math';
 export class FinancialComponent implements OnInit, OnChanges {
 
   financial: FinancialStats;
+  bsValue = new Date();
+  date: string;
   revenue: number;
   totalCost: number;
   profit: number;
   public canvas: any;
+  //content chart doanh thu
   public ctx: any;
+  // content chart chi tiet
   public ctxDetails: any;
+  //content chart doanh thu
   public labelsRevenue: [];
   public dataRevenue: [];
+  // content chart chi tiet
   public labelsDetail: [];
   public dataDetail: [];
 
@@ -39,7 +45,9 @@ export class FinancialComponent implements OnInit, OnChanges {
     );
 
   }
- // chart doanh thu
+
+
+  // chart doanh thu
   private createRevenueChart(labels, data, myChart1) {
     this.canvas = document.getElementById('myChart1');
     this.ctx = this.canvas.getContext('2d');
@@ -48,7 +56,7 @@ export class FinancialComponent implements OnInit, OnChanges {
     const chart = new Chart(this.ctx, {
       type: 'bar',
       data: {
-        labels: ['Tổng thu', 'Tổng chi', 'Lợi nhuận', ],
+        labels: ['Tổng thu', 'Tổng chi', 'Lợi nhuận',],
         datasets: [{
           label: 'Hiển thị bảng',
 
@@ -75,7 +83,6 @@ export class FinancialComponent implements OnInit, OnChanges {
           }
         }
       }
-
     });
   }
 
@@ -86,7 +93,7 @@ export class FinancialComponent implements OnInit, OnChanges {
     // @ts-ignore
     const chartDetail = new Chart(this.ctxDetails, {
       type: 'pie',
-        data: {
+      data: {
         labels: [
           'Bán Hàng',
           'Nhập từ nhà cung cấp',
@@ -94,9 +101,9 @@ export class FinancialComponent implements OnInit, OnChanges {
           'Trả hàng',
           'Hủy hàng'
         ],
-          datasets: [{
+        datasets: [{
           label: 'My First Dataset',
-            // tslint:disable-next-line:max-line-length
+          // tslint:disable-next-line:max-line-length
           data: [this.financial.income, this.financial.returnMoney, this.financial.importMoney, this.financial.refund, this.financial.cancelled],
           backgroundColor: [
             'rgb(255, 99, 132)',
@@ -109,19 +116,28 @@ export class FinancialComponent implements OnInit, OnChanges {
       },
 
     });
+  }
+
+
+  search() {
+// console.log(this.bsValue.getFullYear());
+// console.log(this.bsValue.getMonth()+1);
+// console.log(this.bsValue.getDate());
+    this.date = this.bsValue.getFullYear().toString()
+      + '-' + (this.bsValue.getMonth() + 1).toString()
+      + '-' + this.bsValue.getDate().toString();
+    this.financialsv.searchFinancialStats(this.date).subscribe(
+      value => {
+        this.financial = value;
+      }
+    )
 
   }
 
   ngOnInit(): void {
-
-
   }
-
 
   ngOnChanges(): void {
-
   }
-
-
 
 }

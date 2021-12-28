@@ -19,4 +19,8 @@ export class FinancialService {
     return this.http.get<FinancialStats | any>(this.API + '/admin/stats/financial-stats');
   }
 
+  searchFinancialStats(date: string): Observable<FinancialStats | any>{
+    return this.http.get<FinancialStats | any>(this.API + '/admin/stats/financial-stats/'+date);
+  }
+
 }

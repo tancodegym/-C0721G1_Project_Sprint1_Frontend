@@ -18,8 +18,8 @@ export class SuppliesComponent implements OnInit {
   bsValue = new Date();
   bsRangeValue: Date[];
   maxDate = new Date();
-  public canvas: any;
-  public ctx: any;
+  canvas: any;
+  ctx: any;
 
   constructor(private router: Router,
               private suppliesService: SuppliesStatsService) {
@@ -43,35 +43,54 @@ export class SuppliesComponent implements OnInit {
     this.startDate = this.bsRangeValue[0].getFullYear().toString()
       + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
       + '-' + this.bsRangeValue[0].getDate().toString();
-    console.log(this.startDate);
+
     //endDate
     this.endDate = this.bsRangeValue[1].getFullYear().toString()
       + '-' + (this.bsRangeValue[1].getMonth() + 1).toString()
       + '-' + this.bsRangeValue[1].getDate().toString();
-    console.log(this.endDate);
 
     this.suppliesService.searchSuppliesStats(this.startDate, this.endDate).subscribe(
       value => {
         this.suppliesArr = value;
-        console.log(value)
+        this.getName(value);
+        this.createDetailChart('abc', this.data, 'myChart');
       }
     );
   }
 
   private data = {
+
     labels: [],
-    datasets: [{
-      label: 'My First Dataset',
-      data: [],
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(54, 162, 235)',
-        'rgb(255, 205, 86)',
-        'rgb(240, 115, 111)'
-      ],
-      hoverOffset: 5
-    }]
+    datasets: [
+      {
+
+        data: [],
+        borderColor: "red",
+        fill: true
+      },
+      {
+        data: [],
+        borderColor: "green",
+        fill: true
+      },
+      {
+        data: [],
+        borderColor: "blue",
+        fill: true
+      },
+      {
+        data: [],
+        borderColor: "rgb(255, 205, 86)",
+        fill: true
+      },
+      {
+        data: [],
+        borderColor: "rgb(240, 115, 111)",
+        fill: true
+      }],
+    HoverOfSet: 4
   };
+
 
 //  chart JS
   // chart chi tiết
@@ -80,7 +99,7 @@ export class SuppliesComponent implements OnInit {
     this.ctx = this.canvas.getContext('2d');
     // @ts-ignore
     const chart = new Chart(this.ctx, {
-      type: 'doughnut',
+      type: 'line',
       data: this.data,
     });
   }
@@ -90,12 +109,11 @@ export class SuppliesComponent implements OnInit {
     for (let i = 0; i < arr.length; i++) {
       this.data.labels.push(arr[i].name);
       this.data.datasets[0].data.push(arr[i].import_quantity);
-      this.data.datasets[0].data.push(arr[i].quantity);
-      this.data.datasets[0].data.push(arr[i].normal_supplies);
-      this.data.datasets[0].data.push(arr[i].another);
+      this.data.datasets[1].data.push(arr[i].quantity);
+      this.data.datasets[2].data.push(arr[i].normal_supplies);
+      this.data.datasets[3].data.push(arr[i].another);
 
     }
-    ;
 
   }
 }
