@@ -14,6 +14,9 @@ import {Employee} from '../../model/employee';
 export class ListComponent implements OnInit {
   page = 0;
   size = 2;
+  nameDelete: string;
+  codeDelete: string;
+  idDelete: number;
   pageEmployee: any;
   employeeList: Employee[];
   positionList: Position[];
@@ -45,7 +48,6 @@ export class ListComponent implements OnInit {
     this.employeeService.getListEmployee(this.pageEmployeeDTO).subscribe(value => {
       this.pageEmployee = value;
       this.employeeList = value.content;
-      console.log(this.pageEmployee);
     });
   }
 
@@ -73,5 +75,28 @@ export class ListComponent implements OnInit {
       }
     );
     this.ngOnInit();
+  }
+
+  getEmployeeDelete(emp: Employee) {
+    this.idDelete = emp.id;
+    this.nameDelete = emp.name;
+    this.codeDelete = emp.code;
+  }
+
+  deleteEmployee() {
+    this.employeeService.deleteEmployee(this.idDelete).subscribe(value => {
+      this.ngOnInit();
+    });
+  }
+
+  searchEmployee() {
+    this.page = 0;
+    this.pageEmployeeDTO = this.searchForm.value;
+    this.employeeService.getListEmployee(this.pageEmployeeDTO).subscribe(value => {
+      this.pageEmployee = value;
+      this.employeeList = value.content;
+      console.log(this.employeeList);
+      this.ngOnInit();
+    });
   }
 }

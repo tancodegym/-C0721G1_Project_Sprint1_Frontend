@@ -19,7 +19,7 @@
             <option *ngFor="let position of positionList" [ngValue]="position.id">{{position.name}}</option>
           </select>
           <button class="btn btn-success " style="background: #058af0; margin-left: 7px"
-                  type="submit">Tìm kiếm
+                  type="submit" (click)="searchEmployee()">Tìm kiếm
           </button>
         </form>
       </nav>
@@ -65,7 +65,7 @@
           </td>
           <td style="text-align: center">
             <button type="button" class=" btn btn-danger "
-                    data-toggle="modal" data-target="#modalDelete"><i
+                    data-toggle="modal" data-target="#modalDelete" (click)="getEmployeeDelete(emp)"><i
               class="far fa-trash-alt"></i>
             </button>
           </td>
@@ -80,11 +80,11 @@
           <nav aria-label="...">
             <ul class="pagination">
               <li class="page-item" >
-                <button class="page-link" *ngIf="page > 0"  (click)="previousPage()">Previous</button>
+                <button class="page-link" *ngIf="page > 0"  (click)="previousPage()">Trước</button>
               </li>
               <li class="page-item"><p class="page-link">{{page+1}}/{{pageEmployee.totalPages}}</p></li>
               <li class="page-item">
-                <button class="page-link" *ngIf="page + 1 < pageEmployee.totalPages" (click)="nextPage()">Next</button>
+                <button class="page-link" *ngIf="page + 1 < pageEmployee.totalPages" (click)="nextPage()">Sau</button>
               </li>
             </ul>
           </nav>
@@ -105,18 +105,17 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title text-danger">Xoá vật tư</h5>
+          <h5 class="modal-title text-danger">Xoá nhân viên</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          Bạn có muốn xoá vật tư này?
+          Bạn có muốn xóa nhân viên {{nameDelete}}, có mã nhân viên là {{codeDelete}} không?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-          <button data-dismiss="modal" type="button" class="btn btn-danger">Xoá
-          </button>
+          <button data-dismiss="modal" type="button" class="btn btn-danger" (click)="deleteEmployee()">Xoá</button>
         </div>
       </div>
     </div>

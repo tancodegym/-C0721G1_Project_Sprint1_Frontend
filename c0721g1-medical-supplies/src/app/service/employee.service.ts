@@ -18,4 +18,7 @@ export class EmployeeService {
     return this.http.get<any>(this.API_URL + '/admin/employee?code=' + code + '&name=' + name + '&positionId='
       + positionId + '&page=' + page + '&size=' + size);
   }
+  deleteEmployee(id: number): Observable<void> {
+    return this.http.delete<void>(this.API_URL + '/admin/employee/' + id);
+  }
 }

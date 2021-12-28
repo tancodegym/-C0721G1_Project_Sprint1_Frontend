@@ -29,7 +29,6 @@ import {HttpClientModule} from '@angular/common/http';
     EmployeeRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ReactiveFormsModule,
     FormsModule
   ]
 })
