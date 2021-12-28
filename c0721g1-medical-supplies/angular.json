@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "c0721g1-medical-supplies": {
@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "c0721g1-medical-supplies"
+    }
+  },
+  "defaultProject": "c0721g1-medical-supplies",
+  "cli": {
+    "analytics": "2969e248-be7a-47cf-835c-6522f5e01392"
+  }
 }

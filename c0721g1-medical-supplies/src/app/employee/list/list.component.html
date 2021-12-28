@@ -1,1 +1,125 @@
-<p>list works!</p>
+<div class="container-fluid"
+     style="background-image: url(https://hoaidoan.vn/wp-content/uploads/2021/03/background-dep-5.png); background-size: cover">
+  <div class="row">
+    <div class="col-2">
+
+    </div>
+    <div class="col-10">
+      <nav class="navbar navbar-light">
+        <a class="btn">
+          <button class="btn btn-success " style="background: #058af0">Thêm mới nhân viên</button>
+        </a>
+        <form class="form-inline" [formGroup]="searchForm">
+          <input class="form-control mr-sm-2" type="search" placeholder="Mã nhân viên"
+                 aria-label="Search" formControlName="code">
+          <input class="form-control mr-sm-2" type="search" placeholder="Tên nhân viên"
+                 aria-label="Search" formControlName="name">
+          <select class="custom-select" aria-describedby="validationServer04Feedback" formControlName="positionId">
+            <option selected disabled value="">Chức vụ</option>
+            <option *ngFor="let position of positionList" [ngValue]="position.id">{{position.name}}</option>
+          </select>
+          <button class="btn btn-success " style="background: #058af0; margin-left: 7px"
+                  type="submit">Tìm kiếm
+          </button>
+        </form>
+      </nav>
+
+      <h2 style="text-align: center">Danh sách nhân viên</h2>
+
+      <table border="1px" class="table table-hover table-striped" width="100%">
+
+        <tr class="table-primary" style="text-align: center">
+          <th scope="col">#</th>
+          <th scope="col">Mã nhân viên</th>
+          <th scope="col">Họ tên</th>
+          <th scope="col">Ngày sinh</th>
+          <th scope="col">Giới tính</th>
+          <th scope="col">Địa chỉ</th>
+          <th scope="col">Số điện thoại</th>
+          <th scope="col">Tên tài khoản</th>
+          <th scope="col">Chức vụ</th>
+          <th scope="col">Chi tiết</th>
+          <th scope="col">Sửa</th>
+          <th scope="col">Xóa</th>
+        </tr>
+
+        <tr *ngFor="let emp of employeeList index as i">
+          <td>{{i + 1}}</td>
+          <td>{{emp.code}}</td>
+          <td>{{emp.name}}</td>
+          <td>{{emp.birthday}}</td>
+          <td>{{emp.gender}}</td>
+          <td>{{emp.address}}</td>
+          <td>{{emp.phone}}</td>
+          <td><p *ngIf="emp.user">{{emp.user.username}}</p></td>
+          <td>{{emp.position.name}}</td>
+          <td style="text-align: center">
+            <button class=" btn-edit btn " style="background: #058af0"><i
+              class="fas fa-info-circle"></i>
+            </button>
+          </td>
+          <td style="text-align: center">
+            <button class=" btn-edit btn" style="background: #058af0"><i
+              class="far fa-edit"></i>
+            </button>
+          </td>
+          <td style="text-align: center">
+            <button type="button" class=" btn btn-danger "
+                    data-toggle="modal" data-target="#modalDelete"><i
+              class="far fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
+
+
+      <div class="row">
+        <div class="col-9">
+        </div>
+        <div class="col-3">
+          <nav aria-label="...">
+            <ul class="pagination">
+              <li class="page-item" >
+                <button class="page-link" *ngIf="page > 0"  (click)="previousPage()">Previous</button>
+              </li>
+              <li class="page-item"><p class="page-link">{{page+1}}/{{pageEmployee.totalPages}}</p></li>
+              <li class="page-item">
+                <button class="page-link" *ngIf="page + 1 < pageEmployee.totalPages" (click)="nextPage()">Next</button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <div style="text-align: center ; margin: 10px 0px 10px 0px ">
+        <button class=" btn btn-secondary" style="text-align: center">Quay về</button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Modal Delete -->
+  <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger">Xoá vật tư</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Bạn có muốn xoá vật tư này?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+          <button data-dismiss="modal" type="button" class="btn btn-danger">Xoá
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
