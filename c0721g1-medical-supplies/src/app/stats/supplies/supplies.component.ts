@@ -82,18 +82,21 @@ export class SuppliesComponent implements OnInit {
 
     this.suppliesService.searchSuppliesStats(this.startDate, this.endDate).subscribe(
       value => {
+        this.check = false;
+        this.chart.destroy();
         this.suppliesArr = value;
         this.getName(value);
         this.createDetailChart('abc', this.data, 'myChart');
       },
       error => {
+        this.chart.destroy();
         this.check = true;
         this.suppliesArr = [];
         this.getName([]);
-        this.createDetailChart("abc", this.data, 'myChart');
       }
     );
   }
+
 
   private data = {
 
@@ -131,11 +134,15 @@ export class SuppliesComponent implements OnInit {
 
 //  chart JS
   // chart chi tiết
+  chart =null;
   private createDetailChart(labels, data, myChart) {
+    if(this.chart!=null){
+      this.chart.destroy();
+    }
     this.canvas = document.getElementById('myChart');
     this.ctx = this.canvas.getContext('2d');
     // @ts-ignore
-    const chart = new Chart(this.ctx, {
+    this.chart = new Chart(this.ctx, {
       type: 'line',
       data: this.data,
     });

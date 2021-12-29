@@ -20,12 +20,10 @@ export class PotentialCustomerComponent implements OnInit {
   check = false;
 
   //data for chart
-  private data = {
+  data = {
     labels: []
     ,
     datasets: [
-
-
       {
         type: 'bar',
         label: 'Doanh Số',
@@ -49,9 +47,8 @@ export class PotentialCustomerComponent implements OnInit {
       this.potentialArr = value;
       this.maxDate.setDate(this.maxDate.getDate() + 7);
       this.bsRangeValue = [this.bsValue, this.maxDate];
-      this.getName(value);
+      this.getName(this.potentialArr);
       this.potentialCustomerChart("abc", this.data, 'myChart');
-
     });
   }
 
@@ -70,13 +67,17 @@ export class PotentialCustomerComponent implements OnInit {
     ;
   };
 
+  chart = null;
 
   private potentialCustomerChart(labels, data, myChart) {
+    if (this.chart != null) {
+      this.chart.destroy();
+    }
     this.canvas = document.getElementById('myChart');
     this.ctx = this.canvas.getContext('2d');
 
     // @ts-ignore
-    const chart = new Chart(this.ctx, {
+    this.chart = new Chart(this.ctx, {
       type: 'scatter',
       data: this.data,
       options: {
@@ -91,7 +92,7 @@ export class PotentialCustomerComponent implements OnInit {
 
   search() {
     //fromDate
-
+    this.chart.destroy();
     if (this.bsRangeValue[0].getMonth() < 10 && this.bsRangeValue[0].getDate() < 10) {
       this.startDate = this.bsRangeValue[0].getFullYear().toString()
         + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
@@ -104,7 +105,7 @@ export class PotentialCustomerComponent implements OnInit {
       this.startDate = this.bsRangeValue[0].getFullYear().toString()
         + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-0' + this.bsRangeValue[0].getDate().toString();
-    }else{
+    } else {
       this.startDate = this.bsRangeValue[0].getFullYear().toString()
         + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-' + this.bsRangeValue[0].getDate().toString();
@@ -123,22 +124,25 @@ export class PotentialCustomerComponent implements OnInit {
       this.endDate = this.bsRangeValue[0].getFullYear().toString()
         + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-0' + this.bsRangeValue[0].getDate().toString();
-    } else{
+    } else {
       this.endDate = this.bsRangeValue[0].getFullYear().toString()
         + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-' + this.bsRangeValue[0].getDate().toString();
     }
 
 
-
     this.potentialCustomerService.searchCustomerStats(this.startDate, this.endDate).subscribe(value => {
-      this.potentialArr = value;
 
-    },error => {
+      this.check = false;
+      this.potentialArr = value;
+      this.getName(this.potentialArr);
+      this.potentialCustomerChart('', this.data, 'myChart');
+
+    }, error => {
       this.check = true;
       this.potentialArr = [];
       this.getName([]);
-      this.potentialCustomerChart("abc", this.data, 'myChart');
+
     })
 
   }
