@@ -14,7 +14,6 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) {
   }
-
   findById(id: number): Observable<Employee> {
     return this.http.get<Employee>(API_URL + '/api/employee/edit-detail/' + id);
   }

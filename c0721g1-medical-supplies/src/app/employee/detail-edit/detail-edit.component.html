@@ -1,7 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-8">
-      <form [formGroup]="employeeDetailEditForm" (ngSubmit)="editDetailEmployee()">
+      <form [formGroup]="employeeDetailEditForm">
+        <input type="hidden" formControlName="id">
         <h2 class="text-center mt-4">Cập nhật thông tin cá nhân</h2>
 
 
@@ -12,7 +13,7 @@
             style="color: red">(*)</span></label>
 
           <div class="col-sm-9">
-            <input id="nameAccount" type="text" class="form-control" value="admin1">
+            <input id="nameAccount" type="text" class="form-control" [value]="employee.user.username">
           </div>
         </div>
 
@@ -23,7 +24,7 @@
             style="color: red">(*)</span></label>
 
           <div class="col-sm-9">
-            <input id="passAccount" type="text" class="form-control" value="************">
+            <input id="passAccount" type="text" class="form-control" [value]="employee.user.password">
           </div>
         </div>
 
@@ -131,9 +132,9 @@
             <label for="chucvu-nhanvien" class="mr-3">Chức vụ<span style="color: red">(*)</span></label>
           </div>
           <div class="col-sm-9">
-            <select id="chucvu-nhanvien" class="form-control" formControlName="position">
+            <select id="chucvu-nhanvien" [compareWith]="pos" class="form-control" formControlName="position">
               <option value="" selected>Chọn chức vụ</option>
-              <!--              <option *ngFor="let p of positions" [ngValue]="p">{{p.name}}</option>-->
+              <option *ngFor="let p of positions" [ngValue]="p">{{p.name}}</option>
             </select>
             <div *ngIf="!position.valid && (position.dirty ||position.touched)">
               <div style="color: red" [hidden]="!position.errors.required">Trường này không được để trống</div>
@@ -145,10 +146,11 @@
         <div class="row">
           <div class="col-12 text-center">
             <div class="col-12 text-center">
-              <button type="submit" class="btn btn-primary mr-5" [disabled]="!employeeDetailEditForm.valid"
-                      style="width: 100px;height: 40px">Thêm mới
+              <button type="button" (click)="editDetailEmployee()" class="btn btn-primary mr-5"
+                      [disabled]="!employeeDetailEditForm.valid"
+                      style="width: 100px;height: 40px">Chinh sua
               </button>
-              <button type="submit" class="btn btn-secondary" routerLink="/employee/list"
+              <button type="button" class="btn btn-secondary" routerLink="/employee/list"
                       style="width: 100px;height: 40px">Hủy
               </button>
             </div>
