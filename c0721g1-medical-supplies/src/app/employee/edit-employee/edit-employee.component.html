@@ -119,13 +119,16 @@
                            id="avarta" name="myfile"
                            style="display:none">
                   </label>
+                  <div *ngIf="!image.valid && (image.dirty || image.touched)">
+                    <div style="color: red" [hidden]="!image.errors.required">Trường này không được để trống</div>
+                  </div>
                 </div>
               </div>
 
               <div class="form-group row mb-3">
                 <div class="col-sm-12 text-center">
                   <button type="submit" class="btn btn-primary mr-5" [disabled]="!employeeForm.valid"
-                          style="width: 100px;height: 40px" routerLink="/employee/list">Thêm mới
+                          style="width: 100px;height: 40px" >Thêm mới
                   </button>
                   <button type="button" class="btn btn-secondary" routerLink="/employee/list"
                           style="width: 100px;height: 40px">Hủy

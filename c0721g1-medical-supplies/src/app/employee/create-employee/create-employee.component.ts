@@ -37,7 +37,7 @@ export class CreateEmployeeComponent implements OnInit {
     code: new FormControl(),
     name: new FormControl('', Validators.compose([Validators.required])),
     birthday: new FormControl('', Validators.compose([Validators.required])),
-    image: new FormControl(''),
+    image: new FormControl(),
     address: new FormControl('', Validators.compose([Validators.required])),
     phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^((090)|(091))[\\d]{7}$')])),
     gender: new FormControl('', Validators.compose([Validators.required])),
@@ -56,44 +56,43 @@ export class CreateEmployeeComponent implements OnInit {
       });
     });
   }
+
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');
   }
+
   showPreview(event: any) {
     this.selectedImage = event.target.files[0];
   }
 
   submit() {
     // upload image to firebase
-    const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
-    const fileRef = this.storage.ref(nameImg);
-    this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
-      finalize(() => {
-        // tslint:disable-next-line:no-shadowed-variable
-        fileRef.getDownloadURL().subscribe((url) => {
-          // tslint:disable-next-line:max-line-length
-          this.employeeForm.patchValue({image: url + ''});
-          this.employeeService.createEmployee(this.employeeForm.value).subscribe(() => {
-            // this.router.navigateByUrl('employee/list');
-          }, error => {
-            console.log(error);
+    console.log(this.selectedImage);
+    if (this.selectedImage != null) {
+      const nameImg = this.getCurrentDateTime() + this.selectedImage;
+      const fileRef = this.storage.ref(nameImg);
+      this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          // tslint:disable-next-line:no-shadowed-variable
+          fileRef.getDownloadURL().subscribe((url) => {
+            // tslint:disable-next-line:max-line-length
+            this.employeeForm.patchValue({image: url + ''});
+            this.employeeService.createEmployee(this.employeeForm.value).subscribe(() => {
+              // this.router.navigateByUrl('employee/list');
+            }, error => {
+              console.log(error);
             });
-        });
-      })
-    ).subscribe();
+          });
+        })
+      ).subscribe();
+    } else {
+      this.employeeService.createEmployee(this.employeeForm.value).subscribe(() => {
+        // this.router.navigateByUrl('employee/list');
+      }, error => {
+        console.log(error);
+      });
+    }
   }
-  // submit() {
-  //   console.log(this.employeeForm.value);
-  //
-  //   if (this.employeeForm.valid) {
-  //     this.employeeService.createEmployee(this.employeeForm.value).subscribe((next) => {
-  //
-  //       this.router.navigateByUrl('/employee');
-  //     }, error => {
-  //       console.log(error);
-  //     });
-  //   }
-  // }
 
 
   get code() {
@@ -115,9 +114,11 @@ export class CreateEmployeeComponent implements OnInit {
   get gender() {
     return this.employeeForm.get('gender');
   }
+
   get address() {
     return this.employeeForm.get('address');
   }
+
   get position() {
     return this.employeeForm.get('position');
   }
