@@ -12,7 +12,7 @@
             <form [formGroup]="employeeForm" (ngSubmit)="submit()">
 
               <div class="form-group row mb-3">
-                <label class="col-sm-3 col-form-label" for="ma-nhan-vien" >Mã nhân viên <span
+                <label class="col-sm-3 col-form-label" for="ma-nhan-vien">Mã nhân viên <span
                   style="color: red">(*)</span></label>
                 <div class="col-sm-9">
                   <input type="text" id="ma-nhan-vien" disabled class="form-control-plaintext" formControlName="code"
@@ -20,7 +20,8 @@
                 </div>
               </div>
               <div class="form-group row mb-3 ">
-                <label class="col-sm-3 col-form-label" for="name" >Tên Nhân viên <span style="color: red">(*)</span></label>
+                <label class="col-sm-3 col-form-label" for="name">Tên Nhân viên <span
+                  style="color: red">(*)</span></label>
                 <div class="col-9">
                   <input type="text" id="name" class="form-control" formControlName="name">
                   <div *ngIf="!name.valid && (name.dirty || name.touched)">
@@ -30,7 +31,7 @@
               </div>
 
               <div class="form-group row mb-3 ">
-                <label class="col-sm-3 col-form-label" for="gender" >Giới tính<span
+                <label class="col-sm-3 col-form-label" for="gender">Giới tính<span
                   style="color: red">(*)</span></label>
                 <div class="col-9">
                   <select name="" id="gender" class="form-control" formControlName="gender">
@@ -46,7 +47,7 @@
               </div>
 
               <div class="form-group row mb-3 ">
-                <label class="col-sm-3 col-form-label" for="birthDay" >Ngày sinh<span
+                <label class="col-sm-3 col-form-label" for="birthDay">Ngày sinh<span
                   style="color: red">(*)</span></label>
                 <div class="col-9">
                   <input type="date" min="0" id="birthDay" class="form-control" formControlName="birthday">
@@ -59,7 +60,8 @@
               </div>
 
               <div class="form-group row mb-3">
-                <label class="col-sm-3 col-form-label" for="phone" >Số điện thoại <span style="color: red">(*)</span></label>
+                <label class="col-sm-3 col-form-label" for="phone">Số điện thoại <span
+                  style="color: red">(*)</span></label>
                 <div class="col-9">
                   <input type="text" id="phone" class="form-control" formControlName="phone">
                   <div *ngIf="!phone.valid && (phone.dirty || phone.touched)">
@@ -70,6 +72,7 @@
                   </div>
                 </div>
               </div>
+
               <div class="form-group row mb-3 ">
 
                 <label class="col-sm-3 col-form-label" for="address">Địa chỉ <span
@@ -84,7 +87,7 @@
               </div>
 
               <div class="form-group row mb-3 ">
-                <label class="col-sm-3 col-form-label" for="loai-vat-tu" >vị trí<span
+                <label class="col-sm-3 col-form-label" for="loai-vat-tu">vị trí<span
                   style="color: red">(*)</span></label>
                 <div class="col-9">
                   <select name="" id="loai-vat-tu" class="form-control" formControlName="position">
@@ -108,11 +111,10 @@
                   </label>
                 </div>
               </div>
-
               <div class="form-group row mb-3">
                 <div class="col-sm-12 text-center">
                   <button type="submit" class="btn btn-primary mr-5" [disabled]="!employeeForm.valid"
-                          style="width: 100px;height: 40px">Thêm mới
+                          style="width: 100px;height: 40px" data-toggle="modal" data-target="#staticBackdrop">Thêm mới
                   </button>
                   <button type="button" class="btn btn-secondary" routerLink="/employee/list"
                           style="width: 100px;height: 40px">Hủy
@@ -124,6 +126,37 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+<!-- Button trigger modal -->
+<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">-->
+<!--  Launch static backdrop modal-->
+<!--</button>-->
 
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="container-fluid text-center">
+        <div *ngIf="!checkerr">
+          <h5 class="modal-title" >Thêm mới thất bại</h5>
+          <div class="modal-body">
+            <div style="color: red" *ngFor="let s of errorDB">{{s.defaultMessage}}</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+        <div *ngIf="checkerr ">
+          <h5 class="modal-title" id="staticBackdropLabel">Thêm mới Thành công</h5>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" routerLink="/employee/list">OK</button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -20,9 +20,11 @@ import {AngularFireStorage} from '@angular/fire/storage';
 export class CreateEmployeeComponent implements OnInit {
   employee: Employee;
   positionList: Position[];
-  employeeArr: Employee[];
+  public errorDB = [];
   codeB: string;
   selectedImage: any = null;
+// tslint:disable-next-line:ban-types
+  checkerr: Boolean;
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -51,8 +53,12 @@ export class CreateEmployeeComponent implements OnInit {
       this.positionList = next;
       this.employeeService.getCode().subscribe(next => {
         this.employee = next;
+        if (this.employee == null) {
+          this.codeB = 'Nhân Viên - ' + 1;
+        } else {
         const a = this.employee.id + 1;
-        this.codeB = 'Emp-' + a;
+        this.codeB = 'Nhân Viên - ' + a;
+      }
       });
     });
   }
@@ -79,7 +85,10 @@ export class CreateEmployeeComponent implements OnInit {
             this.employeeForm.patchValue({image: url + ''});
             this.employeeService.createEmployee(this.employeeForm.value).subscribe(() => {
               // this.router.navigateByUrl('employee/list');
+              this.checkerr = true;
             }, error => {
+              this.checkerr = false;
+              this.handleError(error);
               console.log(error);
             });
           });
@@ -87,13 +96,25 @@ export class CreateEmployeeComponent implements OnInit {
       ).subscribe();
     } else {
       this.employeeService.createEmployee(this.employeeForm.value).subscribe(() => {
-        // this.router.navigateByUrl('employee/list');
-      }, error => {
-        console.log(error);
-      });
+          // this.router.navigateByUrl('employee/list');
+          this.checkerr = true;
+        }, error => {
+          this.checkerr = false;
+          this.handleError(error);
+          console.log(error);
+        }
+      );
     }
   }
 
+  handleError(code) {
+    this.errorDB = code.error;
+    // console.log(this.errorDB[0].defaultMessage);
+    // console.log(this.errorDB[1].defaultMessage);
+    // console.log(code.status);
+    // console.log(code.error);
+    // console.log(code.message);
+  }
 
   get code() {
     return this.employeeForm.get('code');

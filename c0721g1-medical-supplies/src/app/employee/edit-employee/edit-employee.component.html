@@ -12,7 +12,7 @@
             <form [formGroup]="employeeForm" (ngSubmit)="submit()">
               <div class="form-group row mb-3">
 
-                <label class="col-sm-3 col-form-label" for="ma-nhan-vien" >Mã nhân viên <span
+                <label class="col-sm-3 col-form-label" for="ma-nhan-vien">Mã nhân viên <span
                   style="color: red">(*)</span></label>
 
                 <div class="col-9">
@@ -35,7 +35,7 @@
 
               <div class="form-group row mb-3">
 
-                <label class="col-sm-3 col-form-label" for="gender" >Giới tính<span
+                <label class="col-sm-3 col-form-label" for="gender">Giới tính<span
                   style="color: red">(*)</span></label>
 
                 <div class="col-9">
@@ -128,7 +128,7 @@
               <div class="form-group row mb-3">
                 <div class="col-sm-12 text-center">
                   <button type="submit" class="btn btn-primary mr-5" [disabled]="!employeeForm.valid"
-                          style="width: 100px;height: 40px" >Thêm mới
+                          style="width: 100px;height: 40px" data-toggle="modal" data-target="#staticBackdrop">Thêm mới
                   </button>
                   <button type="button" class="btn btn-secondary" routerLink="/employee/list"
                           style="width: 100px;height: 40px">Hủy
@@ -139,4 +139,35 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
 
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="container-fluid text-center">
+          <div *ngIf="!checkerr">
+            <h5 class="modal-title">Chỉnh sửa thông tin thất bại</h5>
+            <div class="modal-body">
+              <div style="color: red" *ngFor="let s of errorDB">{{s.defaultMessage}}</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+          <div *ngIf="checkerr ">
+            <h5 class="modal-title" id="staticBackdropLabel">Đã cập nhật thông tin {{employee.id}}  {{employee.name}}
+              thành công </h5>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal" routerLink="/employee/list">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

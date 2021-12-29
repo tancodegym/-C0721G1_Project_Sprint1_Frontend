@@ -28,8 +28,9 @@ export class EditEmployeeComponent implements OnInit {
   // tslint:disable-next-line:ban-types
   employee: any;
   positionList: Position[];
-  employeeArr: Employee[];
-  codeB: string;
+  public errorDB = [];
+  // tslint:disable-next-line:ban-types
+  checkerr: Boolean;
   selectedImage: any = null;
   urlImg = 'https://i.imgur.com/7Vtlcpx.png';
   employeeForm: FormGroup = new FormGroup({
@@ -43,21 +44,6 @@ export class EditEmployeeComponent implements OnInit {
     gender: new FormControl('', Validators.compose([Validators.required])),
     position: new FormControl('', Validators.compose([Validators.required]))
   });
-
-  // ngOnInit(): void {
-  //   this.positionService.getListPosition().subscribe(next => {
-  //     console.log(next);
-  //     this.positionList = next;
-  //     this.employeeService.getCode().subscribe(next => {
-  //       this.employee = next;
-  //       console.log(this.employee.image);
-  //       if (this.employee.image !== null) {
-  //         this.urlImg = this.employee.image;
-  //       }
-  //       this.employeeForm.setValue(this.employee);
-  //     });
-  //   });
-  // }
   ngOnInit(): void {
     this.positionService.getListPosition().subscribe(next => {
       this.positionList = next;
@@ -95,23 +81,36 @@ export class EditEmployeeComponent implements OnInit {
           fileRef.getDownloadURL().subscribe((url) => {
             // tslint:disable-next-line:max-line-length
             this.employeeForm.patchValue({image: url + ''});
-            this.employeeService.createEmployee(this.employeeForm.value).subscribe(() => {
+            this.employeeService.updateEmployee(this.employeeForm.value).subscribe(() => {
               // this.router.navigateByUrl('employee/list');
+              this.checkerr = true;
             }, error => {
+              this.checkerr = false;
+              this.handleError(error);
               console.log(error);
             });
           });
         })
       ).subscribe();
     } else {
-      this.employeeService.createEmployee(this.employeeForm.value).subscribe(() => {
+      this.employeeService.updateEmployee(this.employeeForm.value).subscribe(() => {
         // this.router.navigateByUrl('employee/list');
+        this.checkerr = true;
       }, error => {
+        this.handleError(error);
+        this.checkerr = false;
         console.log(error);
       });
     }
   }
-
+  handleError(code) {
+    this.errorDB = code.error;
+    // console.log(this.errorDB[0].defaultMessage);
+    // console.log(this.errorDB[1].defaultMessage);
+    // console.log(code.status);
+    // console.log(code.error);
+    // console.log(code.message);
+  }
   compareSuppliesType(c1: Position, c2: Position): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
