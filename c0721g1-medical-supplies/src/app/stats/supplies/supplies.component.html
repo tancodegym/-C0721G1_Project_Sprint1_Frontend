@@ -1,1 +1,67 @@
-<p>supplies works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-2">
+      <app-left-side-bar></app-left-side-bar>
+    </div>
+    <div class="col-lg-10">
+      <h2 class="text-center" style="margin:20px;">Thống kê Vật Tư</h2>
+      <!--    search box-->
+      <div class="row">
+        <div class="col-lg-5"></div>
+        <div class="col-lg-7">
+          <div class="row">
+            <div class="col-lg-6 form-group mb-3"></div>
+            <div class="col-lg-4 form-group mb-3">
+              <input class="form-control"  #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue">
+            </div>
+            <div class="col-lg-2 form-group mb-3">
+              <button class="btn btn-success" style="background: #058af0" (click)="search()" [attr.aria-expanded]="drp.isOpen" type="button">Tìm kiếm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--chart js-->
+
+      <div class="row" style="margin-top:50px">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+          <div>
+            <canvas id="myChart"></canvas>
+          </div>
+        </div>
+        <div class="col-lg-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 text-center" style="font-weight: bold;margin-bottom:60px">
+          Biểu đồ thống kê chi tiết hoạt động kinh doanh. (Đơn vị: VND)
+        </div>
+      </div>
+
+      <h2 *ngIf="check" class="text-center text-danger" style="margin:30px">Dữ liệu không tồn tại trong khoảng thời gian này</h2>
+      <table class="table table-hover table-striped container" >
+        <thead>
+        <tr class="text-center">
+          <th>Mã Vật tư</th>
+          <th>Tên Vật tư</th>
+          <th>Số lượng nhập</th>
+          <th>Số lượng bán</th>
+          <th>Số lượng tồn kho</th>
+          <th>Số lượng Vật tư hư hỏng và hết hạn</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let items of suppliesArr" class="text-center">
+          <td>{{items.code}}</td>
+          <td>{{items.name}}</td>
+          <td>{{items.import_quantity}}</td>
+          <td>{{items.quantity}}</td>
+          <td>{{items.normal_supplies}}</td>
+          <td>{{items.another}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

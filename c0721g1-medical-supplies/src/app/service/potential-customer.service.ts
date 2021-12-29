@@ -14,12 +14,12 @@ export class PotentialCustomerService {
   }
 
   getAll(): Observable<PotentialCustomer[] | any> {
-    return this.http.get<PotentialCustomer[] | any>(this.API + '/admin/stats/potential-customer');
+    return this.http.get<PotentialCustomer[] | any>(this.API + '/user/stats/potential-customer');
   }
 
   searchCustomerStats(startDate: string, endDate: string): Observable<PotentialCustomer[] | any> {
     // tslint:disable-next-line:max-line-length
-    return this.http.get<PotentialCustomer[] | any>(this.API + '/admin/stats/potential-customer/fetch?startDate=' + startDate + '&endDate=' + endDate);
+    return this.http.get<PotentialCustomer[] | any>(this.API + '/user/stats/potential-customer/fetch?startDate=' + startDate + '&endDate=' + endDate);
   }
 
 }

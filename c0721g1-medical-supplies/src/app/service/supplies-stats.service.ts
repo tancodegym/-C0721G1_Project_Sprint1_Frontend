@@ -17,12 +17,12 @@ export class SuppliesStatsService {
 
   }
   getAll(): Observable<SuppliesStats | any> {
-    return this.http.get<SuppliesStats | any>(this.API + '/admin/stats/supplies-stats');
+    return this.http.get<SuppliesStats | any>(this.API + '/user/stats/supplies-stats');
   }
 
   searchSuppliesStats(startDate: string, endDate: string): Observable<SuppliesStats | any> {
     // tslint:disable-next-line:max-line-length
-    return this.http.get<SuppliesStats | any>(this.API + '/admin/stats/supplies-stats/fetch?startDate=' + startDate + '&endDate=' + endDate);
+    return this.http.get<SuppliesStats | any>(this.API + '/user/stats/supplies-stats/fetch?startDate=' + startDate + '&endDate=' + endDate);
   }
 
 }

@@ -16,11 +16,11 @@ export class FinancialService {
   }
 
   getAll(): Observable<FinancialStats  | any> {
-    return this.http.get<FinancialStats | any>(this.API + '/admin/stats/financial-stats');
+    return this.http.get<FinancialStats | any>(this.API + '/user/stats/financial-stats');
   }
 
   searchFinancialStats(date: string): Observable<FinancialStats> {
-    return this.http.get<FinancialStats>(this.API + '/admin/stats/financial-stats/' + date);
+    return this.http.get<FinancialStats>(this.API + '/user/stats/financial-stats/' + date);
   }
 
 }

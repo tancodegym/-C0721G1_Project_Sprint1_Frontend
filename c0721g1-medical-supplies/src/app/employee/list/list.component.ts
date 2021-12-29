@@ -14,7 +14,7 @@ import {Employee} from '../../model/employee';
 })
 export class ListComponent implements OnInit {
   page = 0;
-  size = 2;
+  size = 5;
   nameDelete: string;
   codeDelete: string;
   idDelete: number;

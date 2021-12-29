@@ -11,6 +11,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {SharedModule} from './shared/shared.module';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {environment} from '../environments/environment';
       progressBar: true,
       progressAnimation: 'increasing'
     }),
-    MatButtonModule
+    MatButtonModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

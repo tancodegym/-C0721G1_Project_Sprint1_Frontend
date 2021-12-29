@@ -8,6 +8,7 @@ import { SuppliesComponent } from './supplies/supplies.component';
 import { TrendingSuppliesComponent } from './trending-supplies/trending-supplies.component';
 import {FormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {SharedModule} from '../shared/shared.module';
     CommonModule,
     StatsRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    BsDatepickerModule
   ]
 })
 export class StatsModule { }

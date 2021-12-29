@@ -25,10 +25,14 @@ export class CreateComponent implements OnInit {
   suppliesTypes: SuppliesType[] = [];
   selectedImage: any = null;
   codeSp: string;
+  public errorDB = [];
+  // tslint:disable-next-line:ban-types
+  checkerr: Boolean;
+  // @ts-ignore
   suppliesForm: FormGroup = new FormGroup({
-      code: new FormControl('', [Validators.required]),
-      name: new FormControl('', [Validators.required, Validators.min(5)]),
-      price: new FormControl('', [Validators.required, Validators.min(1000)]),
+      code: new FormControl(''),
+      name: new FormControl('', [Validators.required]),
+      price: new FormControl('', [Validators.required]),
       producer: new FormControl('', [Validators.required]),
       suppliesType: new FormControl('', [Validators.required]),
       // tslint:disable-next-line:max-line-length
@@ -49,9 +53,10 @@ export class CreateComponent implements OnInit {
               private router: Router) {
   }
 
+
   ngOnInit(): void {
-    this.getAllSuppliesType();
     this.getAllProducer();
+    this.getAllSuppliesType();
     this.suppliesService.getCode().subscribe(data => {
       this.supplies = data;
       const a = this.supplies.id + 1;
@@ -71,32 +76,57 @@ export class CreateComponent implements OnInit {
     });
   }
 
-
   showPreview(event: any) {
     this.selectedImage = event.target.files[0];
   }
 
   submit() {
     // upload image to firebase
-    const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
-    const fileRef = this.storage.ref(nameImg);
-    this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
-      finalize(() => {
-        // tslint:disable-next-line:no-shadowed-variable
-        fileRef.getDownloadURL().subscribe((url) => {
-          // tslint:disable-next-line:max-line-length
-          this.suppliesForm.patchValue({image: url + ''});
-          this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
-          this.router.navigateByUrl('supplies/list').then(r => this.t.success('Thêm mới thành công'));
+    this.supplies = this.suppliesForm.value;
+    console.log(this.selectedImage);
+    if (this.selectedImage != null) {
+      const nameImg = this.getCurrentDateTime() + this.selectedImage;
+      const fileRef = this.storage.ref(nameImg);
+      this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          // tslint:disable-next-line:no-shadowed-variable
+          fileRef.getDownloadURL().subscribe((url) => {
+            // tslint:disable-next-line:max-line-length
+            this.suppliesForm.patchValue({image: url + ''});
+            this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
+              this.router.navigateByUrl('supplies/list');
+              this.checkerr = true;
+              this.t.success('Thêm mới thành công');
+            }, error => {
+              this.checkerr = false;
+              this.handleError(error);
+            });
           });
-        });
-      })
-    ).subscribe();
+        })
+      ).subscribe();
+    } else {
+      this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
+        this.router.navigateByUrl('supplies/list');
+        this.checkerr = true;
+        this.t.success('Thêm mới thành công');
+        }, error => {
+          this.checkerr = false;
+          this.handleError(error);
+        }
+      );
+    }
   }
 
+  handleError(code) {
+    this.errorDB = code.error;
+  }
 
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');
+  }
+
+  get code() {
+    return this.suppliesForm.get('code');
   }
 
   get name() {

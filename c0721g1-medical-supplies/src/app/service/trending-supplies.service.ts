@@ -12,6 +12,6 @@ export class TrendingSuppliesService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<TrendingSupplies | any> {
-    return this.http.get<TrendingSupplies | any>(this.API + '/admin/stats/supplies-stats/trending-supplies');
+    return this.http.get<TrendingSupplies | any>(this.API + '/user/stats/supplies-stats/trending-supplies');
   }
 }

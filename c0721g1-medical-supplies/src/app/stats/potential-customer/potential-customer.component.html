@@ -1,1 +1,57 @@
-<p>potential-customer works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-2">
+      <app-left-side-bar></app-left-side-bar>
+    </div>
+    <div class="col-lg-10">
+      <h2 class="text-center" style="margin:20px">MÀN HÌNH THỐNG KÊ KHÁCH HÀNG TIỀM NĂNG</h2>
+      <h2 *ngIf="check" class="text-center text-danger" style="margin:30px">Dữ liệu không tồn tại trong khoảng thời gian này</h2>
+
+      <!--    search box-->
+      <div class="row">
+        <div class="col-lg-5"></div>
+        <div class="col-lg-7">
+          <div class="row">
+            <div class="col-lg-6 form-group mb-3"></div>
+            <div class="col-lg-4 form-group mb-3">
+              <input class="form-control"  #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue">
+            </div>
+            <div class="col-lg-2 form-group mb-3">
+              <button class="btn btn-success" style="background: #058af0" (click)="search()" [attr.aria-expanded]="drp.isOpen" type="button">Tìm kiếm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--chart JS-->
+      <div class="row" style="margin:50px">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+          <div>
+            <canvas id="myChart"></canvas>
+          </div>
+        </div>
+        <div class="col-lg-3"></div>
+      </div>
+      <table class="table table-hover table-striped container">
+        <thead>
+        <tr>
+          <th>Mã khách hàng</th>
+          <th>Tên khách hàng</th>
+          <th>Tổng số lượng đơn hàng</th>
+          <th>Tổng giá trị</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let items of potentialArr">
+          <td>{{items.code}}</td>
+          <td>{{items.name}}</td>
+          <td>{{items.quantity}}</td>
+          <td>{{items.total}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
