@@ -48,6 +48,12 @@
               <div style="color: red" [hidden]="!price.errors.required">
                 Trường này không được để trống!
               </div>
+              <div style="color: red" [hidden]="!price.errors.min">
+                Nhỏ nhất là 1000
+              </div>
+              <div style="color: red" [hidden]="!price.errors.pattern">
+                Chỉ nhập số
+              </div>
             </div>
           </div>
         </div>
@@ -129,9 +135,8 @@
               <button type="submit" class="btn btn-primary mr-5" [disabled]="!suppliesEditForm.valid"
                       style="width: 100px;height: 40px">Chỉnh sửa
               </button>
-<!--              routerLink="/supplies/list"-->
               <button type="submit" class="btn btn-secondary"
-                      style="width: 100px;height: 40px">Hủy
+                      style="width: 100px;height: 40px" routerLink="/supplies/list">Hủy
               </button>
             </div>
           </div>

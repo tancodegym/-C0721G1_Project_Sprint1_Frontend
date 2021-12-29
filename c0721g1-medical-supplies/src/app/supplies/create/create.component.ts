@@ -32,7 +32,7 @@ export class CreateComponent implements OnInit {
   suppliesForm: FormGroup = new FormGroup({
       code: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.required, Validators.min(5)]),
-      price: new FormControl('', [Validators.required]),
+      price: new FormControl('', [Validators.required, Validators.min(1000), Validators.pattern('^[\\d]$')]),
       producer: new FormControl('', [Validators.required]),
       suppliesType: new FormControl('', [Validators.required]),
       // tslint:disable-next-line:max-line-length
@@ -81,21 +81,34 @@ export class CreateComponent implements OnInit {
   }
 
   submit() {
-    const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
-    const fileRef = this.storage.ref(nameImg);
-    this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
-      finalize(() => {
-        // tslint:disable-next-line:no-shadowed-variable
-        fileRef.getDownloadURL().subscribe((url) => {
-          // tslint:disable-next-line:max-line-length
-          this.suppliesForm.patchValue({image: url + ''});
-          this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
-            // this.router.navigateByUrl('supplies/list').then(r => this.t.success('Thêm mới thành công'));
+    // upload image to firebase
+    console.log(this.selectedImage);
+    if (this.selectedImage != null) {
+      const nameImg = this.getCurrentDateTime() + this.selectedImage;
+      const fileRef = this.storage.ref(nameImg);
+      this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          // tslint:disable-next-line:no-shadowed-variable
+          fileRef.getDownloadURL().subscribe((url) => {
+            // tslint:disable-next-line:max-line-length
+            this.suppliesForm.patchValue({image: url + ''});
+            this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
+              this.router.navigateByUrl('/supplies/list').then(s => this.t.success('Thêm mới thành công'));
+            }, error => {
+              console.log(error);
+            });
           });
-        });
-      })
-    ).subscribe();
+        })
+      ).subscribe();
+    } else {
+      this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
+        this.router.navigateByUrl('/supplies/list').then(s => this.t.success('Thêm mới thành công'));
+      }, error => {
+        console.log(error);
+      });
+    }
   }
+
 
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');
