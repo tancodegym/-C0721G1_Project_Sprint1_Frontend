@@ -162,7 +162,8 @@
             </div>
           </div>
           <div *ngIf="checkerr ">
-            <h5 class="modal-title" id="staticBackdropLabel">Thêm mới Thành công</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Thêm mới <span
+              style="color: blue">{{codeB}} {{employee.name}}</span> thành công</h5>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-dismiss="modal" routerLink="/employee/list">OK</button>
             </div>
