@@ -79,7 +79,8 @@ export class EditComponent implements OnInit {
   }
 
   showPreview(event: any) {
-    this.selectedImage = event.target.files[0];
+    // this.selectedImage = event.target.files[0];
+    this.selectedImage = this.suppliesEditForm.setValue(this.image);
   }
 
   editSupplies() {
