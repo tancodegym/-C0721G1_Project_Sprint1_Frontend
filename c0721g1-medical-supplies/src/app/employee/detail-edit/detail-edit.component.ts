@@ -1,4 +1,3 @@
-// @ts-ignore
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../model/user';
@@ -9,9 +8,9 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
+import {Employee} from '../../model/employee';
 
 
-// @ts-ignore
 @Component({
   selector: 'app-detail-edit',
   templateUrl: './detail-edit.component.html',
@@ -37,10 +36,11 @@ export class DetailEditComponent implements OnInit {
     }
   );
 
+  employee: Employee;
   positions: Position[] = [];
   users: User[] = [];
   selectedImage: any = null;
-  private id: number;
+  id: number;
 
   constructor(private employeeService: EmployeeService,
               private positionService: PositionService,
@@ -54,13 +54,24 @@ export class DetailEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.findById();
     this.getAllPosition();
     this.getAllUser();
   }
 
+
+  findById() {
+    // @ts-ignore
+    this.employeeService.findById(this.id).subscribe(data => {
+      this.employee = data;
+      this.employeeDetailEditForm.setValue(this.employee);
+    });
+  }
+
+
   getAllPosition() {
     this.positionService.getAll().subscribe(data => {
-    // @ts-ignore
+      // @ts-ignore
       this.positions = data;
       console.log(this.positions);
     });
@@ -80,7 +91,7 @@ export class DetailEditComponent implements OnInit {
         fileRef.getDownloadURL().subscribe((url) => {
           // tslint:disable-next-line:max-line-length
           this.employeeDetailEditForm.patchValue({image: url + ''});
-          this.employeeService.save(this.employeeDetailEditForm.value).subscribe(() => {
+          this.employeeService.update(this.employeeDetailEditForm.value).subscribe(() => {
             // this.router.navigateByUrl('supplies/list').then(r => this.t.success('Thêm mới thành công'));
           });
         });

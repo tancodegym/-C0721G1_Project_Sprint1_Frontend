@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment';
 import {Position} from '../model/position';
 
 
@@ -16,6 +15,7 @@ export class PositionService {
   }
 
   getAll(): Observable<Position[]> {
-    return this.http.get<Position[]>(API_URL + '/api/position');
+    // return this.http.get<Position[]>(API_URL + '/api/position');
+    return this.http.get<Position[]>(`${API_URL}/api/position`);
   }
 }

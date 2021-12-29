@@ -4,7 +4,7 @@ import {DetailEditComponent} from './detail-edit/detail-edit.component';
 
 
 const routes: Routes = [
-  {path: 'detail-edit', component: DetailEditComponent}
+  {path: 'edit-detail/:id', component: DetailEditComponent}
 ];
 
 @NgModule({

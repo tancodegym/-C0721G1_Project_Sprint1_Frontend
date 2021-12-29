@@ -32,8 +32,8 @@
           <div class="col-sm-3" style="font-weight: bold; font-size: 17px">
             <label for="ma-nhanvien" class="mr-3">Mã nhân viên<span style="color: red">(*)</span></label>
           </div>
-          <div class="col-9">
-            <input type="text" id="ma-nhanvien" class="form-control" formControlName="code" value="Id0001" disabled>
+          <div class="col-sm-9">
+            <input type="text" id="ma-nhanvien" class="form-control" formControlName="code" disabled>
             <div *ngIf="!code.valid && (code.dirty || code.touched)">
               <div style="color: red" [hidden]="!code.errors.required">
                 Trường này không được để trống
@@ -49,7 +49,7 @@
           <div class="col-sm-3" style="font-weight: bold; font-size: 17px">
             <label for="ten-nhanvien" class="mr-3">Tên nhân viên<span style="color: red">(*)</span></label>
           </div>
-          <div class="col-9">
+          <div class="col-sm-9">
             <input type="text" id="ten-nhanvien" class="form-control" formControlName="name">
             <div *ngIf="!name.valid && (name.dirty || name.touched)">
               <div style="color:red" [hidden]="!name.errors.required">
@@ -63,7 +63,7 @@
           <div class="col-sm-3" style="font-weight: bold; font-size: 17px">
             <label for="ngay-sinh" class="mr-3">Ngày sinh<span style="color: red">(*)</span></label>
           </div>
-          <div class="col-9">
+          <div class="col-sm-9">
             <input type="date" id="ngay-sinh" class="form-control" formControlName="birthday">
             <div *ngIf="!birthday.valid && (birthday.dirty ||birthday.touched)">
               <div style="color: red" [hidden]="!birthday.errors.required">Trường này không được để trống</div>
@@ -88,7 +88,7 @@
           <div class="col-sm-3" style="font-weight: bold; font-size: 17px">
             <label for="gioitinh-nhanvien" class="mr-3">Giới tính<span style="color: red">(*)</span></label>
           </div>
-          <div class="col-9">
+          <div class="col-sm-9">
             <input type="text" id="gioitinh-nhanvien" class="form-control" formControlName="gender">
             <div *ngIf="!gender.valid && (gender.dirty || gender.touched)">
               <div style="color:red" [hidden]="!gender.errors.required">
@@ -102,8 +102,8 @@
           <div class="col-sm-3" style="font-weight: bold; font-size: 17px">
             <label for="so-dien-thoai" class="mr-3">Số điện thoại<span style="color: red">(*)</span></label>
           </div>
-          <div class="col-9">
-            <input type="text" id="so-dien-thoai" class="form-control" formControlName="phone" value="053453535">
+          <div class="col-sm-9">
+            <input type="text" id="so-dien-thoai" class="form-control" formControlName="phone">
             <div *ngIf="!phone.valid && (phone.dirty ||phone.touched)">
               <div style="color: red" [hidden]="!phone.errors.required">Trường này không được để trống</div>
               <div style="color: red" [hidden]="!phone.errors.pattern">Phải đúng định dạng</div>
@@ -115,8 +115,8 @@
           <div class="col-sm-3" style="font-weight: bold; font-size: 17px">
             <label for="diachi-nhanvien" class="mr-3">Địa chỉ<span style="color: red">(*)</span></label>
           </div>
-          <div class="col-9">
-            <input type="text" id="diachi-nhanvien" class="form-control" formControlName="address" value="Quảng Nam">
+          <div class="col-sm-9">
+            <input type="text" id="diachi-nhanvien" class="form-control" formControlName="address">
             <div *ngIf="!address.valid && (address.dirty || address.touched)">
               <div style="color:red" [hidden]="!address.errors.required">
                 Trường này không được để trống
@@ -130,10 +130,10 @@
           <div class="col-sm-3" style="font-weight: bold; font-size: 17px">
             <label for="chucvu-nhanvien" class="mr-3">Chức vụ<span style="color: red">(*)</span></label>
           </div>
-          <div class="col-9">
-            <select name="" id="chucvu-nhanvien" class="form-control" formControlName="position" value="Quản lý">
-              <option selected disabled [value]="">Chọn chức vụ</option>
-<!--              <option *ngFor="let p of positions" [ngValue]="p">{{p.name}}</option>-->
+          <div class="col-sm-9">
+            <select id="chucvu-nhanvien" class="form-control" formControlName="position">
+              <option value="" selected>Chọn chức vụ</option>
+              <!--              <option *ngFor="let p of positions" [ngValue]="p">{{p.name}}</option>-->
             </select>
             <div *ngIf="!position.valid && (position.dirty ||position.touched)">
               <div style="color: red" [hidden]="!position.errors.required">Trường này không được để trống</div>
