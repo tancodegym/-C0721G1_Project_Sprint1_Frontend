@@ -25,7 +25,7 @@ export class EditComponent implements OnInit {
       id: new FormControl(),
       code: new FormControl(),
       name: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required, Validators.min(1000), Validators.pattern('^[\\d]$')]),
+      price: new FormControl('', [Validators.required, Validators.min(1000)]),
       producer: new FormControl('', [Validators.required]),
       suppliesType: new FormControl('', [Validators.required]),
       // tslint:disable-next-line:max-line-length
@@ -34,7 +34,7 @@ export class EditComponent implements OnInit {
       expiryDate: new FormControl('', [Validators.required, Validators.pattern('^(?:19\\d{2}|20\\d{2})[-/.](?:0[1-9]|1[012])[-/.](?:0[1-9]|[12][0-9]|3[01])$')]),
       introduce: new FormControl('', [Validators.required]),
       technicalInformation: new FormControl('', [Validators.required]),
-      image: new FormControl('', [Validators.required])
+      image: new FormControl('', [Validators.required]),
     }
   );
   supplies: Supplies;

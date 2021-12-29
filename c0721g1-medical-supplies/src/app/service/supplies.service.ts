@@ -26,12 +26,12 @@ export class SuppliesService {
     return this.http.post<void>(API_URL + '/api/admin/supplies/create', supplies);
   }
 
-  update(supplies: Supplies): Observable<void> {
-    return this.http.patch<void>(API_URL + '/api/admin/supplies/edit', supplies);
+  update( supplies: Supplies): Observable<void> {
+    return this.http.patch<void>(API_URL + '/api/admin/supplies/edit/', supplies);
   }
 
   findById(id: number): Observable<Supplies> {
-    return this.http.get<Supplies>(API_URL + '/api/admin/supplies/findById' + id);
+    return this.http.get<Supplies>(API_URL + '/api/admin/supplies/findById/' + id);
   }
 
   getCode(): (any) {

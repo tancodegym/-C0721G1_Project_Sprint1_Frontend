@@ -14,6 +14,7 @@ import {ToastrModule} from 'ngx-toastr';
 
 import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {AngularFireModule} from '@angular/fire';
     SuppliesModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       progressBar: true,

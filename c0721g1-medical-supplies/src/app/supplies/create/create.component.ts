@@ -28,11 +28,14 @@ export class CreateComponent implements OnInit {
   suppliesTypes: SuppliesType[] = [];
   selectedImage: any = null;
   codeSp: string;
+  public errorDB = [];
+  // tslint:disable-next-line:ban-types
+  checkerr: Boolean;
   // @ts-ignore
   suppliesForm: FormGroup = new FormGroup({
-      code: new FormControl('', [Validators.required]),
-      name: new FormControl('', [Validators.required, Validators.min(5)]),
-      price: new FormControl('', [Validators.required, Validators.min(1000), Validators.pattern('^[\\d]$')]),
+      code: new FormControl(''),
+      name: new FormControl('', [Validators.required]),
+      price: new FormControl('', [Validators.required]),
       producer: new FormControl('', [Validators.required]),
       suppliesType: new FormControl('', [Validators.required]),
       // tslint:disable-next-line:max-line-length
@@ -41,7 +44,7 @@ export class CreateComponent implements OnInit {
       expiryDate: new FormControl('', [Validators.required, Validators.pattern('^(?:19\\d{2}|20\\d{2})[-/.](?:0[1-9]|1[012])[-/.](?:0[1-9]|[12][0-9]|3[01])$')]),
       introduce: new FormControl('', [Validators.required]),
       technicalInformation: new FormControl('', [Validators.required]),
-      image: new FormControl('', [Validators.required]),
+      image: new FormControl(''),
     }
   );
 
@@ -53,9 +56,10 @@ export class CreateComponent implements OnInit {
               private router: Router) {
   }
 
+
   ngOnInit(): void {
-    this.getAllSuppliesType();
     this.getAllProducer();
+    this.getAllSuppliesType();
     this.suppliesService.getCode().subscribe(data => {
       this.supplies = data;
       const a = this.supplies.id + 1;
@@ -75,13 +79,13 @@ export class CreateComponent implements OnInit {
     });
   }
 
-
   showPreview(event: any) {
     this.selectedImage = event.target.files[0];
   }
 
   submit() {
     // upload image to firebase
+    this.supplies = this.suppliesForm.value;
     console.log(this.selectedImage);
     if (this.selectedImage != null) {
       const nameImg = this.getCurrentDateTime() + this.selectedImage;
@@ -93,8 +97,11 @@ export class CreateComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             this.suppliesForm.patchValue({image: url + ''});
             this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
-              this.router.navigateByUrl('/supplies/list').then(s => this.t.success('Thêm mới thành công'));
+              this.router.navigateByUrl('employee/list');
+              this.checkerr = true;
             }, error => {
+              this.checkerr = false;
+              this.handleError(error);
               console.log(error);
             });
           });
@@ -102,13 +109,20 @@ export class CreateComponent implements OnInit {
       ).subscribe();
     } else {
       this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
-        this.router.navigateByUrl('/supplies/list').then(s => this.t.success('Thêm mới thành công'));
-      }, error => {
-        console.log(error);
-      });
+          // this.router.navigateByUrl('employee/list');
+          this.checkerr = true;
+        }, error => {
+          this.checkerr = false;
+          this.handleError(error);
+          console.log(error);
+        }
+      );
     }
   }
 
+  handleError(code) {
+    this.errorDB = code.error;
+  }
 
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');

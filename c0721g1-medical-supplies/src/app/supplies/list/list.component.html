@@ -1,0 +1,44 @@
+<h2 style="text-align: center">Thông tin vật tư</h2>
+
+<table border="1px" class="table table-hover table-striped" width="100%">
+  <tr class="table-primary" style="text-align: center">
+    <th>#</th>
+    <th>Mã vật tư</th>
+    <th>Tên vật tư</th>
+    <th>Loại vật tư</th>
+    <th>Giá thành</th>
+    <th>Ngày sản xuất</th>
+    <th>Hạn sử dụng</th>
+    <th>Nhà cung cấp</th>
+    <th>Trạng thái</th>
+    <th>Sửa</th>
+    <th>Xoá</th>
+  </tr>
+  <tr *ngFor="let sup of suppliesList index as i">
+    <td>{{i + 1}}</td>
+    <td>{{sup.code}}</td>
+    <td>{{sup.name}}</td>
+    <td>{{sup.suppliesType.name}}</td>
+    <td>{{sup.price}}</td>
+    <td>{{sup.expiry_date}}</td>
+    <td>{{sup.production_date}}</td>
+    <td>{{sup.producer.name}}</td>
+    <td>
+      <button style="width: 100%" class=" btn-edit btn btn-warning " *ngIf="sup.status==1">VT mới
+      </button>
+      <button style="width: 100%" class=" btn-edit btn btn-info" *ngIf="sup.status==0">VT cũ
+      </button>
+    </td>
+    <td style="text-align: center">
+      <button class=" btn-edit btn " style=" background: #058af0"><i class="far fa-edit"></i>
+      </button>
+    </td>
+    <td style="text-align: center">
+      <button (click)="getSuppliesDelete(sup.id)" type="button" class=" btn btn-danger "
+              data-toggle="modal" data-target="#modalDelete"><i class="far fa-trash-alt"></i>
+      </button>
+    </td>
+  </tr>
+
+
+</table>
