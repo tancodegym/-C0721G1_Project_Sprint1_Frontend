@@ -8,7 +8,15 @@ import { FooterComponent } from './common/footer/footer.component';
 import { LeftSideBarComponent } from './common/left-side-bar/left-side-bar.component';
 import { RightSideBarComponent } from './common/right-side-bar/right-side-bar.component';
 import {SuppliesModule} from './supplies/supplies.module';
+import {AngularFireModule} from '@angular/fire';
+import { environment } from 'src/environments/environment.prod';
 
+
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +28,7 @@ import {SuppliesModule} from './supplies/supplies.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SuppliesModule
+    SuppliesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
