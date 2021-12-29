@@ -1,8 +1,9 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import {FinancialStats} from '../model/financial-stats';
-import {Router} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {FinancialService} from '../service/financial.service';
 import {angularMath} from 'angular-ts-math';
+import {StatsService} from "../../service/stats.service";
 
 @Component({
   selector: 'app-financial',
@@ -17,32 +18,46 @@ export class FinancialComponent implements OnInit, OnChanges {
   revenue: number;
   totalCost: number;
   profit: number;
-  public canvas: any;
+  canvas: any;
   //content chart doanh thu
-  public ctx: any;
+  ctx: any;
   // content chart chi tiet
-  public ctxDetails: any;
+  ctxDetails: any;
   //content chart doanh thu
-  public labelsRevenue: [];
-  public dataRevenue: [];
+  labelsRevenue: [];
+  dataRevenue: [];
   // content chart chi tiet
-  public labelsDetail: [];
-  public dataDetail: [];
-
+  labelsDetail: [];
+  dataDetail: [];
+  check = false;
+  dateSearch: string;
+  checkSearch: number;
 
   constructor(private router: Router,
-              private financialsv: FinancialService) {
-
-    this.financialsv.getAll().subscribe(
-      value => {
-        this.financial = value;
-        this.revenue = this.financial.income;
-        this.totalCost = (this.financial.refund + this.financial.cancelled + this.financial.importMoney);
-        this.profit = (this.revenue - this.totalCost);
-        this.createRevenueChart(this.labelsRevenue, this.dataRevenue, 'myChart1');
-        this.createDetailChart(this.labelsDetail, this.dataDetail, 'myChart');
-      }
-    );
+              private activatedRoute: ActivatedRoute,
+              private financialsv: FinancialService,
+              private stastService: StatsService) {
+    this.checkSearch = this.stastService.getCheck();
+    if (this.checkSearch == 0) {
+      this.financialsv.getAll().subscribe(
+        value => {
+          this.financial = value;
+          this.revenue = this.financial.income;
+          this.totalCost = (this.financial.refund + this.financial.cancelled + this.financial.importMoney);
+          this.profit = (this.revenue - this.totalCost);
+          this.createRevenueChart(this.labelsRevenue, this.dataRevenue, 'myChart1');
+          this.createDetailChart(this.labelsDetail, this.dataDetail, 'myChart');
+        }
+      );
+    } else {
+      // this.ctx.clearReact(0,0,this.canvas.width, this.canvas.height);
+      this.financial = this.stastService.getFinancial();
+      this.revenue = this.stastService.getRevenue();
+      this.totalCost = this.stastService.getTotalCost();
+      this.profit = this.stastService.getProfit();
+      this.createRevenueChart(this.labelsRevenue, this.dataRevenue, 'myChart1');
+      this.createDetailChart(this.labelsDetail, this.dataDetail, 'myChart');
+    }
 
   }
 
@@ -53,7 +68,7 @@ export class FinancialComponent implements OnInit, OnChanges {
     this.ctx = this.canvas.getContext('2d');
 
     // @ts-ignore
-    const chart = new Chart(this.ctx, {
+    let chart = new Chart(this.ctx, {
       type: 'bar',
       data: {
         labels: ['Tổng thu', 'Tổng chi', 'Lợi nhuận',],
@@ -85,7 +100,6 @@ export class FinancialComponent implements OnInit, OnChanges {
       }
     });
   }
-
   // chart chi tiết
   private createDetailChart(labelsDetail: [], dataDetail: [], myChart: string) {
     this.canvas = document.getElementById('myChart');
@@ -120,24 +134,71 @@ export class FinancialComponent implements OnInit, OnChanges {
 
 
   search() {
-// console.log(this.bsValue.getFullYear());
-// console.log(this.bsValue.getMonth()+1);
-// console.log(this.bsValue.getDate());
+
     this.date = this.bsValue.getFullYear().toString()
       + '-' + (this.bsValue.getMonth() + 1).toString()
       + '-' + this.bsValue.getDate().toString();
     this.financialsv.searchFinancialStats(this.date).subscribe(
       value => {
         this.financial = value;
+
+        if (this.financial.income == null &&
+          this.financial.cancelled == null &&
+          this.financial.importMoney == null &&
+          this.financial.refund == null &&
+          this.financial.returnMoney == null) {
+          this.check = true;
+
+        }
+        this.revenue = this.financial.income;
+        this.totalCost = (this.financial.refund + this.financial.cancelled + this.financial.importMoney);
+        this.profit = (this.revenue - this.totalCost);
+        this.stastService.saveValue(this.financial, this.revenue, this.totalCost, this.profit);
+        this.stastService.setCheck(1);
+
+        this.router.navigateByUrl('trending').then( s => {
+         console.log(s);
+        });
       }
     )
-
   }
 
   ngOnInit(): void {
+
+
   }
 
   ngOnChanges(): void {
   }
 
 }
+
+// search cua binh
+// search() {
+//   // this.router.navigateByUrl('supplies-stats').then( s => {
+//   //   this.router.navigateByUrl('financial/'+this.date);
+//   // });
+//   this.date = this.bsValue.getFullYear().toString()
+//     + '-' + (this.bsValue.getMonth() + 1).toString()
+//     + '-' + this.bsValue.getDate().toString();
+//   this.financialsv.searchFinancialStats(this.date).subscribe(
+//     value => {
+//       this.financial = value;
+//
+//       if (this.financial.income == null &&
+//         this.financial.cancelled == null &&
+//         this.financial.importMoney == null &&
+//         this.financial.refund == null &&
+//         this.financial.returnMoney == null) {
+//         this.check = true;
+//
+//       }
+//       this.revenue = this.financial.income;
+//       this.totalCost = (this.financial.refund + this.financial.cancelled + this.financial.importMoney);
+//       this.profit = (this.revenue - this.totalCost);
+//       this.createRevenueChart(this.labelsRevenue, this.dataRevenue, 'myChart1');
+//       this.createDetailChart(this.labelsDetail, this.dataDetail, 'myChart');
+//
+//     }
+//   )
+// }

@@ -17,6 +17,7 @@ export class PotentialCustomerComponent implements OnInit {
   bsRangeValue: Date[];
   maxDate = new Date();
   bsValue = new Date();
+  check = false;
 
   //data for chart
   private data = {
@@ -26,20 +27,20 @@ export class PotentialCustomerComponent implements OnInit {
 
 
       {
-      type: 'bar',
-      label: 'Doanh Số',
-      data: [],
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.2)'
-    },
+        type: 'bar',
+        label: 'Doanh Số',
+        data: [],
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)'
+      },
 
       {
-      type: 'line',
-      label: 'Giá trị',
-      data: [],
-      fill: false,
-      borderColor: 'rgb(54, 162, 235)'
-    }]
+        type: 'line',
+        label: 'Giá trị',
+        data: [],
+        fill: false,
+        borderColor: 'rgb(54, 162, 235)'
+      }]
   };
 
   constructor(private router: Router,
@@ -59,13 +60,14 @@ export class PotentialCustomerComponent implements OnInit {
 
   }
 
-    //get label for Chart
-    private getName(arr: PotentialCustomer[]) {
-        for(let i = 0; i<arr.length; i++) {
-          this.data.labels.push(arr[i].name);
-          this.data.datasets[0].data.push(arr[i].quantity) ;
-          this.data.datasets[1].data.push(arr[i].total);
-    };
+  //get label for Chart
+  private getName(arr: PotentialCustomer[]) {
+    for (let i = 0; i < arr.length; i++) {
+      this.data.labels.push(arr[i].name);
+      this.data.datasets[0].data.push(arr[i].quantity);
+      this.data.datasets[1].data.push(arr[i].total);
+    }
+    ;
   };
 
 
@@ -87,19 +89,58 @@ export class PotentialCustomerComponent implements OnInit {
     });
   }
 
-  search(){
+  search() {
     //fromDate
-    this.startDate = this.bsRangeValue[0].getFullYear().toString()
-      + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
-      + '-' + this.bsRangeValue[0].getDate().toString();
 
+    if (this.bsRangeValue[0].getMonth() < 10 && this.bsRangeValue[0].getDate() < 10) {
+      this.startDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-0' + this.bsRangeValue[0].getDate().toString();
+    } else if (this.bsRangeValue[0].getMonth() < 10) {
+      this.startDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-' + this.bsRangeValue[0].getDate().toString();
+    } else if (this.bsRangeValue[0].getDate() < 10) {
+      this.startDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-0' + this.bsRangeValue[0].getDate().toString();
+    }else{
+      this.startDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-' + this.bsRangeValue[0].getDate().toString();
+    }
+    ;
     //endDate
-    this.endDate = this.bsRangeValue[1].getFullYear().toString()
-      + '-' + (this.bsRangeValue[1].getMonth() + 1).toString()
-      + '-' + this.bsRangeValue[1].getDate().toString();
+    if (this.bsRangeValue[0].getMonth() < 10 && this.bsRangeValue[0].getDate() < 10) {
+      this.endDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-0' + this.bsRangeValue[0].getDate().toString();
+    } else if (this.bsRangeValue[0].getMonth() < 10) {
+      this.endDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-' + this.bsRangeValue[0].getDate().toString();
+    } else if (this.bsRangeValue[0].getDate() < 10) {
+      this.endDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-0' + this.bsRangeValue[0].getDate().toString();
+    } else{
+      this.endDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-' + this.bsRangeValue[0].getDate().toString();
+    }
+
+
 
     this.potentialCustomerService.searchCustomerStats(this.startDate, this.endDate).subscribe(value => {
-      this.potentialArr = value;})
+      this.potentialArr = value;
+
+    },error => {
+      this.check = true;
+      this.potentialArr = [];
+      this.getName([]);
+      this.potentialCustomerChart("abc", this.data, 'myChart');
+    })
 
   }
 }
+

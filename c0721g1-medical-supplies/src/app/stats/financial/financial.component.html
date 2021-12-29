@@ -14,7 +14,7 @@
                    class="form-control"
                    #dp="bsDatepicker"
                    bsDatepicker
-                   [bsValue]="bsValue">
+                   [(ngModel)]="bsValue">
           </div>
           <div>
             <button class="btn btn-success" style="background: #058af0" (click)="search()" type="button">Tìm kiếm
@@ -23,7 +23,12 @@
         </div>
       </div>
     </div>
-
+<div class="row text-center text-danger">
+  <div class="col-1"></div>
+  <div class="col-11">
+    <h2 *ngIf="check" class="text-center text-danger" style="margin:30px">Dữ liệu không tồn tại trong ngày {{date}}</h2>
+  </div>
+</div>
 
     <div class="row" style="margin:50px">
       <div class="col-5 justify-content-center align-items-center">

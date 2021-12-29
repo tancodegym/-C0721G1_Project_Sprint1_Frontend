@@ -20,6 +20,7 @@ export class SuppliesComponent implements OnInit {
   maxDate = new Date();
   canvas: any;
   ctx: any;
+  check = false;
 
   constructor(private router: Router,
               private suppliesService: SuppliesStatsService) {
@@ -40,20 +41,56 @@ export class SuppliesComponent implements OnInit {
 
   search() {
     //fromDate
-    this.startDate = this.bsRangeValue[0].getFullYear().toString()
-      + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
-      + '-' + this.bsRangeValue[0].getDate().toString();
+
+    if (this.bsRangeValue[0].getMonth() < 10 && this.bsRangeValue[0].getDate() < 10) {
+      this.startDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-0' + this.bsRangeValue[0].getDate().toString();
+    } else if (this.bsRangeValue[0].getMonth() < 10) {
+      this.startDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-' + this.bsRangeValue[0].getDate().toString();
+    } else if (this.bsRangeValue[0].getDate() < 10) {
+      this.startDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-0' + this.bsRangeValue[0].getDate().toString();
+    }else{
+      this.startDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-' + this.bsRangeValue[0].getDate().toString();
+    }
+    ;
 
     //endDate
-    this.endDate = this.bsRangeValue[1].getFullYear().toString()
-      + '-' + (this.bsRangeValue[1].getMonth() + 1).toString()
-      + '-' + this.bsRangeValue[1].getDate().toString();
+    if (this.bsRangeValue[0].getMonth() < 10 && this.bsRangeValue[0].getDate() < 10) {
+      this.endDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-0' + this.bsRangeValue[0].getDate().toString();
+    } else if (this.bsRangeValue[0].getMonth() < 10) {
+      this.endDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-' + this.bsRangeValue[0].getDate().toString();
+    } else if (this.bsRangeValue[0].getDate() < 10) {
+      this.endDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-0' + this.bsRangeValue[0].getDate().toString();
+    } else{
+      this.endDate = this.bsRangeValue[0].getFullYear().toString()
+        + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
+        + '-' + this.bsRangeValue[0].getDate().toString();
+    }
 
     this.suppliesService.searchSuppliesStats(this.startDate, this.endDate).subscribe(
       value => {
         this.suppliesArr = value;
         this.getName(value);
         this.createDetailChart('abc', this.data, 'myChart');
+      },
+      error => {
+        this.check = true;
+        this.suppliesArr = [];
+        this.getName([]);
+        this.createDetailChart("abc", this.data, 'myChart');
       }
     );
   }
