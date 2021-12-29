@@ -47,10 +47,8 @@ export class ListComponent implements OnInit {
   getListEmployee() {
     this.pageEmployeeDTO = this.searchForm.value;
     this.employeeService.getListEmployee(this.pageEmployeeDTO).subscribe(value => {
-      console.log(value);
       this.pageEmployee = value;
       this.employeeList = value.content;
-      console.log(this.employeeList);
     });
   }
 
@@ -98,7 +96,6 @@ export class ListComponent implements OnInit {
     this.employeeService.getListEmployee(this.pageEmployeeDTO).subscribe(value => {
       this.pageEmployee = value;
       this.employeeList = value.content;
-      console.log(this.employeeList);
       this.ngOnInit();
     });
   }

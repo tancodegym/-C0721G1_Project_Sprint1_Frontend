@@ -21,7 +21,7 @@
         <ul class="sub-menu collapse" id="information">
           <li><a routerLink="/employee/list">Thông tin nhân viên</a></li>
           <li><a href="#">Thông tin khách hàng</a></li>
-          <li><a href="#">Thông tin vật tư</a></li>
+          <li><a routerLink="/supplies/list">Thông tin vật tư</a></li>
         </ul>
         <li data-toggle="collapse" data-target="#warehouse" class="collapsed">
           <a href="#"><i class="fas fa-warehouse"></i> Quản lý kho <span class="arrow"></span></a>
@@ -35,12 +35,12 @@
         </li>
       </ul>
       <li data-toggle="collapse" data-target="#statistical" class="collapsed">
-        <a href="#"><i class="fas fa-toolbox"></i> Thống kê <span class="arrow"></span></a>
+        <a><i class="fas fa-toolbox"></i> Thống kê <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="statistical">
-        <li><a href="#">Tài chính</a></li>
-        <li><a href="#">Vật tư</a></li>
-        <li><a href="#">Khách hàng tiềm năng</a></li>
+        <li><a routerLink="/stats/financial">Tài chính</a></li>
+        <li><a routerLink="/stats/supplies-stats">Vật tư</a></li>
+        <li><a routerLink="/stats/potential-customer">Khách hàng tiềm năng</a></li>
       </ul>
       <li data-toggle="collapse" data-target="#support" class="collapsed">
         <a href="#"><i class="fas fa-question"></i> Trợ giúp <span class="arrow"></span></a>

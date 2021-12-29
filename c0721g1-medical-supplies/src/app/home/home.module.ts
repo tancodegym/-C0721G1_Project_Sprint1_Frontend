@@ -5,10 +5,11 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ListSuppliesComponent } from './list-supplies/list-supplies.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { DetailSuppliesComponent } from './detail-supplies/detail-supplies.component';
 
 
 @NgModule({
-  declarations: [HomepageComponent, ListSuppliesComponent],
+  declarations: [HomepageComponent, ListSuppliesComponent, DetailSuppliesComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,

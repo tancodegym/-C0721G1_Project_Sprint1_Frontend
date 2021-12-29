@@ -1,1 +1,105 @@
-<p>financial works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-2">
+      <app-left-side-bar></app-left-side-bar>
+    </div>
+    <div class="col-lg-10">
+      <h2 style="margin:20px" class="text-center">Thống kê tài chính</h2>
+      <h2 style="margin:15px" class="text-center text-danger">Thống kê chi tiết</h2>
+      <!--    search Box-->
+      <div class="row" style="margin:50px;">
+        <div class="col-lg-7"></div>
+        <div class="col-lg-5">
+          <div class="row">
+            <div class="col-xs-12 col-12 col-md-4 form-group mb-3">
+              <input type="date"
+                     class="form-control"
+                     [(ngModel)]="bsValue">
+            </div>
+            <div>
+              <button class="btn btn-success" style="background: #058af0" (click)="search()" type="button">Tìm kiếm
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row text-center text-danger">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-11">
+          <h2 *ngIf="check" class="text-center text-danger" style="margin:30px">Dữ liệu không tồn tại trong ngày {{date}}</h2>
+        </div>
+      </div>
+
+      <div class="row" style="margin:50px">
+        <div class="col-lg-5 justify-content-center align-items-center">
+          <!--ChartJS 2-->
+          <div>
+            <canvas class="chart" id="myChart1"></canvas>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 text-center" style="font-weight: bold">
+              Biểu đồ thống kê thu chi. (Đơn vị: VND)
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <!--    Table of Contents -->
+          <table class="table table-hover table-striped container" style="margin:20px">
+            <thead>
+            <tr>
+              <th>Tổng Thu</th>
+              <th>Tổng chi</th>
+              <th>Lợi nhuận</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>{{this.revenue}}</td>
+              <td>{{this.totalCost}}</td>
+              <td>{{this.profit}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h2 class="text-center text-danger" style="margin:30px">Thống kê doanh thu</h2>
+
+      <div class="row" style="margin:50px">
+        <div class="col-lg-5">
+          <!--    Table-->
+          <table class="table table-hover table-striped container text-center">
+            <thead>
+            <tr>
+              <th>Tiền bán hàng</th>
+              <th>Hoàn tiền từ nhà cung cấp</th>
+              <th>Tiền nhập hàng</th>
+              <th>Tiền trả hàng của khách</th>
+              <th>Tiền hủy hàng</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>{{financial.income}}</td>
+              <td>{{financial.returnMoney}}</td>
+              <td>{{financial.refund}}</td>
+              <td>{{financial.cancelled}}</td>
+              <td>{{financial.importMoney}}</td>
+            </tr>
+            </tbody>
+
+          </table>
+        </div>
+        <div class="col-lg-5">
+          <!--ChartJS 1-->
+          <canvas class="chart" id="myChart" width="100px" height="100px"></canvas>
+          <div class="row">
+            <div class="col-lg-12 text-center" style="font-weight: bold;margin:15px">
+              Biểu đồ thống kê chi tiết hoạt động kinh doanh. (Đơn vị: VND)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

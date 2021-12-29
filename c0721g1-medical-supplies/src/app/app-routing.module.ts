@@ -23,6 +23,26 @@ const routes: Routes = [
   {
     path: 'employee',
     loadChildren: () => import('./employee/employee.module').then(module => module.EmployeeModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then(module => module.HomeModule)
+  },
+  {
+    path: 'cart',
+    loadChildren: () => import('./cart/cart.module').then(module => module.CartModule)
+  },
+  {
+    path: 'payment/:total',
+    loadChildren: () => import('./payment/payment.module').then(module => module.PaymentModule)
+  },
+  {
+    path: 'supplies',
+    loadChildren: () => import('./supplies/supplies.module').then(module => module.SuppliesModule)
+  },
+  {
+    path: 'stats',
+    loadChildren: () => import('./stats/stats.module').then(module => module.StatsModule)
   }
 ];
 

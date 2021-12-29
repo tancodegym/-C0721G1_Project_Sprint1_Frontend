@@ -9,6 +9,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {MatButtonModule} from '@angular/material/button';
 import {SharedModule} from './shared/shared.module';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import {SharedModule} from './shared/shared.module';
     SharedModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     ToastrModule.forRoot({
       timeOut: 2000,
       closeButton: true,
