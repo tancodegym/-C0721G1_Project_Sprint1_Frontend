@@ -9,6 +9,7 @@
       </marquee>
     </div>
     <div class="col-lg-3" style="padding: 15px">
+
       <div class="row navbar-navInfor" style="background-color: ghostwhite; ">
         <div class="col-12">
           <div class="container">
@@ -26,7 +27,7 @@
                     </button>
                   </li>
                   <li class="nav-item navLi">
-                    <button class="btn  btn-primary"><i class="fas fa-shopping-cart"></i></button>
+                    <button [routerLink]="['/cart']" class="btn  btn-primary"><i class="fas fa-shopping-cart"></i></button>
                   </li>
                   <li class="nav-item navLi">
                     <button class="btn btn-primary" title="Đăng nhập"><i
@@ -95,6 +96,7 @@
   </div>
   <!--    </div>-->
 </div>
+
 <!--<script>-->
 
 <!--  window.addEventListener('load', (event) => {-->
@@ -108,6 +110,5 @@
 <!--      .addEventListener('click', classToggle);-->
 <!--  });-->
 <!--</script>-->
-
 
 
