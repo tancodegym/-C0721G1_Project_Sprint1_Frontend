@@ -13,7 +13,7 @@
             style="color: red">(*)</span></label>
 
           <div class="col-sm-9">
-            <input id="nameAccount" type="text" class="form-control" [value]="employee.user.username">
+            <input id="nameAccount" type="text" class="form-control" [value]="employee.user?.username" disabled>
           </div>
         </div>
 
@@ -24,7 +24,7 @@
             style="color: red">(*)</span></label>
 
           <div class="col-sm-9">
-            <input id="passAccount" type="text" class="form-control" [value]="employee.user.password">
+            <input id="passAccount" type="text" class="form-control" [value]="employee.user?.password" disabled>
           </div>
         </div>
 

@@ -12,14 +12,16 @@ const API_URL = 'http://localhost:8080';
 })
 export class EmployeeService {
 
+
   constructor(private http: HttpClient) {
   }
+
   findById(id: number): Observable<Employee> {
     return this.http.get<Employee>(API_URL + '/api/employee/edit-detail/' + id);
   }
 
-  update(employee: Employee): Observable<void> {
-    return this.http.patch<void>(API_URL + '/api/employee/edit-detail/update', employee);
+  update(id: number, employee: Employee): Observable<void> {
+    return this.http.patch<void>(API_URL + '/api/employee/edit-detail/update/' + id, employee);
   }
 
 

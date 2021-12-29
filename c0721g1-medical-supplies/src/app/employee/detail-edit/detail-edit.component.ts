@@ -5,11 +5,13 @@ import {EmployeeService} from '../../service/employee.service';
 import {PositionService} from '../../service/position.service';
 import {UserService} from '../../service/user.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {AngularFireStorage} from '@angular/fire/storage';
 import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
 import {Employee} from '../../model/employee';
 import {Position} from '../../model/position';
+// @ts-ignore
+import {ToastrService} from 'ngx-toastr';
+import {AngularFireStorage} from '@angular/fire/storage';
 
 
 @Component({
@@ -39,14 +41,17 @@ export class DetailEditComponent implements OnInit {
   positions: Position[] = [];
   users: User[] = [];
   selectedImage: any = null;
-  id: number;
+  private id: number;
+  urlImage = 'https://i.imgur.com/7Vtlcpx.png';
 
   employeeEdit: Employee;
+
 
   constructor(private employeeService: EmployeeService,
               private positionService: PositionService,
               private userService: UserService,
               private activatedRoute: ActivatedRoute,
+              private t: ToastrService,
               @Inject(AngularFireStorage) private storage: AngularFireStorage,
               private router: Router) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
@@ -92,20 +97,35 @@ export class DetailEditComponent implements OnInit {
 
   submit() {
     // upload image to firebase
-    const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
-    const fileRef = this.storage.ref(nameImg);
-    this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
-      finalize(() => {
-        // tslint:disable-next-line:no-shadowed-variable
-        fileRef.getDownloadURL().subscribe((url) => {
-          // tslint:disable-next-line:max-line-length
-          this.employeeDetailEditForm.patchValue({image: url + ''});
-          this.employeeService.update(this.employeeDetailEditForm.value).subscribe(() => {
-            // this.router.navigateByUrl('supplies/list').then(r => this.t.success('Thêm mới thành công'));
+    console.log(this.selectedImage);
+    if (this.selectedImage != null) {
+      const nameImg = this.getCurrentDateTime() + this.selectedImage;
+      const fileRef = this.storage.ref(nameImg);
+      this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          // tslint:disable-next-line:no-shadowed-variable
+          fileRef.getDownloadURL().subscribe((url) => {
+            // tslint:disable-next-line:max-line-length
+            this.employeeDetailEditForm.patchValue({image: url + ''});
+            // this.employeeService.update(this.id, this.employeeDetailEditForm.value).subscribe(() => {
+            this.router.navigateByUrl('employee/detail').then(r => this.t.success('Update thành công'));
+            // });
+
+            this.employeeService.update(this.id, this.employeeDetailEditForm.value).subscribe(() => {
+              this.router.navigateByUrl('employee/detail').then(r => this.t.success('Update thành công'));
+            }, error => {
+              console.log(error);
+            });
           });
-        });
-      })
-    ).subscribe();
+        })
+      ).subscribe();
+    } else {
+      this.employeeService.update(this.id, this.employeeDetailEditForm.value).subscribe(() => {
+        // this.router.navigateByUrl('/employee/list').then(r => this.t.success('Thêm mới thành công'));
+      }, error => {
+        console.log(error);
+      });
+    }
   }
 
   getCurrentDateTime(): string {
@@ -120,16 +140,17 @@ export class DetailEditComponent implements OnInit {
 
   editDetailEmployee() {
     this.employeeEdit = this.employeeDetailEditForm.value;
-    this.employeeService.update(this.employeeEdit).subscribe();
+    console.log(this.employeeEdit);
+    this.employeeService.update(this.id, this.employeeEdit).subscribe();
     alert('Cập nhập thành công');
 
 
   }
 
 
-  // comparePosition(c1: Position, c2: Position): boolean {
-  //     return c1 && c2 ? c1.id === c2.id : c1 === c2;
-  //   }
+  comparePosition(c1: Position, c2: Position): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
 
   compareUser(c1: User, c2: User): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
