@@ -10,19 +10,40 @@ import {Router} from "@angular/router";
 })
 export class ListSuppliesComponent implements OnInit {
   suppliesList: Supplies[] = [];
+  page=0;
+  totalPage :number;
 
   constructor(private suppliesService: SuppliesService,
               private router: Router) {
   }
 
   ngOnInit(): void {
+    this.suppliesService.getSuppliesList(this.page).subscribe(value => {
+      console.log(value);
+      this.suppliesList =value.content;
+      this.totalPage = value.totalPages;
+    });
     this.getSuppliesList();
 
   }
 
   getSuppliesList() {
-    this.suppliesService.getSuppliesList().subscribe(value => {
+    this.suppliesService.findAll().subscribe(value => {
       this.suppliesList = value.content
     });
+  }
+  nextPage() {
+    this.page +=1;
+    this.ngOnInit();
+  }
+
+  previousPage() {
+    this.page -=1;
+    this.ngOnInit();
+  }
+
+  lastPage() {
+    this.page=this.totalPage-1;
+    this.ngOnInit();
   }
 }

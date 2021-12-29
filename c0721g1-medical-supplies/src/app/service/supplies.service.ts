@@ -10,7 +10,10 @@ export class SuppliesService {
   private API_URL = 'http://localhost:8080/home/list';
   constructor(private httpClient: HttpClient) {
   }
-  getSuppliesList(): Observable<any> {
+  getSuppliesList(page: number): Observable<any> {
+    return this.httpClient.get<any>(this.API_URL+ '/' + page)
+  }
+  findAll(): Observable<any>{
     return this.httpClient.get<any>(this.API_URL)
   }
 }
