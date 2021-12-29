@@ -9,6 +9,7 @@ import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { LeftSideBarComponent } from './common/left-side-bar/left-side-bar.component';
 import { RightSideBarComponent } from './common/right-side-bar/right-side-bar.component';
+
 // @ts-ignore
 import {CommonModule} from '@angular/common';
 import {HomeModule} from './home/home.module';
@@ -34,6 +35,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     AppRoutingModule,
     CommonModule,
     HomeModule,
+
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
@@ -44,6 +46,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
       progressBar: true,
       progressAnimation: 'increasing'
     })
+
   ],
   providers: [],
   bootstrap: [AppComponent]
