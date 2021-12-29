@@ -1,127 +1,139 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-2">
-
-    </div>
-    <div class="col-sm-10">
-      <div class="container">
-        <div class="row row justify-content-center">
-          <div class="col-sm-7 ">
-            <h2 class="text-center mt-4">Thêm mới nhân viên</h2>
-            <br>
-            <form [formGroup]="employeeForm" (ngSubmit)="submit()">
-
-              <div class="form-group row mb-3">
-                <label class="col-sm-3 col-form-label" for="ma-nhan-vien">Mã nhân viên <span
-                  style="color: red">(*)</span></label>
-                <div class="col-sm-9">
-                  <input type="text" id="ma-nhan-vien" disabled class="form-control-plaintext" formControlName="code"
-                         value="{{codeB}}">
-                </div>
-              </div>
-              <div class="form-group row mb-3 ">
-                <label class="col-sm-3 col-form-label" for="name">Tên Nhân viên <span
-                  style="color: red">(*)</span></label>
-                <div class="col-9">
-                  <input type="text" id="name" class="form-control" formControlName="name">
-                  <div *ngIf="!name.valid && (name.dirty || name.touched)">
-                    <div style="color: red" [hidden]="!name.errors.required">Trường này không được để trống</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group row mb-3 ">
-                <label class="col-sm-3 col-form-label" for="gender">Giới tính<span
-                  style="color: red">(*)</span></label>
-                <div class="col-9">
-                  <select name="" id="gender" class="form-control" formControlName="gender">
-                    <!--              <option selected [value]="null" disabled>Chọn Giới tính</option>-->
-                    <option selected [value]=1>Nam</option>
-                    <option selected [value]=0>Nữ</option>
-                    <option selected [value]=2>giới tính thứ 3</option>
-                  </select>
-                  <div *ngIf="!gender.valid && (gender.dirty || gender.touched)">
-                    <div style="color: red" [hidden]="!gender.errors.required">Trường này không được để trống</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group row mb-3 ">
-                <label class="col-sm-3 col-form-label" for="birthDay">Ngày sinh<span
-                  style="color: red">(*)</span></label>
-                <div class="col-9">
-                  <input type="date" min="0" id="birthDay" class="form-control" formControlName="birthday">
-                  <div *ngIf="!birthday.valid && (birthday.dirty|| birthday.touched)">
-                    <div style="color: red" [hidden]="!birthday.errors.required">
-                      Trường này không được để trống
+<div
+  style="background-image: url(https://hoaidoan.vn/wp-content/uploads/2021/03/background-dep-5.png); background-size: cover;">
+  <div xmlns="http://www.w3.org/1999/html">
+    <div class="content" style="height: auto">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-2">
+            <!--      /* LEFT-SIDEBAR */-->
+          </div>
+          <div class="col-sm-10">
+            <div class="container">
+              <div class="row row justify-content-center">
+                <div class="col-sm-7 ">
+                  <h2 class="text-center mt-4">Thêm mới nhân viên</h2>
+                  <br>
+                  <form [formGroup]="employeeForm" (ngSubmit)="submit()">
+                    <div class="form-group row mb-3">
+                      <label class="col-sm-3 col-form-label" for="ma-nhan-vien">Mã nhân viên</label>
+                      <div class="col-sm-9">
+                        <input type="text" id="ma-nhan-vien" disabled class="form-control-plaintext"
+                               formControlName="code"
+                               value="{{codeB}}">
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group row mb-3">
-                <label class="col-sm-3 col-form-label" for="phone">Số điện thoại <span
-                  style="color: red">(*)</span></label>
-                <div class="col-9">
-                  <input type="text" id="phone" class="form-control" formControlName="phone">
-                  <div *ngIf="!phone.valid && (phone.dirty || phone.touched)">
-                    <div style="color: red" [hidden]="!phone.errors">Trường này không được để trống</div>
-                    <div style="color: red" [hidden]="!phone.errors.pattern">Phải đúng định dạng: 090xxxxxxx hoặc
-                      091xxxxxxx
+                    <div class="form-group row mb-3 ">
+                      <label class="col-sm-3 col-form-label" for="name">Họ và tên <span
+                        style="color: red">(*)</span></label>
+                      <div class="col-9">
+                        <input type="text" id="name" class="form-control" formControlName="name" placeholder="Họ và tên">
+                        <div *ngIf="!name.valid && (name.dirty || name.touched)">
+                          <div style="color: red" [hidden]="!name.errors.required">Trường này không được để trống</div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
 
-              <div class="form-group row mb-3 ">
+                    <div class="form-group row mb-3 ">
+                      <label class="col-sm-3 col-form-label" for="birthDay">Ngày sinh<span
+                        style="color: red">(*)</span></label>
+                      <div class="col-9">
+                        <input type="date" min="0" id="birthDay" class="form-control" formControlName="birthday">
+                        <div *ngIf="!birthday.valid && (birthday.dirty|| birthday.touched)">
+                          <div style="color: red" [hidden]="!birthday.errors.required">
+                            Trường này không được để trống
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                <label class="col-sm-3 col-form-label" for="address">Địa chỉ <span
-                  style="color: red">(*)</span></label>
+                    <div class="form-group row mb-3 ">
+                      <label class="col-sm-3 col-form-label" for="gender">Giới tính<span
+                        style="color: red">(*)</span></label>
+                      <div class="col-sm-9">
+                        <select name="" id="gender" class="form-control" formControlName="gender">
+                          <option value="" [disabled]="true">Chọn Giới tính</option>
+                          <option selected [value]=1>Nam</option>
+                          <option selected [value]=0>Nữ</option>
+                          <option selected [value]=2>Giới tính thứ 3</option>
+                        </select>
+                        <div *ngIf="!gender.valid && (gender.dirty || gender.touched)">
+                          <div style="color: red" [hidden]="!gender.errors.required">Trường này không được để trống
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                <div class="col-9">
-                  <input type="text" id="address" class="form-control" formControlName="address">
-                  <div *ngIf="!address.valid && (address.dirty || address.touched)">
-                    <div style="color: red" [hidden]="!address.errors.required">Trường này không được để trống</div>
-                  </div>
-                </div>
-              </div>
+                    <div class="form-group row mb-3 ">
+                      <label class="col-sm-3 col-form-label" for="address">Địa chỉ <span
+                        style="color: red">(*)</span></label>
+                      <div class="col-9">
+                        <input type="text" id="address" class="form-control" formControlName="address" placeholder="Địa chỉ">
+                        <div *ngIf="!address.valid && (address.dirty || address.touched)">
+                          <div style="color: red" [hidden]="!address.errors.required">Trường này không được để trống
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-              <div class="form-group row mb-3 ">
-                <label class="col-sm-3 col-form-label" for="loai-vat-tu">vị trí<span
-                  style="color: red">(*)</span></label>
-                <div class="col-9">
-                  <select name="" id="loai-vat-tu" class="form-control" formControlName="position">
-                    <option selected [value]="null" disabled>Chọn vị trí</option>
-                    <option *ngFor="let s of positionList" [ngValue]="s">{{s.name}}</option>
-                  </select>
-                  <div *ngIf="!position.valid && (position.dirty || position.touched)">
-                    <div style="color: red" [hidden]="!position.errors.required">Trường này không được để trống</div>
-                  </div>
+                    <div class="form-group row mb-3">
+                      <label class="col-sm-3 col-form-label" for="phone">Số điện thoại <span
+                        style="color: red">(*)</span></label>
+                      <div class="col-9">
+                        <input type="text" id="phone" class="form-control" formControlName="phone"  placeholder="Số điện thoại">
+                        <div *ngIf="!phone.valid && (phone.dirty || phone.touched)">
+                          <div style="color: red" [hidden]="!phone.errors">Trường này không được để trống</div>
+                          <div style="color: red" [hidden]="!phone.errors.pattern">Phải đúng định dạng: 090xxxxxxx hoặc
+                            091xxxxxxx
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="form-group row mb-3 ">
+                      <label class="col-sm-3 col-form-label" for="loai-vat-tu">Chức vụ<span
+                        style="color: red">(*)</span></label>
+                      <div class="col-9">
+                        <select name="" id="loai-vat-tu" class="form-control" formControlName="position">
+                          <option value="" [disabled]="true">Chức vụ</option>
+                          <option *ngFor="let s of positionList" [ngValue]="s">{{s.name}}</option>
+                        </select>
+                        <div *ngIf="!position.valid && (position.dirty || position.touched)">
+                          <div style="color: red" [hidden]="!position.errors.required">Trường này không được để trống
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                      <label class="col-sm-3 col-form-label" for="avarta">Chọn ảnh avarta</label>
+                      <div class="col-sm-9">
+                        <label>
+                          <img id="output" src="https://i.imgur.com/7Vtlcpx.png" width="150"
+                               height="150"/>
+                          <input type="file" accept="image/*" onchange="loadFile(event)"
+                                 id="avarta" name="myfile"
+                                 style="display:none" (change)="showPreview($event)">
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                      <div class="col-sm-12 text-center">
+                        <button type="submit" class="btn btn-primary mr-5" [disabled]="!employeeForm.valid"
+                                style="width: 100px;height: 40px" data-toggle="modal" data-target="#staticBackdrop">Thêm
+                          mới
+                        </button>
+                        <button type="button" class="btn btn-secondary" routerLink="/employee/list"
+                                style="width: 100px;height: 40px">Hủy
+                        </button>
+                      </div>
+                    </div>
+                    <br>
+                  </form>
                 </div>
               </div>
-              <div class="form-group row mb-3">
-                <label class="col-sm-3 col-form-label" for="avarta">Chọn ảnh avarta</label>
-                <div class="col-sm-9">
-                  <label>
-                    <img id="output" src="https://i.imgur.com/7Vtlcpx.png" width="150"
-                         height="150"/>
-                    <input type="file" accept="image/*" onchange="loadFile(event)"
-                           id="avarta" name="myfile"
-                           style="display:none" (change)="showPreview($event)">
-                  </label>
-                </div>
-              </div>
-              <div class="form-group row mb-3">
-                <div class="col-sm-12 text-center">
-                  <button type="submit" class="btn btn-primary mr-5" [disabled]="!employeeForm.valid"
-                          style="width: 100px;height: 40px" data-toggle="modal" data-target="#staticBackdrop">Thêm mới
-                  </button>
-                  <button type="button" class="btn btn-secondary" routerLink="/employee/list"
-                          style="width: 100px;height: 40px">Hủy
-                  </button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -140,22 +152,22 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="container-fluid text-center">
-        <div *ngIf="!checkerr">
-          <h5 class="modal-title" >Thêm mới thất bại</h5>
-          <div class="modal-body">
-            <div style="color: red" *ngFor="let s of errorDB">{{s.defaultMessage}}</div>
+          <div *ngIf="!checkerr">
+            <h5 class="modal-title">Thêm mới thất bại</h5>
+            <div class="modal-body">
+              <div style="color: red" *ngFor="let s of errorDB">{{s.defaultMessage}}</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          <div *ngIf="checkerr ">
+            <h5 class="modal-title" id="staticBackdropLabel">Thêm mới Thành công</h5>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal" routerLink="/employee/list">OK</button>
+            </div>
           </div>
         </div>
-        <div *ngIf="checkerr ">
-          <h5 class="modal-title" id="staticBackdropLabel">Thêm mới Thành công</h5>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" routerLink="/employee/list">OK</button>
-          </div>
-        </div>
-      </div>
       </div>
     </div>
   </div>

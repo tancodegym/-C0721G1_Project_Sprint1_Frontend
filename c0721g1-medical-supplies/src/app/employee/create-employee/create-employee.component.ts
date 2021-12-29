@@ -18,6 +18,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
   styleUrls: ['./create-employee.component.css']
 })
 export class CreateEmployeeComponent implements OnInit {
+  employeeCode: Employee;
   employee: Employee;
   positionList: Position[];
   public errorDB = [];
@@ -52,13 +53,14 @@ export class CreateEmployeeComponent implements OnInit {
       console.log(next);
       this.positionList = next;
       this.employeeService.getCode().subscribe(next => {
-        this.employee = next;
-        if (this.employee == null) {
+        this.employeeCode = next;
+        if (this.employeeCode == null) {
           this.codeB = 'Nhân Viên - ' + 1;
         } else {
-        const a = this.employee.id + 1;
+        const a = this.employeeCode.id + 1;
         this.codeB = 'Nhân Viên - ' + a;
       }
+        console.log(this.codeB);
       });
     });
   }
@@ -73,6 +75,7 @@ export class CreateEmployeeComponent implements OnInit {
 
   submit() {
     // upload image to firebase
+    this.employee = this.employeeForm.value;
     console.log(this.selectedImage);
     if (this.selectedImage != null) {
       const nameImg = this.getCurrentDateTime() + this.selectedImage;
