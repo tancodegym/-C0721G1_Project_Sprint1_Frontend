@@ -10,6 +10,7 @@ import {RightSideBarComponent} from './common/right-side-bar/right-side-bar.comp
 import {EmployeeModule} from './employee/employee.module';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {FormsModule} from '@angular/forms';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

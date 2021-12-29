@@ -12,6 +12,7 @@ import { DetailEditComponent } from './detail-edit/detail-edit.component';
 import {ReactiveFormsModule} from "@angular/forms";
 
 
+
 @NgModule({
   declarations: [
     ListComponent,
@@ -23,7 +24,7 @@ import {ReactiveFormsModule} from "@angular/forms";
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    EmployeeRoutingModule
+    EmployeeRoutingModule,
   ]
 })
 export class EmployeeModule { }

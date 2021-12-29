@@ -11,8 +11,8 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
-  employee!: Employee | any;
-  id!: number;
+  employee: Employee ;
+  id: number;
 
   constructor(private employeeService: EmployeeService, private active: ActivatedRoute) {
   }
@@ -25,10 +25,9 @@ export class DetailComponent implements OnInit {
   getDetail() {
     this.active.params.subscribe(param => {
       this.id = param['id'];
-      console.log(this.id);
     });
-    this.employeeService.findById(this.id).subscribe(data => {
-      this.employee = data;
+    this.employeeService.findById(this.id).subscribe(value => {
+      this.employee = value;
       console.log(this.employee);
     });
   }

@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Observable} from "rxjs";
+import {Employee} from "../model/employee";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class EmployeeService {
   ) {
   }
 
-  findById(id: number) {
-    return this.http.get(this.API_URL + '/employee/detail/' + id);
+  findById(id: number): Observable<Employee> {
+    return this.http.get<Employee>(this.API_URL + '/employee/detail/' + id);
   }
 }

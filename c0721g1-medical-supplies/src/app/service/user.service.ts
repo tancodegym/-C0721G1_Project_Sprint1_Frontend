@@ -13,11 +13,11 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  changePass(user: User, id: number): Observable<User | any> {
-    return this.http.patch(this.API_USER + "/" + id, user);
+  changePass(user: User): Observable<void> {
+    return this.http.patch<void>(this.API_USER, user);
   }
 
-  find(id: number): Observable<User | any> {
-    return this.http.get(this.API_USERFIND + "/" + id);
+  find(id: number): Observable<User> {
+    return this.http.get<User>(this.API_USERFIND + "/" + id);
   }
 }

@@ -1,88 +1,111 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {User} from '../../model/user';
-import {FormControl, FormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {UserService} from "../../service/user.service";
-
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.css']
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordComponent implements OnInit, DoCheck {
   user!: User;
   idParam!: number;
-  a!: string;
-  b!: string;
+  newPass!: string;
+  confirm!: string;
   oldPassword!: string
+  checkConFirmPass: string;
+  checkNewPass: string;
+  checkAll: string;
+  checkPassOld: string;
+  checkUpdate: boolean = false;
 
-  userForm: FormGroup = new FormGroup({
-    id: new FormControl(""),
-    username: new FormControl(),
-    password: new FormControl(""),
 
-  });
-
-  constructor(private userService: UserService, private active: ActivatedRoute) {
+  constructor(
+    private userService: UserService,
+    private active: ActivatedRoute,
+    ) {
   }
 
   ngOnInit(): void {
     this.getParam();
-    this.find();
-
   }
-
 
   getParam() {
     this.active.params.subscribe(param => {
-      this.idParam = param['id'];
-      console.log(this.idParam);
+      this.idParam = Number(param['id']);
+      this.find(this.idParam)
     });
   }
 
-  updatePassword() {
-    console.log(this.userForm.value)
-    this.userForm.value.id = this.idParam;
-    this.userService.changePass(this.userForm.value, this.idParam).subscribe(next => {
-    }, error => {
-      console.log(error.message);
-    });
-    console.log(this.userForm.value);
-    console.log(this.idParam);
-  }
-
-  find() {
-    this.userService.find(this.idParam).subscribe(data => {
+  find(id: number) {
+    this.userService.find(id).subscribe(data => {
       this.user = data;
-      console.log(this.user);
     });
   }
 
-  valueInpput($event: any) {
-    this.a = $event.target.value;
-    console.log(this.a);
+  valueInput($event: any) {
+    this.newPass = $event.target.value;
+
   }
 
-  valueInpput2($event: any) {
-    this.b = $event.target.value;
-    console.log(this.b);
+  valueInput2($event: any) {
+    this.confirm = $event.target.value;
+    this.check()
   }
 
   valueOldPassword($event: any) {
     this.oldPassword = $event.target.value;
   }
+
   check() {
-    if (this.oldPassword === this.user.password) {
-      console.log("ok")
-      if (this.a === this.b) {
-        // console.log("truong hop dung")
-        this.updatePassword();
+    if (this.oldPassword != this.newPass) {
+      if (this.newPass === this.confirm) {
+        this.checkConFirmPass = null;
+        this.checkNewPass = null;
+        this.checkUpdate = true;
       } else {
-        // console.log("truong hop false");
+        this.checkUpdate = false;
+        this.checkNewPass = null;
+        this.checkConFirmPass = 'Nhập lại mật khẩu sai !';
       }
     } else {
-      console.log("Sai");
+      this.checkUpdate = false;
+      this.checkNewPass = "Mật khẩu mới trùng mật khẩu cũ ! ";
+    }
+    if (this.oldPassword == '' || this.newPass == '' || this.confirm == '' || this.oldPassword == null || this.newPass == null || this.confirm == null) {
+      // this.checkAll = "Tất cả các tryường không được để trống !"
+      this.checkUpdate = false;
+      this.checkNewPass = null;
+    } else {
+      this.checkAll = null;
+    }
+  }
+
+  ngDoCheck(): void {
+    this.check()
+  }
+  // updatePassword() {
+  //   this.checkAll = "Tất cả các trường không được để trống !";
+  //   if (this.oldPassword == this.user.password) {
+  //     this.user.password = this.newPass;
+  //     this.checkPassOld = null;
+  //     this.userService.changePass(this.user).subscribe()
+  //   } else {
+  //     // this.snackBar.open('Đổi mật khẩu thất bại','',{duration: 3000})
+  //     this.checkPassOld = "Sai mật khẩu cũ !"
+  //   }
+  // }
+
+  updatePassword() {
+    this.checkAll = "Tất cả các trường không được để trống !";
+    if (this.oldPassword == this.user.password) {
+      this.user.password = this.newPass;
+      this.checkPassOld = null;
+      this.userService.changePass(this.user).subscribe()
+    } else {
+      // this.snackBar.open('Đổi mật khẩu thất bại','',{duration: 3000})
+      this.checkPassOld = "Sai mật khẩu cũ !"
     }
   }
 

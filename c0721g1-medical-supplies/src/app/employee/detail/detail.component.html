@@ -1,38 +1,37 @@
 <div class="container">
-
   <h2 class=" text-center">
     Thông tin cá nhân
   </h2>
-  <div class="row"  >
+  <div class="row ">
     <div class="col-3" style="left: 30%; top: 15px">
-<!--      <img src="{{employee.image}}" alt="" width="150" height="150">-->
+      <img [src]=employee.image alt="" width="150" height="150">
     </div>
     <div class="col-9" style="right: 5%;">
-      <table class="mx-auto w-auto spacing-table">
-        <thead >
+      <table class=" table table-borderless mx-auto w-auto spacing-table">
+        <thead>
         <tr>
           <td>Tên tài khoản:</td>
-<!--          <td > {{employee.user.username}}</td>-->
+          <td>{{employee.user.username}} </td>
         </tr>
         <tr>
           <td>Mật khẩu:</td>
-          <td></td>
+          <td>{{employee.user.password}}</td>
         </tr>
         <tr>
           <td>Họ và tên:</td>
-          <td > {{employee.name}} </td>
+          <td> {{employee.name}} </td>
         </tr>
         <tr>
           <td>Địa chỉ:</td>
-          <td >{{employee.address}}</td>
+          <td>{{employee.address}}</td>
         </tr>
         <tr>
           <td>Giới tính:</td>
           <td
-           [ngSwitch]="employee.gender" >
-              <span *ngSwitchCase="0">FeMale</span>
-              <span *ngSwitchCase="1">Male</span>
-              <span *ngSwitchDefault>LGBT</span>
+            [ngSwitch]="employee.gender">
+            <span *ngSwitchCase="0">Nữ</span>
+            <span *ngSwitchCase="1">Nam</span>
+            <span *ngSwitchDefault>Giới tính thứ 3</span>
           </td>
         </tr>
         <tr>
@@ -41,7 +40,7 @@
         </tr>
         <tr>
           <td>Ngày sinh:</td>
-          <td>{{employee.address}}</td>
+          <td>{{employee.birthday}}</td>
         </tr>
         <tr>
           <td>Chức vụ:</td>
@@ -58,5 +57,4 @@
       <button type="button" class="btn btn-secondary mr-4">Quay về</button>
     </div>
   </div>
-
 </div>
