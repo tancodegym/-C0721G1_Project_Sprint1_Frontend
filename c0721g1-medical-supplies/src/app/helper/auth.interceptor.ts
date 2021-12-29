@@ -5,6 +5,9 @@ import {Observable} from 'rxjs';
 
 const TOKEN_HEADER_KEY = 'Authorization';
 
+/*
+Creator: PhuocPD
+ */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private tokenStorageService: TokenStorageService) {

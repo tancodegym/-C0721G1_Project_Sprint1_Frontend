@@ -6,6 +6,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialogRef} from '@angular/material/dialog';
 
+/*
+Creator: PhuocPD
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -45,6 +48,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.tokenStorageService.getUser()) {
+      this.router.navigateByUrl('/system');
+    }
     this.authService.login(this.loginForm.value).subscribe(value => {
       if (this.loginForm.value.rememberMe) {
         this.tokenStorageService.saveTokenSession(value.token);

@@ -48,7 +48,8 @@
           <td>{{emp.code}}</td>
           <td>{{emp.name}}</td>
           <td>{{emp.birthday}}</td>
-          <td>{{emp.gender}}</td>
+          <td *ngIf="emp.gender==1">Nam</td>
+          <td *ngIf="emp.gender==0">Nữ</td>
           <td>{{emp.address}}</td>
           <td>{{emp.phone}}</td>
           <td><p *ngIf="emp.user">{{emp.user.username}}</p></td>

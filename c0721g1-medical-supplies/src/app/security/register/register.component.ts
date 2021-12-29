@@ -5,6 +5,9 @@ import {RegisterForm} from '../../model/registerForm';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 
+/*
+Creator: PhuocPD
+ */
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

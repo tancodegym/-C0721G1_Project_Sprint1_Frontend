@@ -50,6 +50,7 @@ export class ListComponent implements OnInit {
       console.log(value);
       this.pageEmployee = value;
       this.employeeList = value.content;
+      console.log(this.employeeList);
     });
   }
 

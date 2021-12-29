@@ -4,6 +4,9 @@ import {Observable} from 'rxjs';
 
 const AUTH_API = 'http://localhost:8080/api/public/';
 
+/*
+Creator: PhuocPD
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +20,7 @@ export class AuthService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
     };
   }
