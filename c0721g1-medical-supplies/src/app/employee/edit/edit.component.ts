@@ -11,10 +11,10 @@ import {AngularFireStorage} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-edit-employee',
-  templateUrl: './edit-employee.component.html',
-  styleUrls: ['./edit-employee.component.css']
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.css']
 })
-export class EditEmployeeComponent implements OnInit {
+export class EditComponent implements OnInit {
   constructor(private http: HttpClient,
               private router: Router,
               private employeeService: EmployeeService,

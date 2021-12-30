@@ -14,10 +14,10 @@ import {AngularFireStorage} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-create',
-  templateUrl: './create-employee.component.html',
-  styleUrls: ['./create-employee.component.css']
+  templateUrl: './create.component.html',
+  styleUrls: ['./create.component.css']
 })
-export class CreateEmployeeComponent implements OnInit {
+export class CreateComponent implements OnInit {
   employee: Employee;
   positionList: Position[];
   public errorDB = [];

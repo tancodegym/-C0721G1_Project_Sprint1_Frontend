@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {ListComponent} from './list/list.component';
 
-import {CreateEmployeeComponent} from './create-employee/create-employee.component';
-import {EditEmployeeComponent} from './edit-employee/edit-employee.component';
+import {CreateComponent} from './create/create.component';
+import {EditComponent} from './edit/edit.component';
 
 
 const routes: Routes = [
@@ -11,10 +11,10 @@ const routes: Routes = [
     path: 'list', component: ListComponent
   },
   {
-    path: 'create', component: CreateEmployeeComponent
+    path: 'create', component: CreateComponent
   },
   {
-    path: 'edit/:id', component: EditEmployeeComponent
+    path: 'edit/:id', component: EditComponent
   }
 ];
 

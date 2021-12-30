@@ -8,18 +8,18 @@ import { DetailComponent } from './detail/detail.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {CreateEmployeeComponent} from './create-employee/create-employee.component';
-import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
+import {CreateComponent} from './create/create.component';
+import { EditComponent } from './edit/edit.component';
 
 
 @NgModule({
   declarations: [
     ListComponent,
-    EditEmployeeComponent,
+    EditComponent,
     DetailComponent,
     ChangePasswordComponent,
-    CreateEmployeeComponent,
-    EditEmployeeComponent
+    CreateComponent,
+    EditComponent
     ],
   imports: [
     CommonModule,
