@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from '../../service/employee.service';
 import {Employee} from '../../model/employee';
-import {ActivatedRoute, Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({

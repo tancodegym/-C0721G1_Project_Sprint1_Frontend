@@ -24,7 +24,7 @@ export class ChangePasswordComponent implements OnInit, DoCheck {
   constructor(
     private userService: UserService,
     private active: ActivatedRoute,
-    ) {
+  ) {
   }
 
   ngOnInit(): void {
@@ -77,6 +77,7 @@ export class ChangePasswordComponent implements OnInit, DoCheck {
       // this.checkAll = "Tất cả các tryường không được để trống !"
       this.checkUpdate = false;
       this.checkNewPass = null;
+      this.checkPassOld = null;
     } else {
       this.checkAll = null;
     }
@@ -85,18 +86,6 @@ export class ChangePasswordComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     this.check()
   }
-  // updatePassword() {
-  //   this.checkAll = "Tất cả các trường không được để trống !";
-  //   if (this.oldPassword == this.user.password) {
-  //     this.user.password = this.newPass;
-  //     this.checkPassOld = null;
-  //     this.userService.changePass(this.user).subscribe()
-  //   } else {
-  //     // this.snackBar.open('Đổi mật khẩu thất bại','',{duration: 3000})
-  //     this.checkPassOld = "Sai mật khẩu cũ !"
-  //   }
-  // }
-
   updatePassword() {
     this.checkAll = "Tất cả các trường không được để trống !";
     if (this.oldPassword == this.user.password) {
@@ -104,7 +93,6 @@ export class ChangePasswordComponent implements OnInit, DoCheck {
       this.checkPassOld = null;
       this.userService.changePass(this.user).subscribe()
     } else {
-      // this.snackBar.open('Đổi mật khẩu thất bại','',{duration: 3000})
       this.checkPassOld = "Sai mật khẩu cũ !"
     }
   }
