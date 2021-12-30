@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Supplies} from "../../model/supplies";
 import {SuppliesService} from "../../service/supplies.service";
 import {Router} from "@angular/router";
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-list-supplies',
@@ -24,6 +25,9 @@ export class ListSuppliesComponent implements OnInit {
       this.totalPage = value.totalPages;
     });
     this.getSuppliesList();
+    AOS.init({
+
+    })
 
   }
 

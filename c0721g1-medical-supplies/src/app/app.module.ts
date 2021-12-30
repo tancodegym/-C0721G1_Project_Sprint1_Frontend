@@ -10,6 +10,7 @@ import { RightSideBarComponent } from './common/right-side-bar/right-side-bar.co
 import {CommonModule} from "@angular/common";
 import {HomeModule} from "./home/home.module";
 import {HttpClientModule} from "@angular/common/http";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {HttpClientModule} from "@angular/common/http";
     AppRoutingModule,
     CommonModule,
     HomeModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -91,16 +91,82 @@ body {
 /*#myBtn:hover {*/
 /*  background-color: #555; !* Add a dark-grey background on hover *!*/
 /*}*/
-#company-intro{
-  text-align: justify; padding-left: 150px; padding-right: 20px
+#company-intro {
+  text-align: justify;
+  padding-left: 150px;
+  padding-right: 20px
 }
+
+
+
 @media only screen and (max-width: 768px) {
   * {
     padding: 0;
     margin: 0;
   }
+
   #company-intro {
-   padding-left: 50%;
+    padding-left: 50%;
   }
 
+}
+
+
+/*FORM LIEN HE*/
+.form {
+  text-align: center;
+}
+#form1 {
+  width: 600px;
+  margin: 0 auto;
+}
+#form1 input[type=text] {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 18px;
+  color: #555;
+  display: block;
+  line-height: 1.2;
+  background-color: #fff;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  height: 50px;
+  padding: 0 20px 0 23px;
+  border: 0;
+  box-shadow: 0 5px 20px 0 rgb(0 0 0 / 5%);
+  -moz-box-shadow: 0 5px 20px 0 rgba(0,0,0,.05);
+  -webkit-box-shadow: 0 5px 20px 0 rgb(0 0 0 / 5%);
+  -o-box-shadow: 0 5px 20px 0 rgba(0,0,0,.05);
+  -ms-box-shadow: 0 5px 20px 0 rgba(0,0,0,.05);
+}
+#form1 input[type=text]:focus{
+  border: 0;
+  outline: none;
+  box-shadow: 0 5px 20px 0 rgb(250 66 81 / 10%);
+  -moz-box-shadow: 0 5px 20px 0 rgba(250,66,81,.1);
+  -webkit-box-shadow: 0 5px 20px 0 rgb(250 66 81 / 10%);
+  -o-box-shadow: 0 5px 20px 0 rgba(250,66,81,.1);
+  -ms-box-shadow: 0 5px 20px 0 rgba(250,66,81,.1);
+}
+#form1 #fcontent {
+  outline: none;
+  min-height: 150px;
+}
+#form1 input[type=submit] {
+  background-color:#058af0;
+  height: 42px;
+  padding: 5px 20px;
+  border-radius: 21px;
+  font-size: 14px;
+  text-tranforms: uppercase;
+  color: #fff;
+  border: 0;
+  box-shadow: #058af0;
+  -moz-box-shadow: #058af0;
+  -webkit-box-shadow: #058af0;
+  -o-box-shadow: #058af0;
+  -ms-box-shadow: #058af0;
+}
+#form1 input[type="submit"]:hover {
+  background:#CC4949;
 }

@@ -57,7 +57,7 @@
 <br>
 <br>
 <div class="container-fluid">
-  <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-arrow-alt-circle-up"></i></button>
+  <!--  <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-arrow-alt-circle-up"></i></button>-->
   <!--DANH MUC CHINH-->
   <section class="main-list-content"
            style="background-image: url(https://truongthinhphatholding.com.vn/wp-content/uploads/2020/07/Background-1.png);">
@@ -252,8 +252,8 @@
             <br>
           </div>
           <div class="row">
-            <div id="company-intro"  class="col-lg-12" >
-              <span  style="color: #058af0">Công ty TNHH THIẾT BỊ Y TẾ – DƯỢC CODEGYM </span>là một công ty
+            <div id="company-intro" class="col-lg-12">
+              <span style="color: #058af0">Công ty TNHH THIẾT BỊ Y TẾ – DƯỢC CODEGYM </span>là một công ty
               chuyên cung cấp tất cả
               các sản phẩm
               phục vụ hỗ trợ chăm sóc và bảo vệ sức khỏe con người (sản phẩm bảo hộ y tế, vật tư tiêu hao,
@@ -275,21 +275,40 @@
     <br>
     <br>
   </div>
-<!--  <div>-->
-<!--    <div class="row infor-coporate">-->
-<!--      <div class="col-lg-12">-->
-<!--        <div class="col-12" style="text-align: center">-->
-<!--          <span style="font-weight: bolder; font-size: xx-large; font-family: 'Lucida Grande'">-->
-<!--              ĐỐI TÁC CÔNG TY-->
-<!--          </span>-->
-<!--          <br>-->
-<!--          <i style="font-size: xx-large" class="fas fa-horizontal-rule"></i>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="row">-->
+  <div>
+    <div class="row contact-box container-fluid"
+         style="background-image: url(https://media.istockphoto.com/vectors/abstract-uneven-backbrond-vector-id1145351600?k=20&m=1145351600&s=612x612&w=0&h=5qa_xhjsoK2Cw2-ZQHKPRqn1Y0sw-zQAHgktaEfWc1M=);
+background-size: cover">
+      <div class="col-lg-12" style="text-align: center">
+          <span style="font-weight: bolder; font-size: xx-large; font-family: 'Lucida Grande'">
+              ĐỊA ĐIỂM CÔNG TY
+          </span>
+        <br>
+        <i style="font-size: xx-large" class="fas fa-horizontal-rule"></i>
+      </div>
+      <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-5">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1916.8762050791534!2d108.20895346492256!3d16.078332835751326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219a486b7f699%3A0xae6269b629a63e82!2zVHJ1bmcgdMOibSDEkcOgbyB04bqhbyBs4bqtcCB0csOsbmggdmnDqm4gQ29kZUd5bSDEkMOgIE7hurVuZw!5e0!3m2!1svi!2s!4v1640790811061!5m2!1svi!2s"
+            width="600" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="col-lg-1"></div>
+        <div class="col-lg-5">
+          <div class="form-contact">
+            <form [formGroup]="requestForm" id="form1" (ngSubmit)="sendMail()">
+              <input formControlName="name" type="text" id="fname" name="fname" placeholder="Họ tên"><br>
+              <input formControlName="email" type="text" id="femail" name="femail" placeholder="Địa chỉ Email"><br>
+              <input formControlName="content" type="text" id="fcontent" name="fcontent" placeholder="Nội dung yêu cầu"><br>
+              <input type="submit" value="Gửi yêu cầu">
+            </form>
+          </div>
+        </div>
 
-<!--      </div>-->
+      </div>
 
-<!--    </div>-->
-<!--  </div>-->
+    </div>
+  </div>
 </div>
+
+
