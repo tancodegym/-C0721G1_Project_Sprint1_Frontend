@@ -19,8 +19,7 @@ import {HttpClientModule} from '@angular/common/http';
 @NgModule({
   // tslint:disable-next-line:max-line-length
   declarations: [
-    DetailEditComponent,
-    DetailComponent
+    DetailEditComponent
   ],
   imports: [
     CommonModule,

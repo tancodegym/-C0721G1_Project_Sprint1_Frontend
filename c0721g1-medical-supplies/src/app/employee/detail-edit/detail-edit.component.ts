@@ -9,9 +9,7 @@ import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
 import {Employee} from '../../model/employee';
 import {Position} from '../../model/position';
-// @ts-ignore
-import {ToastrService} from 'ngx-toastr';
-import {AngularFireStorage} from '@angular/fire/storage';
+
 
 
 @Component({
@@ -47,12 +45,11 @@ export class DetailEditComponent implements OnInit {
   employeeEdit: Employee;
 
 
+
   constructor(private employeeService: EmployeeService,
               private positionService: PositionService,
               private userService: UserService,
               private activatedRoute: ActivatedRoute,
-              private t: ToastrService,
-              @Inject(AngularFireStorage) private storage: AngularFireStorage,
               private router: Router) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
@@ -95,38 +92,37 @@ export class DetailEditComponent implements OnInit {
     this.selectedImage = event.target.files[0];
   }
 
-  submit() {
-    // upload image to firebase
-    console.log(this.selectedImage);
-    if (this.selectedImage != null) {
-      const nameImg = this.getCurrentDateTime() + this.selectedImage;
-      const fileRef = this.storage.ref(nameImg);
-      this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
-        finalize(() => {
-          // tslint:disable-next-line:no-shadowed-variable
-          fileRef.getDownloadURL().subscribe((url) => {
-            // tslint:disable-next-line:max-line-length
-            this.employeeDetailEditForm.patchValue({image: url + ''});
-            // this.employeeService.update(this.id, this.employeeDetailEditForm.value).subscribe(() => {
-            this.router.navigateByUrl('employee/detail').then(r => this.t.success('Update thành công'));
-            // });
-
-            this.employeeService.update(this.id, this.employeeDetailEditForm.value).subscribe(() => {
-              this.router.navigateByUrl('employee/detail').then(r => this.t.success('Update thành công'));
-            }, error => {
-              console.log(error);
-            });
-          });
-        })
-      ).subscribe();
-    } else {
-      this.employeeService.update(this.id, this.employeeDetailEditForm.value).subscribe(() => {
-        // this.router.navigateByUrl('/employee/list').then(r => this.t.success('Thêm mới thành công'));
-      }, error => {
-        console.log(error);
-      });
-    }
-  }
+  // submit() {
+  //   // upload image to firebase
+  //   console.log(this.selectedImage);
+  //   if (this.selectedImage != null) {
+  //     const nameImg = this.getCurrentDateTime() + this.selectedImage;
+  //     this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
+  //       finalize(() => {
+  //         // tslint:disable-next-line:no-shadowed-variable
+  //         this.fileRef.getDownloadURL().subscribe((url) => {
+  //           // tslint:disable-next-line:max-line-length
+  //           this.employeeDetailEditForm.patchValue({image: url + ''});
+  //           // this.employeeService.update(this.id, this.employeeDetailEditForm.value).subscribe(() => {
+  //           // this.router.navigateByUrl('employee/detail').then(r => this.t.success('Update thành công'));
+  //           // });
+  //
+  //           this.employeeService.update(this.id, this.employeeDetailEditForm.value).subscribe(() => {
+  //             // this.router.navigateByUrl('employee/detail').then(r => this.t.success('Update thành công'));
+  //           }, error => {
+  //             console.log(error);
+  //           });
+  //         });
+  //       })
+  //     ).subscribe();
+  //   } else {
+  //     this.employeeService.update(this.id, this.employeeDetailEditForm.value).subscribe(() => {
+  //       // this.router.navigateByUrl('/employee/detail').then(r => this.t.success('Update thành công'));
+  //     }, error => {
+  //       console.log(error);
+  //     });
+  //   }
+  // }
 
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');
