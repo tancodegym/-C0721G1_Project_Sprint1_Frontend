@@ -18,7 +18,6 @@ import {AngularFireStorage} from '@angular/fire/storage';
   styleUrls: ['./create-employee.component.css']
 })
 export class CreateEmployeeComponent implements OnInit {
-  employeeCode: Employee;
   employee: Employee;
   positionList: Position[];
   public errorDB = [];
@@ -38,8 +37,9 @@ export class CreateEmployeeComponent implements OnInit {
   employeeForm: FormGroup = new FormGroup({
     id: new FormControl(),
     code: new FormControl(),
-    name: new FormControl('', Validators.compose([Validators.required])),
-    birthday: new FormControl('', Validators.compose([Validators.required])),
+    // tslint:disable-next-line:max-line-length
+    name: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$')])),
+    birthday: new FormControl('', Validators.compose([Validators.required, this.checkDateOfBirth])),
     image: new FormControl(),
     address: new FormControl('', Validators.compose([Validators.required])),
     phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^((090)|(091))[\\d]{7}$')])),
@@ -52,15 +52,10 @@ export class CreateEmployeeComponent implements OnInit {
     this.positionService.getListPosition().subscribe(next => {
       console.log(next);
       this.positionList = next;
+      // tslint:disable-next-line:no-shadowed-variable
       this.employeeService.getCode().subscribe(next => {
-        this.employeeCode = next;
-        if (this.employeeCode == null) {
-          this.codeB = 'Nhân Viên - ' + 1;
-        } else {
-        const a = this.employeeCode.id + 1;
-        this.codeB = 'Nhân Viên - ' + a;
-      }
-        console.log(this.codeB);
+        this.employee = next;
+        this.codeB = this.employee.code;
       });
     });
   }
@@ -87,8 +82,8 @@ export class CreateEmployeeComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             this.employeeForm.patchValue({image: url + ''});
             this.employeeService.createEmployee(this.employeeForm.value).subscribe(() => {
-              // this.router.navigateByUrl('employee/list');
               this.checkerr = true;
+              // this.router.navigateByUrl('employee/list');
             }, error => {
               this.checkerr = false;
               this.handleError(error);
@@ -112,13 +107,14 @@ export class CreateEmployeeComponent implements OnInit {
 
   handleError(code) {
     this.errorDB = code.error;
-    // console.log(this.errorDB[0].defaultMessage);
-    // console.log(this.errorDB[1].defaultMessage);
-    // console.log(code.status);
-    // console.log(code.error);
-    // console.log(code.message);
   }
-
+  checkDateOfBirth(control: AbstractControl) {
+    const dateOfBirth = new Date(control.value);
+    if (new Date().getFullYear() - dateOfBirth.getFullYear() < 18 || new Date().getFullYear() - dateOfBirth.getFullYear() > 60) {
+      return {checkAge : true};
+    }
+    return null;
+  }
   get code() {
     return this.employeeForm.get('code');
   }

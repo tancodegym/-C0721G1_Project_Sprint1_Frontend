@@ -18,19 +18,24 @@
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label" for="ma-nhan-vien">Mã nhân viên </label>
                       <div class="col-9">
-                        <input type="text" id="ma-nhan-vien" disabled class="form-control" formControlName="code">
+                        <input type="text" id="ma-nhan-vien" disabled class="form-control-plaintext" formControlName="code">
                       </div>
                     </div>
                     <div class="form-group row mb-3">
-
                       <label class="col-sm-3 col-form-label" for="name">Họ và tên <span
                         style="color: red">(*)</span></label>
-
                       <div class="col-9">
                         <input type="text" id="name" class="form-control" formControlName="name" placeholder="Họ và tên">
                         <div *ngIf="!name.valid && (name.dirty || name.touched)">
                           <div style="color: red" [hidden]="!name.errors.required">Trường này không được để trống</div>
                           <!--              <div style="color: red" [hidden]="!name.errors.pattern">Lỗi định dạng </div>-->
+                        </div>
+                        <div *ngIf="!checkerr">
+                          <div style="color: red" *ngFor="let s of errorDB">
+                            <div *ngIf="s.field == 'name' ">
+                              <div style="color: red">{{s.defaultMessage}}</div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -43,6 +48,13 @@
                         <div *ngIf="!birthday.valid && (birthday.dirty|| birthday.touched)">
                           <div style="color: red" [hidden]="!birthday.errors.required">
                             Trường này không được để trống
+                          </div>
+                        </div>
+                        <div *ngIf="!checkerr">
+                          <div style="color: red" *ngFor="let s of errorDB">
+                            <div *ngIf="s.field == 'birthday' ">
+                              <div style="color: red">{{s.defaultMessage}}</div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -88,6 +100,13 @@
                             091xxxxxxx
                           </div>
                         </div>
+                        <div *ngIf="!checkerr">
+                          <div style="color: red" *ngFor="let s of errorDB">
+                            <div *ngIf="s.field == 'phone' ">
+                              <div style="color: red">{{s.defaultMessage}}</div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
@@ -126,8 +145,7 @@
                     <div class="form-group row mb-3">
                       <div class="col-sm-12 text-center">
                         <button type="submit" class="btn btn-primary mr-5" [disabled]="!employeeForm.valid"
-                                style="width: 100px;height: 40px" data-toggle="modal" data-target="#staticBackdrop">Thêm
-                          mới
+                                style="width: 100px;height: 40px" data-toggle="modal" data-target="#staticBackdrop">Chỉnh sửa
                         </button>
                         <button type="button" class="btn btn-secondary" routerLink="/employee/list"
                                 style="width: 100px;height: 40px">Hủy
@@ -138,34 +156,6 @@
                   </form>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="container-fluid text-center">
-          <div *ngIf="!checkerr">
-            <h5 class="modal-title">Chỉnh sửa thông tin thất bại</h5>
-            <div class="modal-body">
-              <div style="color: red" *ngFor="let s of errorDB">{{s.defaultMessage}}</div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-            </div>
-          </div>
-          <div *ngIf="checkerr ">
-            <h5 class="modal-title" id="staticBackdropLabel">Đã cập nhật thông tin <span
-              style="color: blue">{{employee.code}} {{employee.name}}</span> thành công </h5>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal" routerLink="/employee/list">OK</button>
             </div>
           </div>
         </div>

@@ -1,11 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {Employee} from '../../model/employee';
 import {Position} from '../../model/position';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EmployeeService} from '../../service/employee.service';
 import {PositionService} from '../../service/position.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
@@ -36,14 +35,16 @@ export class EditEmployeeComponent implements OnInit {
   employeeForm: FormGroup = new FormGroup({
     id: new FormControl(),
     code: new FormControl(),
-    name: new FormControl('', Validators.compose([Validators.required])),
-    birthday: new FormControl('', Validators.compose([Validators.required])),
+    // tslint:disable-next-line:max-line-length
+    name: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$'), Validators.maxLength(40)])),
+    birthday: new FormControl('', Validators.compose([Validators.required, this.checkDateOfBirth])),
     image: new FormControl(''),
     address: new FormControl('', Validators.compose([Validators.required])),
     phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^((090)|(091))[\\d]{7}$')])),
     gender: new FormControl('', Validators.compose([Validators.required])),
     position: new FormControl('', Validators.compose([Validators.required]))
   });
+
   ngOnInit(): void {
     this.positionService.getListPosition().subscribe(next => {
       this.positionList = next;
@@ -71,7 +72,6 @@ export class EditEmployeeComponent implements OnInit {
 
   submit() {
     // upload image to firebase
-    console.log(this.selectedImage);
     if (this.selectedImage != null) {
       const nameImg = this.getCurrentDateTime() + this.selectedImage;
       const fileRef = this.storage.ref(nameImg);
@@ -103,14 +103,19 @@ export class EditEmployeeComponent implements OnInit {
       });
     }
   }
+
   handleError(code) {
     this.errorDB = code.error;
-    // console.log(this.errorDB[0].defaultMessage);
-    // console.log(this.errorDB[1].defaultMessage);
-    // console.log(code.status);
-    // console.log(code.error);
-    // console.log(code.message);
   }
+
+  checkDateOfBirth(control: AbstractControl) {
+    const dateOfBirth = new Date(control.value);
+    if (new Date().getFullYear() - dateOfBirth.getFullYear() < 18 || new Date().getFullYear() - dateOfBirth.getFullYear() > 60) {
+      return {checkAge: true};
+    }
+    return null;
+  }
+
   compareSuppliesType(c1: Position, c2: Position): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }

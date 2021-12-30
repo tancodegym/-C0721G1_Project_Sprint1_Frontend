@@ -23,10 +23,6 @@ export class EmployeeService {
       + positionId + '&page=' + page + '&size=' + size);
   }
 
-  getAll(): Observable<Employee[] | any> {
-    return this.http.get(this.API_URL + '/admin/employee/list');
-  }
-
   getCode(): (any) {
     return this.http.get(this.API_URL + '/admin/employee/code');
   }
