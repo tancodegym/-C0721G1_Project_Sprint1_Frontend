@@ -45,6 +45,7 @@ export class ListComponent implements OnInit {
   private getListSupplies() {
     this.suppliesService.getAll().subscribe(data => {
       this.suppliesList = data;
+      console.log(data);
     });
   }
 }

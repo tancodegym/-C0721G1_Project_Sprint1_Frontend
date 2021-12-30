@@ -10,7 +10,7 @@
             <label for="ma-vat-tu" >Mã vật tư <span style="color: red">(*)</span></label>
           </div>
           <div class="col-9">
-            <input type="text" id="ma-vat-tu"  disabled class="form-control" formControlName="code" value="{{codeSp}}" >
+            <input type="text" id="ma-vat-tu"  disabled class="form-control" formControlName="code" value="{{newCode}}" >
           </div>
         </div>
         <div class="form-group row ">
@@ -20,8 +20,8 @@
           <div class="col-9">
             <input type="text" id="ten-vat-tu" class="form-control" formControlName="name">
             <div *ngIf="!name.valid && (name.dirty || name.touched)">
-              <div style="color:red" [hidden]="!name.errors.required">
-                Trường này không được để trống!
+              <div style="color:red" [hidden]="!name.errors.maxLength">
+                Trường này không aaaaaaađược để trống!
               </div>
             </div>
           </div>
@@ -50,6 +50,12 @@
               <div style="color: red" [hidden]="!price.errors.required">
                 Trường này không được để trống!
               </div>
+              <div style="color: red" [hidden]="!price.errors.pattern">
+                Trường này chỉ được nhập số!
+              </div>
+              <div style="color: red" [hidden]="!price.errors.min">
+                Giá thành phải lớn hơn 0!
+              </div>
             </div>
           </div>
         </div>
@@ -63,6 +69,13 @@
               <div style="color: red" [hidden]="!productionDate.errors.required">Trường này không được để trống!</div>
               <div style="color: red" [hidden]="!productionDate.errors.pattern">Phải đúng định dạng: dd/MM/yyyy!</div>
             </div>
+            <div *ngIf="!checkError">
+              <div style="color: red" *ngFor="let s of errorDatabase">
+                <div *ngIf="s.field == 'productionDate' ">
+                  <div style="color: red">{{s.defaultMessage}}</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="form-group row ">
@@ -74,7 +87,13 @@
             <div *ngIf="!expiryDate.valid && (expiryDate.dirty || expiryDate.touched)">
               <div style="color: red" [hidden]="!expiryDate.errors.required">Trường này không được để trống!</div>
               <div style="color: red" [hidden]="!expiryDate.errors.pattern">Phải đúng định dạng: dd/MM/yyyy!</div>
-              <div [(ngModel)]="errorDB" style="color: red"></div>
+            </div>
+            <div *ngIf="!checkError">
+              <div style="color: red" *ngFor="let s of errorDatabase">
+                <div *ngIf="s.field == 'expiryDate' ">
+                  <div style="color: red">{{s.defaultMessage}}</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -120,9 +139,6 @@
           <div class="col-sm-4">
             <input type="file" accept="image/*" onchange="loadFile(event)" id="avarta" (change)="showPreview($event)">
             <img  id="output" width="150" height="150px"/>
-            <div *ngIf="!image.valid && (image.dirty ||image.touched)">
-              <div style="color: red" [hidden]="!image.errors.required">Trường này không được để trống!</div>
-            </div>
           </div>
         </div>
 
@@ -132,8 +148,8 @@
               <button type="submit" class="btn btn-primary mr-5" [disabled]="!suppliesForm.valid"
                       style="width: 100px;height: 40px">Thêm mới
               </button>
-              <button type="button" class="btn btn-secondary"
-                      style="width: 100px;height: 40px" routerLink="/supplies/list">Hủy
+              <button  class="btn btn-secondary"
+                      type="button" data-toggle="modal" data-target="#createModal" style="width: 100px;height: 40px">Hủy
               </button>
             </div>
           </div>
@@ -143,4 +159,22 @@
   </div>
 </div>
 
-
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger">Quay lại trang danh sách vật tư</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bạn có chắc chắn không!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        <button routerLink="/supplies/list" data-dismiss="modal" type="button" class="btn btn-danger">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+</div>

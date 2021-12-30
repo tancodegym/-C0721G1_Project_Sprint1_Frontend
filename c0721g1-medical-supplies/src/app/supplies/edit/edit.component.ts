@@ -25,7 +25,8 @@ export class EditComponent implements OnInit {
       id: new FormControl(),
       code: new FormControl(),
       name: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required, Validators.min(1000)]),
+      price: new FormControl('', [Validators.required,
+        Validators.pattern('^[0-9]+$'), Validators.min(0)]),
       producer: new FormControl('', [Validators.required]),
       suppliesType: new FormControl('', [Validators.required]),
       // tslint:disable-next-line:max-line-length
@@ -34,13 +35,16 @@ export class EditComponent implements OnInit {
       expiryDate: new FormControl('', [Validators.required, Validators.pattern('^(?:19\\d{2}|20\\d{2})[-/.](?:0[1-9]|1[012])[-/.](?:0[1-9]|[12][0-9]|3[01])$')]),
       introduce: new FormControl('', [Validators.required]),
       technicalInformation: new FormControl('', [Validators.required]),
-      image: new FormControl('', [Validators.required]),
+      image: new FormControl(),
     }
   );
   supplies: Supplies;
   producers: Producer[] = [];
   suppliesTypes: SuppliesType[] = [];
   selectedImage: any = null;
+  public errorFromDatabase = [];
+  // tslint:disable-next-line:ban-types
+  checkError: Boolean;
   private id: number;
   urlImage = 'https://i.imgur.com/7Vtlcpx.png';
 
@@ -85,9 +89,9 @@ export class EditComponent implements OnInit {
     this.selectedImage = event.target.files[0];
   }
 
+// ThanhHN 30/12
   editSupplies() {
-    // upload image to firebase
-    console.log(this.selectedImage);
+    this.supplies = this.suppliesEditForm.value;
     if (this.selectedImage != null) {
       const nameImg = this.getCurrentDateTime() + this.selectedImage;
       const fileRef = this.storage.ref(nameImg);
@@ -97,21 +101,32 @@ export class EditComponent implements OnInit {
           fileRef.getDownloadURL().subscribe((url) => {
             // tslint:disable-next-line:max-line-length
             this.suppliesEditForm.patchValue({image: url + ''});
-            this.suppliesService.update(this.suppliesEditForm.value).subscribe(() => {
-              this.router.navigateByUrl('supplies/list').then(r => this.t.success('Thêm mới thành công'));
+            this.suppliesService.save(this.suppliesEditForm.value).subscribe(() => {
+              this.router.navigateByUrl('supplies/list');
+              this.t.success('Chỉnh sửa thành công');
+              this.checkError = true;
             }, error => {
-              console.log(error);
+              this.checkError = false;
+              this.handleError(error);
             });
           });
         })
       ).subscribe();
     } else {
-      this.suppliesService.update(this.suppliesEditForm.value).subscribe(() => {
-        this.router.navigateByUrl('/supplies/list').then(r => this.t.success('Thêm mới thành công'));
-      }, error => {
-        console.log(error);
-      });
+      this.suppliesService.save(this.suppliesEditForm.value).subscribe(() => {
+          this.router.navigateByUrl('supplies/list');
+          this.t.success('Chỉnh sửa thành công');
+          this.checkError = true;
+        }, error => {
+          this.checkError = false;
+          this.handleError(error);
+        }
+      );
     }
+  }
+
+  handleError(code) {
+    this.errorFromDatabase = code.error;
   }
 
   getCurrentDateTime(): string {
