@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 // @ts-ignore
 import {PageEmployeeDTO} from '../dto/PageEmployeeDTO';
+import {Employee} from '../model/employee';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,29 @@ export class EmployeeService {
   }
   deleteEmployee(id: number): Observable<any> {
     return this.http.delete<void>(this.API_URL + '/admin/employee/' + id, this.httpOptions);
+  }
+
+  getAll(): Observable<Employee[] | any> {
+    return this.http.get(this.API_URL + '/admin/employee/list', this.httpOptions);
+  }
+
+  getCode(): (any) {
+    return this.http.get(this.API_URL + '/admin/employee/code', this.httpOptions);
+  }
+
+  findById(id: number) {
+    return this.http.get(this.API_URL + '/admin/employee/' + id, this.httpOptions);
+  }
+
+  createEmployee(employee: Employee) {
+    return this.http.post(this.API_URL + '/admin/employee/create', employee, this.httpOptions);
+  }
+
+  updateEmployee(employee: Employee) {
+    return this.http.patch(this.API_URL + '/admin/employee/update', employee, this.httpOptions);
+  }
+
+  findByIdByUser(id: number) {
+    return this.http.get(this.API_URL + '/user/employee/detail/' + id, this.httpOptions);
   }
 }

@@ -7,7 +7,7 @@
     <div class="col-lg-10">
       <nav class="navbar navbar-light">
         <a class="btn">
-          <button class="btn btn-success " style="background: #058af0">Thêm mới nhân viên</button>
+          <button class="btn btn-success " style="background: #058af0" routerLink="/employee/create">Thêm mới nhân viên</button>
         </a>
         <form class="form-inline" [formGroup]="searchForm">
           <input class="form-control mr-sm-2" type="search" placeholder="Mã nhân viên"
@@ -15,7 +15,7 @@
           <input class="form-control mr-sm-2" type="search" placeholder="Tên nhân viên"
                  aria-label="Search" formControlName="name">
           <select class="custom-select" aria-describedby="validationServer04Feedback" formControlName="positionId">
-            <option selected disabled value="">Chức vụ</option>
+            <option selected value="">Chức vụ</option>
             <option *ngFor="let position of positionList" [ngValue]="position.id">{{position.name}}</option>
           </select>
           <button class="btn btn-success " style="background: #058af0; margin-left: 7px"
@@ -26,8 +26,8 @@
 
       <h2 style="text-align: center">Danh sách nhân viên</h2>
 
-      <table border="1px" class="table table-hover table-striped" width="100%">
-
+      <table class="table table-hover table-striped">
+        <thead>
         <tr class="table-primary" style="text-align: center">
           <th scope="col">#</th>
           <th scope="col">Mã nhân viên</th>
@@ -42,7 +42,8 @@
           <th scope="col">Sửa</th>
           <th scope="col">Xóa</th>
         </tr>
-
+        </thead>
+        <tbody>
         <tr *ngFor="let emp of employeeList index as i">
           <td>{{i + 1}}</td>
           <td>{{emp.code}}</td>
@@ -60,7 +61,7 @@
             </button>
           </td>
           <td style="text-align: center">
-            <button class=" btn-edit btn" style="background: #058af0"><i
+            <button class=" btn-edit btn" style="background: #058af0" [routerLink]="['/employee/edit/', emp.id]"><i
               class="far fa-edit"></i>
             </button>
           </td>
@@ -71,13 +72,16 @@
             </button>
           </td>
         </tr>
+        </tbody>
       </table>
-
+      <div style="text-align: center" *ngIf="errMessage">
+          <h2 style="color: red">{{errMessage}}</h2>
+      </div>
 
       <div class="row">
-        <div class="col-9">
+        <div class="col-lg-10">
         </div>
-        <div class="col-3">
+        <div class="col-lg-2">
           <nav aria-label="...">
             <ul class="pagination">
               <li class="page-item" >

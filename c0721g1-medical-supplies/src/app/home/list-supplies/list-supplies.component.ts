@@ -1,12 +1,9 @@
-// @ts-ignore
 import {Component, OnInit} from '@angular/core';
 import {Supplies} from '../../model/supplies';
 import {SuppliesService} from '../../service/supplies.service';
-// @ts-ignore
 import {Router} from '@angular/router';
+import * as AOS from 'aos';
 
-
-// @ts-ignore
 @Component({
   selector: 'app-list-supplies',
   templateUrl: './list-supplies.component.html',
@@ -26,31 +23,18 @@ export class ListSuppliesComponent implements OnInit {
       console.log(value);
       this.suppliesList = value.content;
       this.totalPage = value.totalPages;
-    })
+    });
     this.getSuppliesList();
+    AOS.init({
+    });
 
   }
 
   getSuppliesList() {
-    this.suppliesService.getSuppliesList(this.page).subscribe(value => {
+    this.suppliesService.findAll().subscribe(value => {
       this.suppliesList = value.content;
-      console.log(value);
     });
   }
-
-  // goDetail(id: number) {
-  //   console.log(id);
-  //   this.router.navigateByUrl('home/detail/' + id);
-  // }
-
-//   }
-
-//   getSuppliesList() {
-//     this.suppliesService.getSuppliesList().subscribe(value => {
-//       this.suppliesList = value.content
-//     });
-//   }
-
   nextPage() {
     this.page += 1;
     this.ngOnInit();

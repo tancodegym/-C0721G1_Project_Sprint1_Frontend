@@ -76,4 +76,8 @@ export class SuppliesService {
   getCode(): (any) {
     return this.httpClient.get(this.API_URL + 'admin/supplies/code', this.httpOptions);
   }
+
+  findAll(): Observable<any> {
+    return this.httpClient.get<any>(this.API_URL + 'public/home/list');
+  }
 }

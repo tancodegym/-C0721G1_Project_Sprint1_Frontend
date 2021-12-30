@@ -23,6 +23,7 @@ export class ListComponent implements OnInit {
   positionList: Position[];
   searchForm: FormGroup;
   pageEmployeeDTO: PageEmployeeDTO;
+  errMessage: string;
   constructor(private employeeService: EmployeeService,
               private positionService: PositionService) {
     this.searchForm = new FormGroup({
@@ -49,32 +50,22 @@ export class ListComponent implements OnInit {
     this.employeeService.getListEmployee(this.pageEmployeeDTO).subscribe(value => {
       this.pageEmployee = value;
       this.employeeList = value.content;
-    });
+    },
+      error => {
+      this.employeeList = [];
+      this.errMessage = 'Không có dữ liệu';
+      });
   }
 
   previousPage() {
     this.page--;
-    this.searchForm = new FormGroup({
-        code: new FormControl(''),
-        name: new FormControl(''),
-        positionId: new FormControl(''),
-        page: new FormControl(this.page),
-        size: new FormControl(this.size),
-      }
-    );
+    this.searchForm.controls.page.setValue(this.page);
     this.ngOnInit();
   }
 
   nextPage() {
     this.page++;
-    this.searchForm = new FormGroup({
-        code: new FormControl(''),
-        name: new FormControl(''),
-        positionId: new FormControl(''),
-        page: new FormControl(this.page),
-        size: new FormControl(this.size),
-      }
-    );
+    this.searchForm.controls.page.setValue(this.page);
     this.ngOnInit();
   }
 
@@ -97,6 +88,10 @@ export class ListComponent implements OnInit {
       this.pageEmployee = value;
       this.employeeList = value.content;
       this.ngOnInit();
-    });
+    },
+      error => {
+        this.employeeList = [];
+        this.errMessage = 'Không có dữ liệu cần tìm';
+      });
   }
 }
