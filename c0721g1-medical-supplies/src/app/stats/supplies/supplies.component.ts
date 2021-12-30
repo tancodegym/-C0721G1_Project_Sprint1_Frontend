@@ -21,13 +21,14 @@ export class SuppliesComponent implements OnInit {
   canvas: any;
   ctx: any;
   check = false;
+  labels: [];
 
   constructor(private router: Router,
               private suppliesService: SuppliesStatsService) {
     this.suppliesService.getAll().subscribe(value => {
       this.suppliesArr = value;
       this.getName(value);
-      this.createDetailChart("abc", this.data, 'myChart');
+      this.createDetailChart(this.labels, this.data, 'myChart');
       this.maxDate.setDate(this.maxDate.getDate() + 7);
       this.bsRangeValue = [this.bsValue, this.maxDate];
     });
@@ -41,7 +42,7 @@ export class SuppliesComponent implements OnInit {
 
   search() {
     //fromDate
-
+    this.chart.destroy();
     if (this.bsRangeValue[0].getMonth() < 10 && this.bsRangeValue[0].getDate() < 10) {
       this.startDate = this.bsRangeValue[0].getFullYear().toString()
         + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
@@ -54,7 +55,7 @@ export class SuppliesComponent implements OnInit {
       this.startDate = this.bsRangeValue[0].getFullYear().toString()
         + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-0' + this.bsRangeValue[0].getDate().toString();
-    }else{
+    } else {
       this.startDate = this.bsRangeValue[0].getFullYear().toString()
         + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-' + this.bsRangeValue[0].getDate().toString();
@@ -74,7 +75,7 @@ export class SuppliesComponent implements OnInit {
       this.endDate = this.bsRangeValue[0].getFullYear().toString()
         + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-0' + this.bsRangeValue[0].getDate().toString();
-    } else{
+    } else {
       this.endDate = this.bsRangeValue[0].getFullYear().toString()
         + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-' + this.bsRangeValue[0].getDate().toString();
@@ -82,23 +83,22 @@ export class SuppliesComponent implements OnInit {
 
     this.suppliesService.searchSuppliesStats(this.startDate, this.endDate).subscribe(
       value => {
+
         this.check = false;
-        this.chart.destroy();
         this.suppliesArr = value;
-        this.getName(value);
-        this.createDetailChart('abc', this.data, 'myChart');
+        this.createDetailChart(this.labels, this.data, 'myChart');
+        this.chart.update();
       },
       error => {
         this.chart.destroy();
         this.check = true;
         this.suppliesArr = [];
-        this.getName([]);
       }
     );
   }
 
 
-  private data = {
+  data = {
 
     labels: [],
     datasets: [
@@ -128,15 +128,17 @@ export class SuppliesComponent implements OnInit {
         borderColor: "rgb(240, 115, 111)",
         fill: true
       }],
-    HoverOfSet: 4
+    HoverOfSet: 4,
+
   };
 
 
 //  chart JS
   // chart chi tiết
-  chart =null;
-  private createDetailChart(labels, data, myChart) {
-    if(this.chart!=null){
+  chart = null;
+
+  createDetailChart(labels, data, myChart) {
+    if (this.chart != null) {
       this.chart.destroy();
     }
     this.canvas = document.getElementById('myChart');
@@ -145,11 +147,18 @@ export class SuppliesComponent implements OnInit {
     this.chart = new Chart(this.ctx, {
       type: 'line',
       data: this.data,
+      options: {
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
     });
   }
 
   //get label for Chart
-  private getName(arr: SuppliesStats[]) {
+  getName(arr: SuppliesStats[]) {
     for (let i = 0; i < arr.length; i++) {
       this.data.labels.push(arr[i].name);
       this.data.datasets[0].data.push(arr[i].import_quantity);
