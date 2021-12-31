@@ -6,10 +6,10 @@ export const environment = {
   production: false,
   firebaseConfig: {
     apiKey: 'AIzaSyDqQ2eYa35nB8R75KTchp9z5GWlfwt9zbE',
-    authDomain: 'upload-mage.firebaseapp.com',
-    databaseURL: 'https://upload-mage-default-rtdb.asia-southeast1.firebasedatabase.app',
-    projectId: 'upload-mage',
-    storageBucket: 'upload-mage.appspot.com',
+    authDomain: 'upload-image.firebaseapp.com',
+    databaseURL: 'https://upload-image-default-rtdb.asia-southeast1.firebasedatabase.app',
+    projectId: 'upload-image',
+    storageBucket: 'upload-image.appspot.com',
     messagingSenderId: '545526695425',
     appId: '1:545526695425:web:119b2b1ab6493f51a2e200',
     measurementId: 'G-7YQ4GJF7J7'

@@ -9,7 +9,8 @@ import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
 import {Employee} from '../../model/employee';
 import {Position} from '../../model/position';
-
+import {HttpClient} from '@angular/common/http';
+import {AngularFireStorage} from '@angular/fire/storage';
 
 
 @Component({
@@ -18,6 +19,18 @@ import {Position} from '../../model/position';
   styleUrls: ['./detail-edit.component.css']
 })
 export class DetailEditComponent implements OnInit {
+
+  employee: Employee;
+  positions: Position[] = [];
+  users: User[] = [];
+  public errorDB = [];
+  selectedImage: any = null;
+  private id: number;
+  urlImage = 'https://i.imgur.com/7Vtlcpx.png';
+  // tslint:disable-next-line:ban-types
+  checkerr: Boolean;
+
+  employeeEdit: Employee;
 
   employeeDetailEditForm: FormGroup = new FormGroup({
     id: new FormControl('', [Validators.required]),
@@ -35,22 +48,14 @@ export class DetailEditComponent implements OnInit {
     user: new FormControl('', [Validators.required]),
   });
 
-  employee: Employee;
-  positions: Position[] = [];
-  users: User[] = [];
-  selectedImage: any = null;
-  private id: number;
-  urlImage = 'https://i.imgur.com/7Vtlcpx.png';
 
-  employeeEdit: Employee;
-
-
-
-  constructor(private employeeService: EmployeeService,
+  constructor(private http: HttpClient,
+              private employeeService: EmployeeService,
               private positionService: PositionService,
               private userService: UserService,
               private activatedRoute: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              @Inject(AngularFireStorage) private storage: AngularFireStorage) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
     });
@@ -74,8 +79,11 @@ export class DetailEditComponent implements OnInit {
     this.employeeService.findById(this.id).subscribe(data => {
       this.employee = data;
       console.log(data);
+      if (this.employee.image !== null) {
+        this.urlImage = this.employee.image;
+      }
       this.employeeDetailEditForm.setValue(this.employee);
-      console.log(this.employeeDetailEditForm.value);
+
     });
   }
 
@@ -92,37 +100,45 @@ export class DetailEditComponent implements OnInit {
     this.selectedImage = event.target.files[0];
   }
 
-  // submit() {
-  //   // upload image to firebase
-  //   console.log(this.selectedImage);
-  //   if (this.selectedImage != null) {
-  //     const nameImg = this.getCurrentDateTime() + this.selectedImage;
-  //     this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
-  //       finalize(() => {
-  //         // tslint:disable-next-line:no-shadowed-variable
-  //         this.fileRef.getDownloadURL().subscribe((url) => {
-  //           // tslint:disable-next-line:max-line-length
-  //           this.employeeDetailEditForm.patchValue({image: url + ''});
-  //           // this.employeeService.update(this.id, this.employeeDetailEditForm.value).subscribe(() => {
-  //           // this.router.navigateByUrl('employee/detail').then(r => this.t.success('Update thành công'));
-  //           // });
-  //
-  //           this.employeeService.update(this.id, this.employeeDetailEditForm.value).subscribe(() => {
-  //             // this.router.navigateByUrl('employee/detail').then(r => this.t.success('Update thành công'));
-  //           }, error => {
-  //             console.log(error);
-  //           });
-  //         });
-  //       })
-  //     ).subscribe();
-  //   } else {
-  //     this.employeeService.update(this.id, this.employeeDetailEditForm.value).subscribe(() => {
-  //       // this.router.navigateByUrl('/employee/detail').then(r => this.t.success('Update thành công'));
-  //     }, error => {
-  //       console.log(error);
-  //     });
-  //   }
-  // }
+
+  submit() {
+    // upload image to firebase
+    console.log(this.selectedImage);
+    if (this.selectedImage != null) {
+      const nameImg = this.getCurrentDateTime() + this.selectedImage;
+      const fileRef = this.storage.ref(nameImg);
+      this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          // tslint:disable-next-line:no-shadowed-variable
+          fileRef.getDownloadURL().subscribe((url) => {
+            // tslint:disable-next-line:max-line-length
+            this.employeeDetailEditForm.patchValue({image: url + ''});
+            this.employeeService.update(this.id, this.employeeDetailEditForm.value).subscribe(() => {
+              // this.router.navigateByUrl('employee/list');
+              this.checkerr = true;
+            }, error => {
+              this.checkerr = false;
+              this.handleError(error);
+              console.log(error);
+            });
+          });
+        })
+      ).subscribe();
+    } else {
+      this.employeeService.update(this.id, this.employeeDetailEditForm.value).subscribe(() => {
+        // this.router.navigateByUrl('employee/list');
+        this.checkerr = true;
+      }, error => {
+        this.handleError(error);
+        this.checkerr = false;
+        console.log(error);
+      });
+    }
+  }
+
+  handleError(code) {
+    this.errorDB = code.error;
+  }
 
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');
@@ -139,8 +155,6 @@ export class DetailEditComponent implements OnInit {
     console.log(this.employeeEdit);
     this.employeeService.update(this.id, this.employeeEdit).subscribe();
     alert('Cập nhập thành công');
-
-
   }
 
 
