@@ -87,7 +87,6 @@ export class CreateComponent implements OnInit {
             }, error => {
               this.checkerr = false;
               this.handleError(error);
-              console.log(error);
             });
           });
         })
@@ -99,7 +98,6 @@ export class CreateComponent implements OnInit {
         }, error => {
           this.checkerr = false;
           this.handleError(error);
-          console.log(error);
         }
       );
     }

@@ -101,7 +101,7 @@
                         <input type="text" id="phone" class="form-control" formControlName="phone"
                                placeholder="Số điện thoại">
                         <div *ngIf="!phone.valid && (phone.dirty || phone.touched)">
-                          <div style="color: red" [hidden]="!phone.errors">Trường này không được để trống</div>
+                          <div style="color: red" [hidden]="!phone.errors.required">Trường này không được để trống</div>
                           <div style="color: red" [hidden]="!phone.errors.pattern">Phải đúng định dạng: 090xxxxxxx hoặc
                             091xxxxxxx
                           </div>
@@ -115,8 +115,6 @@
                         </div>
                       </div>
                     </div>
-
-
                     <div class="form-group row mb-3 ">
                       <label class="col-sm-3 col-form-label" for="loai-vat-tu">Chức vụ<span
                         style="color: red">(*)</span></label>

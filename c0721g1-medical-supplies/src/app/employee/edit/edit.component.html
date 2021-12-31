@@ -28,7 +28,7 @@
                         <input type="text" id="name" class="form-control" formControlName="name" placeholder="Họ và tên">
                         <div *ngIf="!name.valid && (name.dirty || name.touched)">
                           <div style="color: red" [hidden]="!name.errors.required">Trường này không được để trống</div>
-                          <!--              <div style="color: red" [hidden]="!name.errors.pattern">Lỗi định dạng </div>-->
+                          <div style="color: red" [hidden]="!name.errors.pattern">Tên có chứa kí tự số hoặc kí tự đặc biệt</div>
                         </div>
                         <div *ngIf="!checkerr">
                           <div style="color: red" *ngFor="let s of errorDB">
@@ -48,6 +48,9 @@
                         <div *ngIf="!birthday.valid && (birthday.dirty|| birthday.touched)">
                           <div style="color: red" [hidden]="!birthday.errors.required">
                             Trường này không được để trống
+                          </div>
+                          <div style="color: red" [hidden]="!birthday.errors.checkAge">
+                            Tuổi phải trên 18 và nhỏ hơn 60
                           </div>
                         </div>
                         <div *ngIf="!checkerr">
