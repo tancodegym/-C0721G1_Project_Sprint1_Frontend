@@ -3,13 +3,14 @@ import {FinancialStats} from '../model/financial-stats';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {FinancialService} from '../service/financial.service';
 import {StatsService} from "../../service/stats.service";
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-financial',
   templateUrl: './financial.component.html',
   styleUrls: ['./financial.component.css']
 })
-export class FinancialComponent implements OnInit{
+export class FinancialComponent implements OnInit {
   financial: FinancialStats;
   bsValue = new Date();
   date: string;
@@ -77,7 +78,6 @@ export class FinancialComponent implements OnInit{
             'rgba(255, 99, 132, 1)',
             'rgba(54, 162, 235, 1)',
             'rgba(255, 206, 86, 1)'
-
           ],
           borderWidth: 1
         }]
@@ -94,6 +94,7 @@ export class FinancialComponent implements OnInit{
   }
 
   chartDetail = null;
+
   createDetailChart(labelsDetail: [], dataDetail: [], myChart: string) {
     if (this.chartDetail != null) {
       this.chartDetail.destroy();
@@ -146,6 +147,7 @@ export class FinancialComponent implements OnInit{
         + '-' + (this.bsValue.getMonth() + 1).toString()
         + '-' + this.bsValue.getDate().toString();
     }
+    console.log(this.date);
     this.financialService.searchFinancialStats(this.date).subscribe(
       value => {
         this.financial = value;
@@ -209,5 +211,8 @@ export class FinancialComponent implements OnInit{
   // }
 
   ngOnInit(): void {
+    AOS.init({
+      duration: 1200,
+    })
   }
 }

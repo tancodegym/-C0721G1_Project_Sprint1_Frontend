@@ -92,42 +92,48 @@ export class PotentialCustomerComponent implements OnInit {
 
   search() {
     //fromDate
-    if (this.bsRangeValue[0].getMonth() < 10 && this.bsRangeValue[0].getDate() < 10) {
+    if (this.bsRangeValue[0].getMonth() < 9 && this.bsRangeValue[0].getDate() < 10) {
       this.startDate = this.bsRangeValue[0].getFullYear().toString()
         + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-0' + this.bsRangeValue[0].getDate().toString();
-    } else if (this.bsRangeValue[0].getMonth() < 10) {
+      console.log(1)
+    } else if (this.bsRangeValue[0].getMonth() < 9) {
       this.startDate = this.bsRangeValue[0].getFullYear().toString()
         + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-' + this.bsRangeValue[0].getDate().toString();
+      console.log(2)
     } else if (this.bsRangeValue[0].getDate() < 10) {
       this.startDate = this.bsRangeValue[0].getFullYear().toString()
         + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-0' + this.bsRangeValue[0].getDate().toString();
+      console.log(3)
     } else {
       this.startDate = this.bsRangeValue[0].getFullYear().toString()
         + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-' + this.bsRangeValue[0].getDate().toString();
+      console.log(4)
     }
     ;
     //endDate
-    if (this.bsRangeValue[0].getMonth() < 10 && this.bsRangeValue[0].getDate() < 10) {
-      this.endDate = this.bsRangeValue[0].getFullYear().toString()
-        + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
-        + '-0' + this.bsRangeValue[0].getDate().toString();
-    } else if (this.bsRangeValue[0].getMonth() < 10) {
-      this.endDate = this.bsRangeValue[0].getFullYear().toString()
-        + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
-        + '-' + this.bsRangeValue[0].getDate().toString();
-    } else if (this.bsRangeValue[0].getDate() < 10) {
-      this.endDate = this.bsRangeValue[0].getFullYear().toString()
-        + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
-        + '-0' + this.bsRangeValue[0].getDate().toString();
+    if (this.bsRangeValue[1].getMonth() < 9 && this.bsRangeValue[1].getDate() < 10) {
+      this.endDate = this.bsRangeValue[1].getFullYear().toString()
+        + '-0' + (this.bsRangeValue[1].getMonth() + 1).toString()
+        + '-0' + this.bsRangeValue[1].getDate().toString();
+    } else if (this.bsRangeValue[1].getMonth() < 9) {
+      this.endDate = this.bsRangeValue[1].getFullYear().toString()
+        + '-0' + (this.bsRangeValue[1].getMonth() + 1).toString()
+        + '-' + this.bsRangeValue[1].getDate().toString();
+    } else if (this.bsRangeValue[1].getDate() < 10) {
+      this.endDate = this.bsRangeValue[1].getFullYear().toString()
+        + '-' + (this.bsRangeValue[1].getMonth() + 1).toString()
+        + '-0' + this.bsRangeValue[1].getDate().toString();
     } else {
-      this.endDate = this.bsRangeValue[0].getFullYear().toString()
-        + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
-        + '-' + this.bsRangeValue[0].getDate().toString();
+      this.endDate = this.bsRangeValue[1].getFullYear().toString()
+        + '-' + (this.bsRangeValue[1].getMonth() + 1).toString()
+        + '-' + this.bsRangeValue[1].getDate().toString();
     }
+    console.log(this.startDate);
+    console.log(this.endDate);
     this.potentialCustomerService.searchCustomerStats(this.startDate, this.endDate).subscribe(value => {
       this.chart.destroy();
       this.check = false;

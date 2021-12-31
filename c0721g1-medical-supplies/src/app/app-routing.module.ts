@@ -9,16 +9,13 @@ import {TrendingSuppliesComponent} from "./stats/trending-supplies/trending-supp
 const routes: Routes = [
 
   {path: 'financial', component: FinancialComponent},
-  {path: 'finalcial/:checkSearch', component: FinancialComponent,
-  },
-
+  {path: 'finalcial/:checkSearch', component: FinancialComponent},
   {path: 'supplies-stats', component: SuppliesComponent},
   {path: 'potential-customer', component: PotentialCustomerComponent},
-  {
-    path: 'trending',
-    component: TrendingSuppliesComponent
-  }
-];
+  {path: 'trending', component: TrendingSuppliesComponent}
+
+
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

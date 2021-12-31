@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {SuppliesStatsService} from '../service/supplies-stats.service';
 import {SuppliesStats} from '../model/supplies-stats';
-import {FormControl, FormGroup} from "@angular/forms";
-import {PotentialCustomer} from "../model/potential-customer";
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-supplies',
@@ -11,7 +10,6 @@ import {PotentialCustomer} from "../model/potential-customer";
   styleUrls: ['./supplies.component.css']
 })
 export class SuppliesComponent implements OnInit {
-
   suppliesArr: SuppliesStats[];
   startDate: string;
   endDate: string;
@@ -22,7 +20,6 @@ export class SuppliesComponent implements OnInit {
   ctx: any;
   check = false;
   labels: [];
-
   constructor(private router: Router,
               private suppliesService: SuppliesStatsService) {
     this.suppliesService.getAll().subscribe(value => {
@@ -32,22 +29,18 @@ export class SuppliesComponent implements OnInit {
       this.maxDate.setDate(this.maxDate.getDate() + 7);
       this.bsRangeValue = [this.bsValue, this.maxDate];
     });
-
   }
-
   ngOnInit(): void {
-
+    AOS.init();
   }
-
-
   search() {
     //fromDate
     this.chart.destroy();
-    if (this.bsRangeValue[0].getMonth() < 10 && this.bsRangeValue[0].getDate() < 10) {
+    if (this.bsRangeValue[0].getMonth() < 9 && this.bsRangeValue[0].getDate() < 10) {
       this.startDate = this.bsRangeValue[0].getFullYear().toString()
         + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-0' + this.bsRangeValue[0].getDate().toString();
-    } else if (this.bsRangeValue[0].getMonth() < 10) {
+    } else if (this.bsRangeValue[0].getMonth() < 9) {
       this.startDate = this.bsRangeValue[0].getFullYear().toString()
         + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-' + this.bsRangeValue[0].getDate().toString();
@@ -63,22 +56,22 @@ export class SuppliesComponent implements OnInit {
     ;
 
     //endDate
-    if (this.bsRangeValue[0].getMonth() < 10 && this.bsRangeValue[0].getDate() < 10) {
-      this.endDate = this.bsRangeValue[0].getFullYear().toString()
-        + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
-        + '-0' + this.bsRangeValue[0].getDate().toString();
-    } else if (this.bsRangeValue[0].getMonth() < 10) {
-      this.endDate = this.bsRangeValue[0].getFullYear().toString()
-        + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
-        + '-' + this.bsRangeValue[0].getDate().toString();
-    } else if (this.bsRangeValue[0].getDate() < 10) {
-      this.endDate = this.bsRangeValue[0].getFullYear().toString()
-        + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
-        + '-0' + this.bsRangeValue[0].getDate().toString();
+    if (this.bsRangeValue[1].getMonth() < 9 && this.bsRangeValue[1].getDate() < 10) {
+      this.endDate = this.bsRangeValue[1].getFullYear().toString()
+        + '-0' + (this.bsRangeValue[1].getMonth() + 1).toString()
+        + '-0' + this.bsRangeValue[1].getDate().toString();
+    } else if (this.bsRangeValue[1].getMonth() < 9) {
+      this.endDate = this.bsRangeValue[1].getFullYear().toString()
+        + '-0' + (this.bsRangeValue[1].getMonth() + 1).toString()
+        + '-' + this.bsRangeValue[1].getDate().toString();
+    } else if (this.bsRangeValue[1].getDate() < 10) {
+      this.endDate = this.bsRangeValue[1].getFullYear().toString()
+        + '-' + (this.bsRangeValue[1].getMonth() + 1).toString()
+        + '-0' + this.bsRangeValue[1].getDate().toString();
     } else {
-      this.endDate = this.bsRangeValue[0].getFullYear().toString()
-        + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
-        + '-' + this.bsRangeValue[0].getDate().toString();
+      this.endDate = this.bsRangeValue[1].getFullYear().toString()
+        + '-' + (this.bsRangeValue[1].getMonth() + 1).toString()
+        + '-' + this.bsRangeValue[1].getDate().toString();
     }
 
     this.suppliesService.searchSuppliesStats(this.startDate, this.endDate).subscribe(
