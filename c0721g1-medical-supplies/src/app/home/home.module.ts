@@ -6,10 +6,12 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { ListSuppliesComponent } from './list-supplies/list-supplies.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { DetailSuppliesComponent } from './detail-supplies/detail-supplies.component';
+import { IntroduceComponent } from './introduce/introduce.component';
+import { CertificateComponent } from './certificate/certificate.component';
 
 
 @NgModule({
-  declarations: [HomepageComponent, ListSuppliesComponent, DetailSuppliesComponent],
+  declarations: [HomepageComponent, ListSuppliesComponent, DetailSuppliesComponent, IntroduceComponent, CertificateComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,

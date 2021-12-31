@@ -6,18 +6,13 @@
       </div>
       <div class="col-8" style="font-size: 20px">
         <h2 style="color: green"><strong>{{supplies.name}}</strong></h2>
-        <ul style="margin-left: 18px">
-          <li><b>Thanh nẹp mũi: </b><span>Nhựa PE</span></li>
-          <li><b>Dây đeo tai: </b><span>Polyester and Spandex</span></li>
-          <li><b>Kiểu dây đeo: </b><span>Vải dệt kim có tính đàn hồi</span></li>
-        </ul>
-
-        <span class="" style="font-size: 30px;color: dodgerblue">
-               <i class="fab fa-facebook-f icon" ></i>
-                <i style="margin-left: 10px" class="fab fa-twitter icon"></i>
-                <i style="margin-left: 10px" class="fab fa-google icon"></i>
-               <i style="margin-left: 10px" class="fas fa-envelope-square icon"></i>
-                <i style="margin-left: 10px" class="fab fa-linkedin-in icon"></i>
+        <p>{{supplies.introduce}}</p>
+        <span style="font-size: 30px;color: dodgerblue">
+              <a href="https://www.facebook.com"><i class="fab fa-facebook-f icon" ></i></a>
+          <a href="https://www.twitter.com"><i style="margin-left: 10px" class="fab fa-twitter icon"></i></a>
+          <a href="https://www.google.com"><i style="margin-left: 10px" class="fab fa-google icon"></i></a>
+          <a href="https://www.gmail.com"><i style="margin-left: 10px" class="fas fa-envelope-square icon"></i></a>
+          <a href="https://www.linkedin.com"><i style="margin-left: 10px" class="fab fa-linkedin-in icon"></i></a>
                 </span><br><br>
         <a (click)="addToCart()" class="btn btn-primary btn-block"
            style="text-decoration: none; font-size: 20px;display: inline"><i class="fas fa-cart-plus"></i>
@@ -41,28 +36,9 @@
     <div class="row" style="background-color: lightcyan; margin-top: 4px">
       <div class="col-12">
         <p style="font-size: 20px;font-weight: bold">* Giới thiệu:</p>
-        <p>Khẩu trang y tế có thiết kế hình chữ nhật với thanh nẹp mũi có thể điều chỉnh
-          và 2 dây đeo tai, mỗi phía 1 dây, được thế kế đảm bảo che kín mũi miệng.</p>
+        <p>{{supplies.introduce}}</p>
         <p style="font-size: 20px;font-weight: bold">* Thông tin kĩ thuật:</p>
-        <p style="font-weight: bold">- Kết cấu:</p>
-        <p style="font-weight: bold">- Khẩu trang 3 lớp:</p>
-        <p>+ Vật liệu bên ngoài: Vải không dệt PP</p>
-        <p>+ Lớp vi lọc: Vải lọc kháng khuẩn PP</p>
-        <p>+ Lớp trong: Vải không dệt PP</p>
-        <p style="font-weight: bold">- Khẩu trang 4 lớp:</p>
-        <p>+ Vật liệu bên ngoài: Vải không dệt PP</p>
-        <p>+ Lớp vi lọc: Vải lọc kháng khuẩn PP</p>
-        <p>+ Lớp giữa: Vải không dệt PP</p>
-        <p>+ Lớp trong: Vải không dệt PP</p>
-        <p style="font-weight: bold">- Thanh nẹp mũi: Nhựa PE</p>
-        <p style="font-weight: bold">- Dây đeo tai: Polyester and Spandex</p>
-        <p style="font-weight: bold">- Kiểu dây đeo: Vải dệt kim có tính đàn hồi</p>
-        <p style="font-weight: bold">- Kích thước:</p>
-        <p style="font-weight: bold">- Phần khẩu trang:</p>
-        <p>+ Dài: 175mm</p>
-        <p>+ Rộng: 95mm</p>
-        <p style="font-weight: bold">- Độ dài dây đeo: 165mm</p>
-        <p style="font-weight: bold">- Độ dài thanh nẹp mũi: 105mm</p>
+        <p>{{supplies.technicalInformation}}</p>
       </div>
     </div>
   </div>

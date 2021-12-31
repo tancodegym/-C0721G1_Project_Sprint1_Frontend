@@ -8,7 +8,7 @@ import {Position} from '../model/position';
 })
 export class PositionService {
   httpOptions: any;
-  private API_URL = 'http://localhost:8080/api/admin/position';
+  private API_URL = 'http://localhost:8080/api/user/position';
   constructor(private http: HttpClient) {
     this.httpOptions = {
       headers: new HttpHeaders({

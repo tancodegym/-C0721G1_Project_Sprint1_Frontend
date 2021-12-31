@@ -16,7 +16,7 @@
             <td><input type="text" class="form-control" formControlName="name">
               <div *ngIf="!name.valid && (name.dirty ||name.touched)">
                 <div style="color:red" [hidden]="!name.errors.required">Tên không được để trống</div>
-                <div style="color:red" [hidden]="!name.hasError('errorName')">Tên sai định dạng ( Ví dụ: Nguyễn Văn An)</div>
+                <div style="color:red" [hidden]="!name.hasError('errorName')">Họ và tên phải đúng định dạng (Không chứa chữ số)</div>
               </div>
             </td>
 
@@ -39,7 +39,7 @@
             <td><input  type="text" class="form-control" formControlName="phone">
               <div *ngIf="!phone.valid && (phone.dirty || phone.touched)">
                 <div style="color:red" [hidden]="!phone.errors.required">Số điện thoại không được để trống</div>
-                <div style="color:red" [hidden]="!phone.errors.pattern">Sai định dạng số điện thoại ( Ví dụ: 0905345789 )
+                <div style="color:red" [hidden]="!phone.errors.pattern">Số điện thoại phải đúng định dạng ( 10 chữ số)
                 </div>
               </div>
             </td>
@@ -49,8 +49,8 @@
             </td>
             <td><input type="text" class="form-control" formControlName="email">
               <div *ngIf="!email.valid && (email.dirty ||email.touched)">
-                <div style="color:red" [hidden]="!email.errors.required">Vui lòng nhập email</div>
-                <div style="color:red" [hidden]="!email.errors.pattern">Sai định dạng email ( Ví dụ: tandaica@gmail.com,...)</div>
+                <div style="color:red" [hidden]="!email.errors.required">Email không được để trống</div>
+                <div style="color:red" [hidden]="!email.errors.pattern">Sai định dạng email ( Ví dụ: abcxye@gmail.com,...)</div>
               </div>
             </td>
           </tr>
@@ -63,11 +63,11 @@
         <!--  button Quay lại giỏ hàng-->
         <button (click)="moveToCartPage()" type="button" class="btn btn-secondary btn-lg">Quay lại giỏ hàng</button>
         <!-- Button bật modal xác nhận đơn hàng -->
-        <button [disabled]="!customerForm.valid" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelId">
+        <button [disabled]="!customerForm.valid" style="margin-left: 10px" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelId">
           Thanh toán trực tiếp
         </button>
         <!--Button bật modal thanh toán online  -->
-        <button [disabled]="!customerForm.valid" type="button" class="btn btn-success btn-lg" (click)="checkPaypal()">Thanh toán online</button>
+        <button [disabled]="!customerForm.valid" style="margin-left: 10px" type="button" class="btn btn-success btn-lg" (click)="checkPaypal()">Thanh toán online</button>
       </form>
 
     </div>

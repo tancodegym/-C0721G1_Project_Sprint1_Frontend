@@ -25,4 +25,8 @@ export class UserService {
     // @ts-ignore
     return this.http.patch<any>(this.API_URL + 'change-password/' + id + '/' + oldPassword + '/' + newPassword);
   }
+
+  getAllUser(): Observable<any> {
+    return this.http.get<any>(this.API_URL + 'all-user');
+  }
 }

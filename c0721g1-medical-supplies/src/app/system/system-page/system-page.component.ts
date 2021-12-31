@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TokenStorageService} from '../../service/token-storage.service';
 
 @Component({
   selector: 'app-system-page',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SystemPageComponent implements OnInit {
 
-  constructor() { }
+  nameEmployee: string;
+  constructor(private tokenStorageService: TokenStorageService) {
+    if (this.tokenStorageService.getUser()) {
+      this.nameEmployee = this.tokenStorageService.getUser().employee.name;
+    }
+  }
 
   ngOnInit(): void {
   }

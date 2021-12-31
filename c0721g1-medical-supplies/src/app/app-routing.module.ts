@@ -1,5 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+import {IntroduceComponent} from './home/introduce/introduce.component';
+import {CertificateComponent} from './home/certificate/certificate.component';
 
 
 const routes: Routes = [
@@ -43,6 +45,14 @@ const routes: Routes = [
   {
     path: 'stats',
     loadChildren: () => import('./stats/stats.module').then(module => module.StatsModule)
+  },
+  {
+    path: 'introduce',
+    component: IntroduceComponent
+  },
+  {
+    path: 'certificate',
+    component: CertificateComponent
   }
 ];
 

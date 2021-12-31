@@ -6,6 +6,7 @@ import {Position} from '../../model/position';
 // @ts-ignore
 import {PageEmployeeDTO} from '../../dto/PageEmployeeDTO';
 import {Employee} from '../../model/employee';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-list',
@@ -25,7 +26,8 @@ export class ListComponent implements OnInit {
   pageEmployeeDTO: PageEmployeeDTO;
   errMessage: string;
   constructor(private employeeService: EmployeeService,
-              private positionService: PositionService) {
+              private positionService: PositionService,
+              private toastrService: ToastrService) {
     this.searchForm = new FormGroup({
         code: new FormControl(''),
         name: new FormControl(''),
@@ -77,6 +79,7 @@ export class ListComponent implements OnInit {
 
   deleteEmployee() {
     this.employeeService.deleteEmployee(this.idDelete).subscribe(value => {
+      this.toastrService.success('Xóa thành công');
       this.ngOnInit();
     });
   }

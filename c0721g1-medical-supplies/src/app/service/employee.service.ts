@@ -56,4 +56,12 @@ export class EmployeeService {
   findByIdByUser(id: number) {
     return this.http.get(this.API_URL + '/user/employee/detail/' + id, this.httpOptions);
   }
+
+  findByIdEmployeeDetail(id: number): Observable<any> {
+    return this.http.get<Employee>(this.API_URL + '/user/employee/edit-detail/' + id, this.httpOptions);
+  }
+
+  updateEmployeeDetail(id: number, employee: Employee): Observable<any> {
+    return this.http.patch<void>(this.API_URL + '/user/employee/edit-detail/update/' + id, employee, this.httpOptions);
+  }
 }

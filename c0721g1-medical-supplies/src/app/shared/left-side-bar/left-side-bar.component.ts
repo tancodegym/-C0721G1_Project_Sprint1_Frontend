@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {TokenStorageService} from '../../service/token-storage.service';
 
 @Component({
   selector: 'app-left-side-bar',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeftSideBarComponent implements OnInit {
 
-  constructor() { }
+  id: number;
+
+  constructor(private tokenStorageService: TokenStorageService) {
+    this.id = this.tokenStorageService.getUser().employee.id;
+  }
 
   ngOnInit(): void {
   }

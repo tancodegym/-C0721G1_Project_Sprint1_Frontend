@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {EmployeeService} from '../../service/employee.service';
 import {PositionService} from '../../service/position.service';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
@@ -16,7 +16,6 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
-  employeeCode: Employee;
   employee: Employee;
   positionList: Position[];
   public errorDB = [];
@@ -29,16 +28,17 @@ export class CreateComponent implements OnInit {
               private router: Router,
               private employeeService: EmployeeService,
               private positionService: PositionService,
-              private toastrService: ToastrService,
               @Inject(AngularFireStorage) private storage: AngularFireStorage,
-  ) {
+              private toastrService: ToastrService) {
   }
 
   employeeForm: FormGroup = new FormGroup({
     id: new FormControl(),
     code: new FormControl(),
-    name: new FormControl('', Validators.compose([Validators.required])),
-    birthday: new FormControl('', Validators.compose([Validators.required])),
+    // tslint:disable-next-line:max-line-length
+    name: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$'),
+      Validators.minLength(2), Validators.maxLength(30)])),
+    birthday: new FormControl('', Validators.compose([Validators.required, this.checkDateOfBirth])),
     image: new FormControl(),
     address: new FormControl('', Validators.compose([Validators.required])),
     phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^((090)|(091))[\\d]{7}$')])),
@@ -53,14 +53,8 @@ export class CreateComponent implements OnInit {
       this.positionList = next;
       // tslint:disable-next-line:no-shadowed-variable
       this.employeeService.getCode().subscribe(next => {
-        this.employeeCode = next;
-        if (this.employeeCode == null) {
-          this.codeB = 'MNV-' + 1;
-        } else {
-          const a = this.employeeCode.id + 1;
-          this.codeB = 'MNV-' + a;
-        }
-        console.log(this.codeB);
+        this.employee = next;
+        this.codeB = this.employee.code;
       });
     });
   }
@@ -87,9 +81,9 @@ export class CreateComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             this.employeeForm.patchValue({image: url + ''});
             this.employeeService.createEmployee(this.employeeForm.value).subscribe(() => {
+              this.checkerr = true;
               this.router.navigateByUrl('employee/list');
               this.toastrService.success('Thêm mới thành công');
-              this.checkerr = true;
             }, error => {
               this.checkerr = false;
               this.handleError(error);
@@ -100,8 +94,8 @@ export class CreateComponent implements OnInit {
     } else {
       this.employeeService.createEmployee(this.employeeForm.value).subscribe(() => {
         this.router.navigateByUrl('employee/list');
-        this.checkerr = true;
         this.toastrService.success('Thêm mới thành công');
+        this.checkerr = true;
         }, error => {
           this.checkerr = false;
           this.handleError(error);
@@ -112,13 +106,14 @@ export class CreateComponent implements OnInit {
 
   handleError(code) {
     this.errorDB = code.error;
-    // console.log(this.errorDB[0].defaultMessage);
-    // console.log(this.errorDB[1].defaultMessage);
-    // console.log(code.status);
-    // console.log(code.error);
-    // console.log(code.message);
   }
-
+  checkDateOfBirth(control: AbstractControl) {
+    const dateOfBirth = new Date(control.value);
+    if (new Date().getFullYear() - dateOfBirth.getFullYear() < 18 || new Date().getFullYear() - dateOfBirth.getFullYear() > 60) {
+      return {checkAge : true};
+    }
+    return null;
+  }
   get code() {
     return this.employeeForm.get('code');
   }

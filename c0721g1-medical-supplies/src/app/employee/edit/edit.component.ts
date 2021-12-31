@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {EmployeeService} from '../../service/employee.service';
 import {PositionService} from '../../service/position.service';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
@@ -16,15 +16,13 @@ import {Position} from '../../model/position';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
-
   constructor(private http: HttpClient,
               private router: Router,
               private employeeService: EmployeeService,
               private positionService: PositionService,
               private activeRouter: ActivatedRoute,
-              private toastrService: ToastrService,
-              @Inject(AngularFireStorage) private storage: AngularFireStorage
-  ) {
+              @Inject(AngularFireStorage) private storage: AngularFireStorage,
+              private toastrService: ToastrService) {
   }
 
   // tslint:disable-next-line:ban-types
@@ -35,23 +33,25 @@ export class EditComponent implements OnInit {
   checkerr: Boolean;
   selectedImage: any = null;
   urlImg = 'https://i.imgur.com/7Vtlcpx.png';
-  employeeForm = new FormGroup({
+  employeeForm: FormGroup = new FormGroup({
     id: new FormControl(),
     code: new FormControl(),
-    name: new FormControl('', Validators.compose([Validators.required])),
-    birthday: new FormControl('', Validators.compose([Validators.required])),
+    // tslint:disable-next-line:max-line-length
+    name: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$'), Validators.maxLength(40)])),
+    birthday: new FormControl('', Validators.compose([Validators.required, this.checkDateOfBirth])),
     image: new FormControl(''),
     address: new FormControl('', Validators.compose([Validators.required])),
     phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^((090)|(091))[\\d]{7}$')])),
     gender: new FormControl('', Validators.compose([Validators.required])),
-    position: new FormControl('', Validators.compose([Validators.required]))
+    position: new FormControl('', Validators.compose([Validators.required])),
+    user: new FormControl()
   });
+
   ngOnInit(): void {
     this.positionService.getListPosition().subscribe(next => {
       this.positionList = next;
       this.activeRouter.paramMap.subscribe(paramMap => {
         const idEmp = +paramMap.get('id');
-        // tslint:disable-next-line:no-shadowed-variable
         this.employeeService.findById(idEmp).subscribe(next => {
           this.employee = next;
           if (this.employee.image !== null) {
@@ -63,6 +63,7 @@ export class EditComponent implements OnInit {
     });
   }
 
+
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');
   }
@@ -73,7 +74,6 @@ export class EditComponent implements OnInit {
 
   submit() {
     // upload image to firebase
-    console.log(this.selectedImage);
     if (this.selectedImage != null) {
       const nameImg = this.getCurrentDateTime() + this.selectedImage;
       const fileRef = this.storage.ref(nameImg);
@@ -105,15 +105,20 @@ export class EditComponent implements OnInit {
       });
     }
   }
+
   handleError(code) {
     this.errorDB = code.error;
-    // console.log(this.errorDB[0].defaultMessage);
-    // console.log(this.errorDB[1].defaultMessage);
-    // console.log(code.status);
-    // console.log(code.error);
-    // console.log(code.message);
   }
-  compareSuppliesType(c1: Position, c2: Position): boolean {
+
+  checkDateOfBirth(control: AbstractControl) {
+    const dateOfBirth = new Date(control.value);
+    if (new Date().getFullYear() - dateOfBirth.getFullYear() < 18 || new Date().getFullYear() - dateOfBirth.getFullYear() > 60) {
+      return {checkAge: true};
+    }
+    return null;
+  }
+
+  comparePosition(c1: Position, c2: Position): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
@@ -148,5 +153,4 @@ export class EditComponent implements OnInit {
   get image() {
     return this.employeeForm.get('image');
   }
-
 }

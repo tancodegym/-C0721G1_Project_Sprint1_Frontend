@@ -24,15 +24,16 @@ export class CreateComponent implements OnInit {
   producers: Producer[] = [];
   suppliesTypes: SuppliesType[] = [];
   selectedImage: any = null;
-  codeSp: string;
-  public errorDB = [];
+  public errorDatabase = [];
   // tslint:disable-next-line:ban-types
-  checkerr: Boolean;
+  checkError: Boolean;
+  newCode: string;
   // @ts-ignore
   suppliesForm: FormGroup = new FormGroup({
       code: new FormControl(''),
       name: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required]),
+      price: new FormControl('', [Validators.required,
+        Validators.pattern('^[0-9]+$'), Validators.min(0)]),
       producer: new FormControl('', [Validators.required]),
       suppliesType: new FormControl('', [Validators.required]),
       // tslint:disable-next-line:max-line-length
@@ -41,7 +42,7 @@ export class CreateComponent implements OnInit {
       expiryDate: new FormControl('', [Validators.required, Validators.pattern('^(?:19\\d{2}|20\\d{2})[-/.](?:0[1-9]|1[012])[-/.](?:0[1-9]|[12][0-9]|3[01])$')]),
       introduce: new FormControl('', [Validators.required]),
       technicalInformation: new FormControl('', [Validators.required]),
-      image: new FormControl(''),
+      image: new FormControl(),
     }
   );
 
@@ -59,8 +60,7 @@ export class CreateComponent implements OnInit {
     this.getAllSuppliesType();
     this.suppliesService.getCode().subscribe(data => {
       this.supplies = data;
-      const a = this.supplies.id + 1;
-      this.codeSp = 'MVT-' + a;
+      this.newCode = this.supplies.code;
     });
   }
 
@@ -83,7 +83,6 @@ export class CreateComponent implements OnInit {
   submit() {
     // upload image to firebase
     this.supplies = this.suppliesForm.value;
-    console.log(this.selectedImage);
     if (this.selectedImage != null) {
       const nameImg = this.getCurrentDateTime() + this.selectedImage;
       const fileRef = this.storage.ref(nameImg);
@@ -95,10 +94,10 @@ export class CreateComponent implements OnInit {
             this.suppliesForm.patchValue({image: url + ''});
             this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
               this.router.navigateByUrl('supplies/list');
-              this.checkerr = true;
               this.t.success('Thêm mới thành công');
+              this.checkError = true;
             }, error => {
-              this.checkerr = false;
+              this.checkError = false;
               this.handleError(error);
             });
           });
@@ -106,19 +105,20 @@ export class CreateComponent implements OnInit {
       ).subscribe();
     } else {
       this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
-        this.router.navigateByUrl('supplies/list');
-        this.checkerr = true;
-        this.t.success('Thêm mới thành công');
+          this.router.navigateByUrl('supplies/list');
+          this.t.success('Thêm mới thành công');
+          this.checkError = true;
         }, error => {
-          this.checkerr = false;
+          this.checkError = false;
           this.handleError(error);
+          console.log(error);
         }
       );
     }
   }
 
   handleError(code) {
-    this.errorDB = code.error;
+    this.errorDatabase = code.error;
   }
 
   getCurrentDateTime(): string {

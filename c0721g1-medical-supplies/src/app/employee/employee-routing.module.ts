@@ -7,6 +7,7 @@ import {EditComponent} from './edit/edit.component';
 import {DetailComponent} from './detail/detail.component';
 import {AuthGuard} from '../security/auth.guard';
 import {ChangePasswordComponent} from './change-password/change-password.component';
+import {DetailEditComponent} from './detail-edit/detail-edit.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,12 @@ const routes: Routes = [
   {
     path: 'change-password/:id',
     component: ChangePasswordComponent,
+    canActivate: [AuthGuard],
+    data: {expectedRole: ['ROLE_USER']}
+  },
+  {
+    path: 'detail-edit/:id',
+    component: DetailEditComponent,
     canActivate: [AuthGuard],
     data: {expectedRole: ['ROLE_USER']}
   }

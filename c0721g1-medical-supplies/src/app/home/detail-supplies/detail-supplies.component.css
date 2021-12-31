@@ -1,0 +1,5 @@
+.icon:hover{
+  background: linear-gradient(to right, orangered, blue,purple);
+  color: yellow;
+  transition: 0.7s;
+}

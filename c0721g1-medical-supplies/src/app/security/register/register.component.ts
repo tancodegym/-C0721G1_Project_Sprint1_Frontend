@@ -16,8 +16,8 @@ Creator: PhuocPD
 export class RegisterComponent implements OnInit {
 
   registerForm = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){2,8}[a-zA-Z0-9]$')]),
-    password: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]{3,10}$')]),
+    username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(10), Validators.pattern('^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){2,8}[a-zA-Z0-9]$')]),
+    password: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10), Validators.pattern('^[a-zA-Z0-9]{3,10}$')]),
     role: new FormControl('', [Validators.required])
   });
   validateUsernameMessage = '';

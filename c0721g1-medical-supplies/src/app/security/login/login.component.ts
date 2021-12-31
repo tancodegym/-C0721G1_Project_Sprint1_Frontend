@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../service/auth.service';
 import {TokenStorageService} from '../../service/token-storage.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -16,7 +16,13 @@ Creator: PhuocPD
 })
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup;
+  loginForm = new FormGroup({
+    // tslint:disable-next-line:max-line-length
+    username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(10), Validators.pattern('^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){2,8}[a-zA-Z0-9]$')]),
+    // tslint:disable-next-line:max-line-length
+    password: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10), Validators.pattern('^[a-zA-Z0-9]{3,10}$')]),
+    rememberMe: new FormControl('')
+  });
   username: string;
   successMessage = '';
   roles: string[] = [];
@@ -34,11 +40,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl;
-    this.loginForm = this.formBuilder.group({
-      username: [''],
-      password: [''],
-      rememberMe: ['']
-    });
     if (this.tokenStorageService.getToken()) {
       const user = this.tokenStorageService.getUser();
       this.authService.isLoggedIn = true;
@@ -72,5 +73,4 @@ export class LoginComponent implements OnInit {
       this.authService.isLoggedIn = false;
     });
   }
-
 }

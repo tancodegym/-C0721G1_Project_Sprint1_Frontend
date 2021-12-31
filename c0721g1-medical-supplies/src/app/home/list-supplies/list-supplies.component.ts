@@ -13,6 +13,7 @@ export class ListSuppliesComponent implements OnInit {
   suppliesList: Supplies[] = [];
   page = 0;
   totalPage: number;
+  errMessage: string;
 
   constructor(private suppliesService: SuppliesService,
               private router: Router) {
@@ -23,6 +24,9 @@ export class ListSuppliesComponent implements OnInit {
       console.log(value);
       this.suppliesList = value.content;
       this.totalPage = value.totalPages;
+    }, error => {
+      this.suppliesList = [];
+      this.errMessage = 'KHÔNG CÓ DỮ LIỆU SẢN PHẨM ĐƯỢC CẬP NHẬP!';
     });
     this.getSuppliesList();
     AOS.init({
