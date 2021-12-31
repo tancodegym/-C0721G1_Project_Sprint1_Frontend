@@ -31,6 +31,8 @@
                         <div *ngIf="!name.valid && (name.dirty || name.touched)">
                           <div style="color: red" [hidden]="!name.errors.required">Trường này không được để trống</div>
                           <div style="color: red" [hidden]="!name.errors.pattern">Tên có chứa kí tự số hoặc kí tự đặc biệt</div>
+                          <div style="color: red" [hidden]="!name.errors.minlength">Tên tối thiểu có 2 kí tự</div>
+                          <div style="color: red" [hidden]="!name.errors.maxlength">Tên tối đa chứa 30 kí tự</div>
                         </div>
                         <div *ngIf="!checkerr">
                           <div style="color: red" *ngFor="let s of errorDB">
