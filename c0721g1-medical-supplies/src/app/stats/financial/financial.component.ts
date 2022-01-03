@@ -3,7 +3,6 @@ import {FinancialStats} from '../model/financial-stats';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {FinancialService} from '../service/financial.service';
 import {StatsService} from "../../service/stats.service";
-import * as AOS from 'aos';
 
 @Component({
   selector: 'app-financial',
@@ -130,11 +129,11 @@ export class FinancialComponent implements OnInit {
 
 // search cua binh
   search() {
-    if (this.bsValue.getMonth() < 10 && this.bsValue.getDate() < 10) {
+    if (this.bsValue.getMonth() < 9 && this.bsValue.getDate() < 10) {
       this.date = this.bsValue.getFullYear().toString()
         + '-0' + (this.bsValue.getMonth() + 1).toString()
         + '-0' + this.bsValue.getDate().toString();
-    } else if (this.bsValue.getMonth() < 10) {
+    } else if (this.bsValue.getMonth() < 9) {
       this.date = this.bsValue.getFullYear().toString()
         + '-0' + (this.bsValue.getMonth() + 1).toString()
         + '-' + this.bsValue.getDate().toString();
@@ -211,8 +210,6 @@ export class FinancialComponent implements OnInit {
   // }
 
   ngOnInit(): void {
-    AOS.init({
-      duration: 1200,
-    })
+
   }
 }

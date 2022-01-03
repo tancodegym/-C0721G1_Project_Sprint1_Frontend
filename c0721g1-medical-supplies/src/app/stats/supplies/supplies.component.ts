@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {SuppliesStatsService} from '../service/supplies-stats.service';
 import {SuppliesStats} from '../model/supplies-stats';
-import * as AOS from 'aos';
 
 @Component({
   selector: 'app-supplies',
@@ -31,7 +30,6 @@ export class SuppliesComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    AOS.init();
   }
   search() {
     //fromDate
