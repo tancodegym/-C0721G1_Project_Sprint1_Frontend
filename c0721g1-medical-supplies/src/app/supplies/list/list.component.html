@@ -1,5 +1,5 @@
 <div class="container-fluid"
-     style="background-image: url(https://hoaidoan.vn/wp-content/uploads/2021/03/background-dep-5.png); background-size: cover">
+     style="background-image: url(https://hoaidoan.vn/wp-content/uploads/2021/03/background-dep-5.png); background-size: cover; padding: 0">
   <div class="row">
     <div class="col-lg-2">
       <app-left-side-bar></app-left-side-bar>
@@ -7,7 +7,9 @@
     <div class="col-lg-10">
       <nav class="navbar navbar-light">
         <a class="btn">
-          <button class="btn btn-success " style="background: #058af0" routerLink="/supplies/create">Thêm mới vật tư Y Tế</button>
+          <button class="btn btn-success " style="background: #058af0" routerLink="/supplies/create">Thêm mới vật tư Y
+            Tế
+          </button>
         </a>
         <form class="form-inline" [formGroup]="searchForm">
           <input class="form-control mr-sm-2" type="search" placeholder="Mã vật tư"
@@ -25,16 +27,16 @@
       </nav>
       <h2 style="text-align: center">Thông tin vật tư</h2>
 
-      <table class="table table-hover table-striped" >
+      <table class="table table-hover table-striped">
         <thead>
-        <tr class="table-primary" style="text-align: center">
+        <tr class="table-primary text-center">
           <th>#</th>
           <th>Mã vật tư</th>
           <th>Tên vật tư</th>
           <th>Loại vật tư</th>
           <th>Giá thành</th>
-          <th>Hạn sử dụng</th>
           <th>Ngày sản xuất</th>
+          <th>Hạn sử dụng</th>
           <th>Nhà cung cấp</th>
           <th>Trạng thái</th>
           <th>Sửa</th>
@@ -42,14 +44,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let sup of suppliesList index as i">
+        <tr *ngFor="let sup of suppliesList index as i" class="text-center">
           <td>{{i + 1}}</td>
           <td>{{sup.code}}</td>
           <td>{{sup.name}}</td>
           <td>{{sup.suppliesType.name}}</td>
           <td>{{sup.price}}</td>
-          <td>{{sup.expiry_date}}</td>
-          <td>{{sup.production_date}}</td>
+          <td>{{sup.production_date | date: 'dd-MM-yyyy'}}</td>
+          <td>{{sup.expiry_date | date: 'dd-MM-yyyy'}}</td>
           <td>{{sup.producer.name}}</td>
           <td>
             <button style="width: 100%" class=" btn-edit btn btn-warning " *ngIf="sup.status==1">VT mới
@@ -58,7 +60,8 @@
             </button>
           </td>
           <td style="text-align: center">
-            <button class=" btn-edit btn " style=" background: #058af0" [routerLink]="['/supplies/edit', sup.id]"><i class="far fa-edit"></i>
+            <button class=" btn-edit btn " style=" background: #058af0" [routerLink]="['/supplies/edit', sup.id]"><i
+              class="far fa-edit"></i>
             </button>
           </td>
           <td style="text-align: center">
@@ -91,7 +94,7 @@
       <!--    </div>-->
 
       <div style="text-align: center ; margin: 10px 0px 10px 0px ">
-        <button class=" btn btn-secondary" style="text-align: center" routerLink="/system">Quay về</button>
+        <button class=" btn btn-secondary" style="text-align: center" routerLink="/system">Quay lại</button>
       </div>
 
     </div>
@@ -111,9 +114,8 @@
           Bạn có muốn xoá vật tư có mã vật tư là {{idDel}} này?
         </div>
         <div class="modal-footer">
+          <button (click)="deleteSupplies()" data-dismiss="modal" type="button" class="btn btn-danger mr-lg-3">Xoá</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-          <button (click)="deleteSupplies()" data-dismiss="modal" type="button" class="btn btn-danger">Xoá
-          </button>
         </div>
       </div>
     </div>

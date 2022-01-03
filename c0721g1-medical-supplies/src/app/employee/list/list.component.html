@@ -1,5 +1,5 @@
 <div class="container-fluid"
-     style="background-image: url(https://hoaidoan.vn/wp-content/uploads/2021/03/background-dep-5.png); background-size: cover">
+     style="background-image: url(https://hoaidoan.vn/wp-content/uploads/2021/03/background-dep-5.png); background-size: cover; padding: 0">
   <div class="row">
     <div class="col-lg-2">
       <app-left-side-bar></app-left-side-bar>
@@ -28,7 +28,7 @@
 
       <table class="table table-hover table-striped">
         <thead>
-        <tr class="table-primary" style="text-align: center">
+        <tr class="table-primary text-center">
           <th scope="col">#</th>
           <th scope="col">Mã nhân viên</th>
           <th scope="col">Họ tên</th>
@@ -44,11 +44,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let emp of employeeList index as i">
+        <tr *ngFor="let emp of employeeList index as i" class="text-center">
           <td>{{i + 1}}</td>
           <td>{{emp.code}}</td>
           <td>{{emp.name}}</td>
-          <td>{{emp.birthday}}</td>
+          <td>{{emp.birthday | date: 'dd-MM-yyyy'}}</td>
           <td *ngIf="emp.gender==1">Nam</td>
           <td *ngIf="emp.gender==0">Nữ</td>
           <td>{{emp.address}}</td>
@@ -56,7 +56,7 @@
           <td><p *ngIf="emp.user">{{emp.user.username}}</p></td>
           <td>{{emp.position.name}}</td>
           <td style="text-align: center">
-            <button class=" btn-edit btn " style="background: #058af0"><i
+            <button class=" btn-edit btn " style="background: #058af0" routerLink="/employee/detail/{{emp.id}}"><i
               class="fas fa-info-circle"></i>
             </button>
           </td>
@@ -119,8 +119,8 @@
           Bạn có muốn xóa nhân viên {{nameDelete}}, có mã nhân viên là {{codeDelete}} không?
         </div>
         <div class="modal-footer">
+          <button data-dismiss="modal" type="button" class="btn btn-danger mr-lg-3" (click)="deleteEmployee()">Xoá</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-          <button data-dismiss="modal" type="button" class="btn btn-danger" (click)="deleteEmployee()">Xoá</button>
         </div>
       </div>
     </div>

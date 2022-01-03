@@ -22,10 +22,10 @@ import {Supplies} from '../../model/supplies';
 export class EditComponent implements OnInit {
 
   suppliesEditForm: FormGroup = new FormGroup({
-      id: new FormControl(),
-      code: new FormControl(),
+      id: new FormControl(''),
+      code: new FormControl(''),
       name: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required, Validators.min(1000)]),
+      price: new FormControl('', [Validators.required, Validators.min(0)]),
       producer: new FormControl('', [Validators.required]),
       suppliesType: new FormControl('', [Validators.required]),
       // tslint:disable-next-line:max-line-length
@@ -87,7 +87,6 @@ export class EditComponent implements OnInit {
 
   editSupplies() {
     // upload image to firebase
-    console.log(this.selectedImage);
     if (this.selectedImage != null) {
       const nameImg = this.getCurrentDateTime() + this.selectedImage;
       const fileRef = this.storage.ref(nameImg);
@@ -98,7 +97,8 @@ export class EditComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             this.suppliesEditForm.patchValue({image: url + ''});
             this.suppliesService.update(this.suppliesEditForm.value).subscribe(() => {
-              this.router.navigateByUrl('supplies/list').then(r => this.t.success('Cập nhật thành công'));
+              // tslint:disable-next-line:max-line-length
+              this.router.navigateByUrl('supplies/list').then(r => this.t.success('Cập nhật thông tin vật tư thành công', 'Tin nhắn từ hệ thống'));
             }, error => {
               console.log(error);
             });
@@ -107,7 +107,8 @@ export class EditComponent implements OnInit {
       ).subscribe();
     } else {
       this.suppliesService.update(this.suppliesEditForm.value).subscribe(() => {
-        this.router.navigateByUrl('/supplies/list').then(r => this.t.success('Cập nhật thành công'));
+        // tslint:disable-next-line:max-line-length
+        this.router.navigateByUrl('/supplies/list').then(r => this.t.success('Cập nhật thông tin vật tư thành công', 'Tin nhắn từ hệ thống'));
       }, error => {
         console.log(error.error);
       });

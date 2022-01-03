@@ -60,14 +60,14 @@
           </tr>
         </table>
         <h4>Tổng tiền:<span>{{total}}</span></h4>
-        <!--  button Quay lại giỏ hàng-->
-        <button (click)="moveToCartPage()" type="button" class="btn btn-secondary btn-lg">Quay lại giỏ hàng</button>
         <!-- Button bật modal xác nhận đơn hàng -->
-        <button [disabled]="!customerForm.valid" style="margin-left: 10px" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelId">
+        <button [disabled]="!customerForm.valid" style="margin-left: 10px" type="button" class="btn btn-primary mr-lg-3" data-toggle="modal" data-target="#modelId">
           Thanh toán trực tiếp
         </button>
         <!--Button bật modal thanh toán online  -->
-        <button [disabled]="!customerForm.valid" style="margin-left: 10px" type="button" class="btn btn-success btn-lg" (click)="checkPaypal()">Thanh toán online</button>
+        <button [disabled]="!customerForm.valid" style="margin-left: 10px" type="button" class="btn btn-primary mr-lg-3" (click)="checkPaypal()">Thanh toán online</button>
+        <!--  button Quay lại giỏ hàng-->
+        <button (click)="moveToCartPage()" type="button" class="btn btn-secondary">Quay lại giỏ hàng</button>
       </form>
 
     </div>
@@ -89,8 +89,8 @@
         Đơn hàng của bạn tổng cộng là {{total}} VNĐ, bạn có muốn đặt đơn hàng này không ?
       </div>
       <div class="modal-footer">
+        <button data-dismiss="modal" type="button" (click)="payment()" class="btn btn-success mr-lg-3">Thanh toán</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-        <button data-dismiss="modal" type="button" (click)="payment()" class="btn btn-success">Thanh toán</button>
       </div>
     </div>
   </div>

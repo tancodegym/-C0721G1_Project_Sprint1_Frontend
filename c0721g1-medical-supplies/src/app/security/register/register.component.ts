@@ -16,7 +16,9 @@ Creator: PhuocPD
 export class RegisterComponent implements OnInit {
 
   registerForm = new FormGroup({
+    // tslint:disable-next-line:max-line-length
     username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(10), Validators.pattern('^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){2,8}[a-zA-Z0-9]$')]),
+    // tslint:disable-next-line:max-line-length
     password: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10), Validators.pattern('^[a-zA-Z0-9]{3,10}$')]),
     role: new FormControl('', [Validators.required])
   });
@@ -44,9 +46,10 @@ export class RegisterComponent implements OnInit {
   checkCode() {
     this.authService.getRegister(this.codeInput).subscribe(value => {
       if (value === 1) {
-        this.toastrService.warning('Mã nhân viên không tồn tại.');
+        this.toastrService.warning('Mã nhân viên không tồn tại', 'Tin nhắn từ hệ thống');
       } else if (value === 2) {
-        this.toastrService.info('Mã nhân viên đã tồn tại nhưng chưa có tài khoản. Vui lòng tạo tài khoản cho mã nhân viên này.');
+        // tslint:disable-next-line:max-line-length
+        this.toastrService.info('Mã nhân viên tồn tại nhưng hiện tại chưa có tài khoản. Vui lòng tạo tài khoản cho mã nhân viên này', 'Tin nhắn từ hệ thống');
         this.formStatus = true;
         this.buttonRegisterStatus = true;
         this.buttonCheckStatus = false;
@@ -65,7 +68,7 @@ export class RegisterComponent implements OnInit {
 
   register(): void {
     this.authService.register(this.registerForm.value, this.codeInput).subscribe(value => {
-      this.toastrService.success(value.message);
+      this.toastrService.success(value.message, 'Tin nhắn từ hệ thống');
       this.router.navigateByUrl('/system');
     }, error => {
       this.validateUsernameExistMessage = error.error;
@@ -76,7 +79,7 @@ export class RegisterComponent implements OnInit {
 
   update(): void {
     this.authService.editRegister(this.registerForm.value, this.codeInput).subscribe(value => {
-      this.toastrService.success(value.message);
+      this.toastrService.success(value.message, 'Tin nhắn từ hệ thống');
       this.router.navigateByUrl('/system');
     }, error => {
       this.validatePasswordMessage = error.error.password;

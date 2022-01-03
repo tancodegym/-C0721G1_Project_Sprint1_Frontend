@@ -91,7 +91,7 @@ export class ListComponent implements OnInit {
 
   deleteSupplies() {
     this.suppliesService.deleteSupplies(this.idDel).subscribe(value => {
-      this.toastrService.success('Đã xóa thành công');
+      this.toastrService.success('Xóa thông tin vật tư thành công', 'Tin nhắn từ hệ thống');
       this.ngOnInit();
     });
   }

@@ -25,7 +25,7 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     ToastrModule.forRoot({
-      timeOut: 1000,
+      timeOut: 2000,
       closeButton: true,
       progressBar: true,
       progressAnimation: 'increasing'

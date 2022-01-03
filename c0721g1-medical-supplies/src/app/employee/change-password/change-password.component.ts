@@ -63,8 +63,8 @@ export class ChangePasswordComponent implements OnInit {
       if (value === 1) {
         this.errorMessage = 'Mật khẩu mới không được giống mật khẩu cũ';
       } else {
-        this.router.navigateByUrl('system');
-        this.toastrService.success('Cập nhật mật khẩu thành công');
+        this.router.navigateByUrl('/system');
+        this.toastrService.success('Cập nhật mật khẩu thành công', 'Tin nhắn từ hệ thống');
       }
     }, error => {
     });

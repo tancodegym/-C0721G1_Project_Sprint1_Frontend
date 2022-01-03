@@ -79,7 +79,7 @@ export class ListComponent implements OnInit {
 
   deleteEmployee() {
     this.employeeService.deleteEmployee(this.idDelete).subscribe(value => {
-      this.toastrService.success('Xóa thành công');
+      this.toastrService.success('Xóa thông tin nhân viên thành công', 'Tin nhắn từ hệ thống');
       this.ngOnInit();
     });
   }

@@ -96,14 +96,14 @@ export class PaymentComponent implements OnInit {
             localStorage.clear();
             this.router.navigateByUrl('/home');
             // tslint:disable-next-line:no-unused-expression
-            this.toastrService.success('Bạn đã đặt hàng thành công, vui lòng kiểm tra email');
+            this.toastrService.success('Bạn đã đặt hàng thành công, vui lòng kiểm tra email', 'Tin nhắn từ hệ thống');
           },
           error => {
           }
         );
         this.router.navigateByUrl('/home/list');
         localStorage.clear();
-        this.toastrService.success('Bạn đã thanh toán thành công, vui lòng kiểm tra email');
+        this.toastrService.success('Bạn đã thanh toán thành công, vui lòng kiểm tra email', 'Tin nhắn từ hệ thống');
       },
       onError: err => {
       }
@@ -123,7 +123,7 @@ export class PaymentComponent implements OnInit {
         localStorage.clear();
         this.router.navigateByUrl('/home');
         // tslint:disable-next-line:no-unused-expression
-        this.toastrService.success('Bạn đã đặt hàng thành công, vui lòng kiểm tra email');
+        this.toastrService.success('Bạn đã đặt hàng thành công, vui lòng kiểm tra email', 'Tin nhắn từ hệ thống');
       },
       error => {
       }
@@ -131,7 +131,7 @@ export class PaymentComponent implements OnInit {
   }
 
   clickTC() {
-    this.toastrService.success('Bạn đã thanh toán thành công, vui lòng kiểm tra email');
+    this.toastrService.success('Bạn đã thanh toán thành công, vui lòng kiểm tra email', 'Tin nhắn từ hệ thống');
   }
 
   moveHomePage() {

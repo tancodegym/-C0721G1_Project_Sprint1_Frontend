@@ -94,7 +94,7 @@ export class CreateComponent implements OnInit {
             this.suppliesForm.patchValue({image: url + ''});
             this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
               this.router.navigateByUrl('supplies/list');
-              this.t.success('Thêm mới thành công');
+              this.t.success('Thêm mới thông tin vật tư thành công', 'Tin nhắn từ hệ thống');
               this.checkError = true;
             }, error => {
               this.checkError = false;
@@ -106,7 +106,7 @@ export class CreateComponent implements OnInit {
     } else {
       this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
           this.router.navigateByUrl('supplies/list');
-          this.t.success('Thêm mới thành công');
+          this.t.success('Thêm mới thông tin vật tư thành công', 'Tin nhắn từ hệ thống');
           this.checkError = true;
         }, error => {
           this.checkError = false;

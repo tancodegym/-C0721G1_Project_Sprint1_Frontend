@@ -1,5 +1,5 @@
 <div class="container-fluid"
-     style="background-image: url(https://hoaidoan.vn/wp-content/uploads/2021/03/background-dep-5.png); background-size: cover">
+     style="background-image: url(https://hoaidoan.vn/wp-content/uploads/2021/03/background-dep-5.png); background-size: cover; padding: 0">
   <div class="row">
     <div class="col-lg-2">
       <app-left-side-bar></app-left-side-bar>
@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-8">
-          <h2 class="text-center mt-4">Thêm mới nhân viên</h2>
+          <h2 class="text-center mt-4">Cập nhật nhân viên</h2>
           <form [formGroup]="employeeForm" (ngSubmit)="submit()">
             <div class="form-group row mb-3">
               <label class="col-lg-3 col-form-label" for="ma-nhan-vien">Mã nhân viên</label>
@@ -141,8 +141,7 @@
             <div class="form-group row mb-3">
               <div class="col-lg-3"></div>
               <div class="col-lg-9">
-                <button type="submit" class="btn btn-primary mr-lg-2" [disabled]="!employeeForm.valid"
-                        data-toggle="modal" data-target="#staticBackdrop">Cập nhật
+                <button type="submit" class="btn btn-primary mr-lg-3" [disabled]="!employeeForm.valid">Cập nhật
                 </button>
                 <button type="button" class="btn btn-secondary" routerLink="/employee/list">Quay lại</button>
               </div>

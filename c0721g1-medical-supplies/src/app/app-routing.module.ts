@@ -2,6 +2,9 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {IntroduceComponent} from './home/introduce/introduce.component';
 import {CertificateComponent} from './home/certificate/certificate.component';
+import {ActivityComponent} from './home/activity/activity.component';
+import {ContactComponent} from './home/contact/contact.component';
+import {CoporateComponent} from './home/coporate/coporate.component';
 
 
 const routes: Routes = [
@@ -53,6 +56,18 @@ const routes: Routes = [
   {
     path: 'certificate',
     component: CertificateComponent
+  },
+  {
+    path: 'activity',
+    component: ActivityComponent
+  },
+  {
+    path: 'contact',
+    component: ContactComponent
+  },
+  {
+    path: 'coporate',
+    component: CoporateComponent
   }
 ];
 

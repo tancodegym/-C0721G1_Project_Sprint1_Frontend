@@ -49,9 +49,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.tokenStorageService.getUser()) {
-      this.router.navigateByUrl('/system');
-    }
     this.authService.login(this.loginForm.value).subscribe(value => {
       if (this.loginForm.value.rememberMe) {
         this.tokenStorageService.saveTokenSession(value.token);
@@ -64,12 +61,15 @@ export class LoginComponent implements OnInit {
       this.authService.isLoggedIn = true;
       this.roles = this.tokenStorageService.getUser().roles;
       this.username = this.tokenStorageService.getUser().username;
-      this.router.navigateByUrl('/system');
+      if (this.returnUrl) {
+        this.router.navigateByUrl(this.returnUrl);
+      } else {
+        this.router.navigateByUrl('/system');
+      }
       this.matDialogRef.close();
-      // this.router.navigateByUrl(this.returnUrl);
-      this.toastrService.success('Đăng nhập thành công');
+      this.toastrService.success('Đăng nhập thành công', 'Tin nhắn từ hệ thống');
     }, error => {
-      this.toastrService.error('Đăng nhập thất bại');
+      this.toastrService.error('Đăng nhập thất bại', 'Tin nhắn từ hệ thống');
       this.authService.isLoggedIn = false;
     });
   }

@@ -85,7 +85,7 @@ export class EditComponent implements OnInit {
             this.employeeForm.patchValue({image: url + ''});
             this.employeeService.updateEmployee(this.employeeForm.value).subscribe(() => {
               this.router.navigateByUrl('employee/list');
-              this.toastrService.success('Cập nhật thành công');
+              this.toastrService.success('Cập nhật thông tin nhân viên thành công', 'Tin nhắn từ hệ thống');
               this.checkerr = true;
             }, error => {
               this.checkerr = false;
@@ -97,7 +97,7 @@ export class EditComponent implements OnInit {
     } else {
       this.employeeService.updateEmployee(this.employeeForm.value).subscribe(() => {
         this.router.navigateByUrl('employee/list');
-        this.toastrService.success('Cập nhật thành công');
+        this.toastrService.success('Cập nhật thông tin nhân viên thành công', 'Tin nhắn từ hệ thống');
         this.checkerr = true;
       }, error => {
         this.handleError(error);
