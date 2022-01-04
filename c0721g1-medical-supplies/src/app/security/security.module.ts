@@ -8,6 +8,8 @@ import { RegisterComponent } from './register/register.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, ForbiddenComponent],
@@ -16,7 +18,9 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
     SecurityRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    MatButtonModule,
+    MatDialogModule
   ]
 })
 export class SecurityModule { }

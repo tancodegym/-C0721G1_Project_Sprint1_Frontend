@@ -46,10 +46,10 @@ export class RegisterComponent implements OnInit {
   checkCode() {
     this.authService.getRegister(this.codeInput).subscribe(value => {
       if (value === 1) {
-        this.toastrService.warning('Mã nhân viên không tồn tại', 'Tin nhắn từ hệ thống');
+        this.toastrService.warning('Mã nhân viên không tồn tại.', 'Tin nhắn từ hệ thống');
       } else if (value === 2) {
         // tslint:disable-next-line:max-line-length
-        this.toastrService.info('Mã nhân viên tồn tại nhưng hiện tại chưa có tài khoản. Vui lòng tạo tài khoản cho mã nhân viên này', 'Tin nhắn từ hệ thống');
+        this.toastrService.info('Mã nhân viên tồn tại nhưng hiện tại chưa có tài khoản. Vui lòng tạo tài khoản cho mã nhân viên này.', 'Tin nhắn từ hệ thống');
         this.formStatus = true;
         this.buttonRegisterStatus = true;
         this.buttonCheckStatus = false;

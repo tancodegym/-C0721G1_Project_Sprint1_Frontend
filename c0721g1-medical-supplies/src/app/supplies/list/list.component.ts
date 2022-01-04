@@ -26,6 +26,9 @@ export class ListComponent implements OnInit {
   searchForm: FormGroup;
   pageSuppliesDTO: PageSuppliesDTO;
   idDel: number;
+  nameDel: string;
+  codeDel: string;
+  errMessage: string;
 
   constructor(private suppliesService: SuppliesService,
               private suppliesTypeService: SuppliesTypeService,
@@ -85,8 +88,11 @@ export class ListComponent implements OnInit {
     });
   }
 
-  getSuppliesDelete(id: number) {
-    this.idDel = id;
+  getSuppliesDelete(sup: Supplies) {
+    this.idDel = sup.id;
+    this.nameDel = sup.name;
+    this.codeDel = sup.code;
+
   }
 
   deleteSupplies() {
@@ -130,6 +136,11 @@ export class ListComponent implements OnInit {
       this.suppliesList = value.content;
       // console.log(this.employeeList);
       this.ngOnInit();
-    });
+    },
+    error => {
+      this.suppliesList = [];
+      this.errMessage = 'Không có dữ liệu cần tìm';
+    }
+  );
   }
 }

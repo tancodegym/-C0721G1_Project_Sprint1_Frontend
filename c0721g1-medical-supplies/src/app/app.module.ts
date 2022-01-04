@@ -12,6 +12,7 @@ import {SharedModule} from './shared/shared.module';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
     MatButtonModule,
     BsDatepickerModule.forRoot()
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

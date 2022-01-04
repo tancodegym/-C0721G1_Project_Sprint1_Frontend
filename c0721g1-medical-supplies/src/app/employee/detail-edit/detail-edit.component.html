@@ -59,14 +59,14 @@
               <label class="col-lg-3 col-form-label" style="font-weight: bold; font-size: 17px" for="avartar">Chọn
                 ảnh<span
                   style="color: red">(*)</span> </label>
-              <div class="col-lg-4">
-                <img [src]="urlImage" id="output" width="150" height="150px"/>
-                <input name="myfile" type="file" accept="image/*" onchange="loadFile(event)" id="avartar"
-                       (change)="showPreview($event)">
-
-                <div *ngIf="!image.valid && (image.dirty ||image.touched)">
-                  <div style="color: red" [hidden]="!image.errors.required">Trường này không được để trống</div>
-                </div>
+              <div class="col-lg-9">
+                <label>
+                  <img id="output" [src]="urlImage" width="150"
+                       height="150"/>
+                  <input type="file" accept="image/*" onchange="loadFile(event)"
+                         id="avarta" name="myfile"
+                         style="display:none" (change)="showPreview($event)">
+                </label>
               </div>
             </div>
 

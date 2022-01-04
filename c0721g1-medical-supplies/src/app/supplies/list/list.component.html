@@ -16,7 +16,7 @@
                  aria-label="Search" formControlName="code">
           <input class="form-control mr-sm-2" type="search" placeholder="Tên vật tư"
                  aria-label="Search" formControlName="name">
-          <select class="custom-select" aria-describedby="validationServer04Feedback">
+          <select class="custom-select" aria-describedby="validationServer04Feedback" formControlName="suppliesType">
             <option selected disabled value="">Loại vật tư</option>
             <option *ngFor="let supType of suppliesTypeList" [ngValue]="supType.id">{{supType.name}}</option>
           </select>
@@ -65,20 +65,22 @@
             </button>
           </td>
           <td style="text-align: center">
-            <button (click)="getSuppliesDelete(sup.id)" type="button" class=" btn btn-danger "
+            <button (click)="getSuppliesDelete(sup)" type="button" class=" btn btn-danger "
                     data-toggle="modal" data-target="#modalDelete"><i class="far fa-trash-alt"></i>
             </button>
           </td>
         </tr>
         </tbody>
       </table>
-
+      <div style="text-align: center" *ngIf="errMessage">
+        <h2 style="color: red">{{errMessage}}</h2>
+      </div>
 
       <div class="row">
         <div class="col-lg-10">
         </div>
         <div class="col-lg-2">
-          <nav aria-label="...">
+          <nav aria-label="..." *ngIf="!errMessage">
             <ul class="pagination">
               <li class="page-item">
                 <button class="page-link" *ngIf="page > 0" (click)="previousPage()">Trước</button>
@@ -99,24 +101,26 @@
 
     </div>
   </div>
-  <!-- Modal Delete -->
-  <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-       aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title text-danger">Xoá vật tư</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          Bạn có muốn xoá vật tư có mã vật tư là {{idDel}} này?
-        </div>
-        <div class="modal-footer">
-          <button (click)="deleteSupplies()" data-dismiss="modal" type="button" class="btn btn-danger mr-lg-3">Xoá</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-        </div>
+</div>
+
+<!-- Modal Delete -->
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger">Xoá vật tư</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bạn có muốn xoá vật tư có tên vật tư là {{nameDel}} và mã vật tư là {{codeDel}} này?
+      </div>
+      <div class="modal-footer">
+        <button (click)="deleteSupplies()" data-dismiss="modal" type="button" class="btn btn-danger mr-lg-3">Xoá
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
       </div>
     </div>
   </div>

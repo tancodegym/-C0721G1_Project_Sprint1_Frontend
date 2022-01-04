@@ -52,6 +52,7 @@ export class EditComponent implements OnInit {
       this.positionList = next;
       this.activeRouter.paramMap.subscribe(paramMap => {
         const idEmp = +paramMap.get('id');
+        // tslint:disable-next-line:no-shadowed-variable
         this.employeeService.findById(idEmp).subscribe(next => {
           this.employee = next;
           if (this.employee.image !== null) {
@@ -85,7 +86,7 @@ export class EditComponent implements OnInit {
             this.employeeForm.patchValue({image: url + ''});
             this.employeeService.updateEmployee(this.employeeForm.value).subscribe(() => {
               this.router.navigateByUrl('employee/list');
-              this.toastrService.success('Cập nhật thông tin nhân viên thành công', 'Tin nhắn từ hệ thống');
+              this.toastrService.success('Cập nhật thông tin nhân viên thành công.', 'Tin nhắn từ hệ thống');
               this.checkerr = true;
             }, error => {
               this.checkerr = false;
@@ -97,7 +98,7 @@ export class EditComponent implements OnInit {
     } else {
       this.employeeService.updateEmployee(this.employeeForm.value).subscribe(() => {
         this.router.navigateByUrl('employee/list');
-        this.toastrService.success('Cập nhật thông tin nhân viên thành công', 'Tin nhắn từ hệ thống');
+        this.toastrService.success('Cập nhật thông tin nhân viên thành công.', 'Tin nhắn từ hệ thống');
         this.checkerr = true;
       }, error => {
         this.handleError(error);

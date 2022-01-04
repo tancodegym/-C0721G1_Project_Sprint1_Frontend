@@ -9,6 +9,18 @@ import {PotentialCustomerService} from '../../service/potential-customer.service
   styleUrls: ['./potential-customer.component.css']
 })
 export class PotentialCustomerComponent implements OnInit {
+
+  constructor(private router: Router,
+              private potentialCustomerService: PotentialCustomerService) {
+    this.potentialCustomerService.getAll().subscribe(value => {
+      this.potentialArr = value;
+      this.maxDate.setDate(this.maxDate.getDate() + 7);
+      this.bsRangeValue = [this.bsValue, this.maxDate];
+      this.getName(value);
+      this.potentialCustomerChart(this.labels, this.data, 'myChart');
+    });
+  }
+
   potentialArr: PotentialCustomer[];
   startDate: string;
   endDate: string;
@@ -18,12 +30,12 @@ export class PotentialCustomerComponent implements OnInit {
   maxDate = new Date();
   bsValue = new Date();
   check = false;
-  private data = {
+  labels: [];
+
+  data = {
     labels: []
     ,
     datasets: [
-
-
       {
         type: 'bar',
         label: 'Doanh Số',
@@ -41,19 +53,11 @@ export class PotentialCustomerComponent implements OnInit {
       }]
   };
 
-  constructor(private router: Router,
-              private potentialCustomerService: PotentialCustomerService) {
-    this.potentialCustomerService.getAll().subscribe(value => {
-      this.potentialArr = value;
-      this.maxDate.setDate(this.maxDate.getDate() + 7);
-      this.bsRangeValue = [this.bsValue, this.maxDate];
-      this.getName(value);
-      this.potentialCustomerChart('abc', this.data, 'myChart');
-
-    });
-  }
+  chart = null;
 
   ngOnInit(): void {
+
+
   }
 
   private getName(arr: PotentialCustomer[]) {
@@ -64,12 +68,14 @@ export class PotentialCustomerComponent implements OnInit {
       this.data.datasets[1].data.push(arr[i].total);
     }
   }
-
   private potentialCustomerChart(labels, data, myChart) {
+    if (this.chart != null) {
+      this.chart.destroy();
+    }
     this.canvas = document.getElementById('myChart');
     this.ctx = this.canvas.getContext('2d');
     // @ts-ignore
-    const chart = new Chart(this.ctx, {
+    this.chart = new Chart(this.ctx, {
       type: 'scatter',
       data: this.data,
       options: {
@@ -83,11 +89,11 @@ export class PotentialCustomerComponent implements OnInit {
   }
 
   search() {
-    if (this.bsRangeValue[0].getMonth() < 10 && this.bsRangeValue[0].getDate() < 10) {
+    if (this.bsRangeValue[0].getMonth() < 9 && this.bsRangeValue[0].getDate() < 10) {
       this.startDate = this.bsRangeValue[0].getFullYear().toString()
         + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-0' + this.bsRangeValue[0].getDate().toString();
-    } else if (this.bsRangeValue[0].getMonth() < 10) {
+    } else if (this.bsRangeValue[0].getMonth() < 9) {
       this.startDate = this.bsRangeValue[0].getFullYear().toString()
         + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-' + this.bsRangeValue[0].getDate().toString();
@@ -100,30 +106,34 @@ export class PotentialCustomerComponent implements OnInit {
         + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
         + '-' + this.bsRangeValue[0].getDate().toString();
     }
-    if (this.bsRangeValue[0].getMonth() < 10 && this.bsRangeValue[0].getDate() < 10) {
-      this.endDate = this.bsRangeValue[0].getFullYear().toString()
-        + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
-        + '-0' + this.bsRangeValue[0].getDate().toString();
-    } else if (this.bsRangeValue[0].getMonth() < 10) {
-      this.endDate = this.bsRangeValue[0].getFullYear().toString()
-        + '-0' + (this.bsRangeValue[0].getMonth() + 1).toString()
-        + '-' + this.bsRangeValue[0].getDate().toString();
-    } else if (this.bsRangeValue[0].getDate() < 10) {
-      this.endDate = this.bsRangeValue[0].getFullYear().toString()
-        + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
-        + '-0' + this.bsRangeValue[0].getDate().toString();
+    if (this.bsRangeValue[1].getMonth() < 9 && this.bsRangeValue[1].getDate() < 10) {
+      this.endDate = this.bsRangeValue[1].getFullYear().toString()
+        + '-0' + (this.bsRangeValue[1].getMonth() + 1).toString()
+        + '-0' + this.bsRangeValue[1].getDate().toString();
+    } else if (this.bsRangeValue[1].getMonth() < 9) {
+      this.endDate = this.bsRangeValue[1].getFullYear().toString()
+        + '-0' + (this.bsRangeValue[1].getMonth() + 1).toString()
+        + '-' + this.bsRangeValue[1].getDate().toString();
+    } else if (this.bsRangeValue[1].getDate() < 10) {
+      this.endDate = this.bsRangeValue[1].getFullYear().toString()
+        + '-' + (this.bsRangeValue[1].getMonth() + 1).toString()
+        + '-0' + this.bsRangeValue[1].getDate().toString();
     } else {
-      this.endDate = this.bsRangeValue[0].getFullYear().toString()
-        + '-' + (this.bsRangeValue[0].getMonth() + 1).toString()
-        + '-' + this.bsRangeValue[0].getDate().toString();
+      this.endDate = this.bsRangeValue[1].getFullYear().toString()
+        + '-' + (this.bsRangeValue[1].getMonth() + 1).toString()
+        + '-' + this.bsRangeValue[1].getDate().toString();
     }
     this.potentialCustomerService.searchCustomerStats(this.startDate, this.endDate).subscribe(value => {
+      this.chart.destroy();
+      this.check = false;
       this.potentialArr = value;
+      this.potentialCustomerChart(this.labels, this.data, 'myChart');
+
     }, error => {
+      this.chart.destroy();
       this.check = true;
       this.potentialArr = [];
-      this.getName([]);
-      this.potentialCustomerChart('abc', this.data, 'myChart');
     });
+
   }
 }

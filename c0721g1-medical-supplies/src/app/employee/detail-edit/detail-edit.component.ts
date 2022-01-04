@@ -119,7 +119,7 @@ export class DetailEditComponent implements OnInit {
             this.employeeDetailEditForm.patchValue({image: url + ''});
             this.employeeService.updateEmployeeDetail(this.id, this.employeeDetailEditForm.value).subscribe(() => {
               this.router.navigate(['/employee/detail/', this.id]);
-              this.toastrService.success('Cập nhật thông tin nhân viên thành công', 'Tin nhắn từ hệ thống');
+              this.toastrService.success('Cập nhật thông tin nhân viên thành công.', 'Tin nhắn từ hệ thống');
               this.checkerr = true;
             }, error => {
               this.checkerr = false;
@@ -131,7 +131,7 @@ export class DetailEditComponent implements OnInit {
     } else {
       this.employeeService.updateEmployeeDetail(this.id, this.employeeDetailEditForm.value).subscribe(() => {
         this.router.navigate(['/employee/detail/', this.id]);
-        this.toastrService.success('Cập nhật thông tin nhân viên thành công', 'Tin nhắn từ hệ thống');
+        this.toastrService.success('Cập nhật thông tin nhân viên thành công.', 'Tin nhắn từ hệ thống');
         this.checkerr = true;
       }, error => {
         this.handleError(error);

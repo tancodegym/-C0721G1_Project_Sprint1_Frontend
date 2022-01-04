@@ -11,15 +11,15 @@
               <a><i class="fas fa-assistive-listening-systems"></i> Đồ bảo hộ y tế<span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="system">
-              <li><a href="#">Găng tay y tế</a></li>
-              <li><a href="#">Khẩu trang y tế</a></li>
-              <li><a href="#">Nguyên liệu vải không dệt</a></li>
+              <li><a routerLink="/home/list">Găng tay y tế</a></li>
+              <li><a routerLink="/home/list">Khẩu trang y tế</a></li>
+              <li><a routerLink="/home/list">Nguyên liệu vải không dệt</a></li>
             </ul>
             <li data-toggle="collapse" data-target="#category" class="collapsed">
-              <a><i class="fas fa-toolbox"></i> Sản phẩm chức năng <span class="arrow"></span></a>
+              <a routerLink="/home/list"><i class="fas fa-toolbox"></i> Sản phẩm chức năng <span class="arrow"></span></a>
             </li>
             <li data-toggle="collapse" data-target="#statistical" class="collapsed">
-              <a><i class="fas fa-toolbox"></i> Thiết bị y tế <span class="arrow"></span></a>
+              <a routerLink="/home/list"><i class="fas fa-toolbox"></i> Thiết bị y tế <span class="arrow"></span></a>
             </li>
           </ul>
         </div>
@@ -33,10 +33,9 @@
           </div>
           <div class="col-lg-4" style=" padding-right: 5%; padding-left: 5%" *ngFor="let item of suppliesList">
             <div class="product-wrapper mb-45 text-center">
-              <div  class="product-img"><a routerLink="/home/detail/{{item.id}}" data-abc="true"> <img src="{{item.image}}" width="100%" height="100%"> </a> <span
-                class="text-center"> {{item.price}} (VNĐ) </span>
+              <div  class="product-img"><a routerLink="/home/detail/{{item.id}}" data-abc="true"> <img src="{{item.image}}" width="100%" height="100%"> </a>
                 <div style="text-align: center; font-size: large; padding-top: 5px">
-                  <span>{{item.name}}</span>
+                  <span>{{item.name}} : {{item.price}} (VNĐ) </span>
                 </div>
               </div>
             </div>
@@ -64,7 +63,7 @@
   <div class="col-lg-10">
   </div>
   <div class="col-lg-2">
-    <nav aria-label="...">
+    <nav aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item" >
           <button class="page-link" (click)="previousPage()" *ngIf="page>0">Trước</button>

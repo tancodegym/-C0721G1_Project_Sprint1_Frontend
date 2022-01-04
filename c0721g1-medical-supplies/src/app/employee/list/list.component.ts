@@ -55,7 +55,7 @@ export class ListComponent implements OnInit {
     },
       error => {
       this.employeeList = [];
-      this.errMessage = 'Không có dữ liệu';
+      this.errMessage = 'Không có dữ liệu.';
       });
   }
 
@@ -79,7 +79,7 @@ export class ListComponent implements OnInit {
 
   deleteEmployee() {
     this.employeeService.deleteEmployee(this.idDelete).subscribe(value => {
-      this.toastrService.success('Xóa thông tin nhân viên thành công', 'Tin nhắn từ hệ thống');
+      this.toastrService.success('Xóa thông tin nhân viên thành công.', 'Tin nhắn từ hệ thống');
       this.ngOnInit();
     });
   }
@@ -94,7 +94,7 @@ export class ListComponent implements OnInit {
     },
       error => {
         this.employeeList = [];
-        this.errMessage = 'Không có dữ liệu cần tìm';
+        this.errMessage = 'Không có dữ liệu cần tìm.';
       });
   }
 }

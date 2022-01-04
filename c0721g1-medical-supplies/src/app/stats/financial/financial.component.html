@@ -5,17 +5,22 @@
       <app-left-side-bar></app-left-side-bar>
     </div>
     <div class="col-lg-10">
-      <h2 style="margin:20px" class="text-center">Thống kê tài chính</h2>
+      <h2 style="margin:20px;font-size: xx-large" class="text-center" >THỐNG KÊ TÀI CHÍNH</h2>
+      <h2 class="text-center text-danger" style="margin:30px;font-size: xx-large">THỐNG KÊ DOANH THU</h2>
+
       <!--    search Box-->
       <div class="row" style="margin:50px;">
-        <div class="col-lg-7"></div>
-        <div class="col-lg-5">
+        <div class="col-7"></div>
+        <div class="col-5">
           <div class="row">
-            <div class="col-lg-6 form-group mb-3"></div>
-            <div class="col-lg-4 form-group mb-3">
-              <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="bsValue">
+            <div class="col-xs-12 col-12 col-md-4 form-group mb-3">
+              <input type="text"
+                     class="form-control"
+                     #dp="bsDatepicker"
+                     bsDatepicker
+                     [(ngModel)]="bsValue">
             </div>
-            <div class="col-lg-2 form-group mb-3">
+            <div>
               <button class="btn btn-success" style="background: #058af0" (click)="search()" type="button">Tìm kiếm
               </button>
             </div>
@@ -23,13 +28,13 @@
         </div>
       </div>
       <div class="row text-center text-danger">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-11">
-          <h2 *ngIf="check" class="text-center text-danger" style="margin:30px">Dữ liệu không tồn tại trong ngày {{date}}</h2>
+        <div class="col-1"></div>
+        <div class="col-11">
+          <h2 *ngIf="check" class="text-center text-danger" style="margin:30px">Dữ liệu không tồn tại trong
+            ngày {{date}}</h2>
         </div>
       </div>
 
-      <h2 style="margin:15px" class="text-center text-danger">Thống kê doanh thu</h2>
       <div class="row" style="margin:50px">
         <div class="col-lg-6 justify-content-center align-items-center">
           <!--ChartJS 2-->
@@ -37,14 +42,14 @@
             <canvas class="chart" id="myChart1"></canvas>
           </div>
           <div class="row">
-            <div class="col-lg-12 text-center" style="font-weight: bold">
+            <div class="col-12 text-center" style="font-weight: bold">
               Biểu đồ thống kê thu chi. (Đơn vị: VND)
             </div>
           </div>
         </div>
         <div class="col-lg-6">
           <!--    Table of Contents -->
-          <table class="table table-hover table-striped container" style="margin:20px">
+          <table class="table table-hover table-striped container text-center">
             <thead>
             <tr>
               <th>Tổng Thu</th>
@@ -63,18 +68,8 @@
         </div>
       </div>
 
-      <h2 class="text-center text-danger" style="margin:30px">Thống kê chi tiết</h2>
-
-      <div class="row" style="margin:50px">
-        <div class="col-lg-6">
-          <!--ChartJS 1-->
-          <canvas class="chart" id="myChart" width="100px" height="100px"></canvas>
-          <div class="row">
-            <div class="col-lg-12 text-center" style="font-weight: bold;margin:15px">
-              Biểu đồ thống kê chi tiết hoạt động kinh doanh. (Đơn vị: VND)
-            </div>
-          </div>
-        </div>
+      <h2 style="margin:30px;font-size: xx-large" class="text-center text-danger">THỐNG KÊ CHI TIẾT</h2>
+      <div class="row">
         <div class="col-lg-6">
           <!--    Table-->
           <table class="table table-hover table-striped container text-center">
@@ -91,12 +86,29 @@
             <tr>
               <td>{{financial.income}}</td>
               <td>{{financial.returnMoney}}</td>
+              <td>{{financial.importMoney}}</td>
               <td>{{financial.refund}}</td>
               <td>{{financial.cancelled}}</td>
-              <td>{{financial.importMoney}}</td>
             </tr>
             </tbody>
           </table>
+        </div>
+        <div class="col-lg-6">
+          <!--ChartJS 1-->
+          <canvas class="chart" id="myChart" width="100px" height="100px"></canvas>
+          <div class="row">
+            <div class="col-12 text-center" style="font-weight: bold;margin:15px">
+              Biểu đồ thống kê chi tiết hoạt động kinh doanh. (Đơn vị: VND)
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin:30px">
+        <div class="col-12 text-center">
+          <button type="submit" class="fas fa-print btn btn-primary"
+                  style="width: 80px;height: 36px; margin-right: 15px">In
+          </button>
+          <button type="submit" class="btn btn-secondary">Trở về</button>
         </div>
       </div>
     </div>

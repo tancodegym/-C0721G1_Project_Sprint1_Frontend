@@ -24,10 +24,10 @@
               <div class="col-lg-9">
                 <input type="text" id="name" class="form-control" formControlName="name">
                 <div *ngIf="!name.valid && (name.dirty || name.touched)">
-                  <div style="color: red" [hidden]="!name.errors.required">Trường này không được để trống</div>
-                  <div style="color: red" [hidden]="!name.errors.pattern">Tên có chứa kí tự số hoặc kí tự đặc biệt</div>
-                  <div style="color: red" [hidden]="!name.errors.minlength">Tên tối thiểu có 2 kí tự</div>
-                  <div style="color: red" [hidden]="!name.errors.maxlength">Tên tối đa chứa 30 kí tự</div>
+                  <div style="color: red" [hidden]="!name.errors.required">Trường này không được để trống.</div>
+                  <div style="color: red" [hidden]="!name.errors.pattern">Tên có chứa kí tự số hoặc kí tự đặc biệt.</div>
+                  <div style="color: red" [hidden]="!name.errors.minlength">Tên tối thiểu có 2 kí tự.</div>
+                  <div style="color: red" [hidden]="!name.errors.maxlength">Tên tối đa chứa 30 kí tự.</div>
                 </div>
                 <div *ngIf="!checkerr">
                   <div style="color: red" *ngFor="let s of errorDB">
@@ -45,10 +45,10 @@
                 <input type="date" min="0" id="birthDay" class="form-control" formControlName="birthday">
                 <div *ngIf="!birthday.valid && (birthday.dirty|| birthday.touched)">
                   <div style="color: red" [hidden]="!birthday.errors.required">
-                    Trường này không được để trống
+                    Trường này không được để trống.
                   </div>
                   <div style="color: red" [hidden]="!birthday.errors.checkAge">
-                    Tuổi phải trên 18 và nhỏ hơn 60
+                    Tuổi phải trên 18 và nhỏ hơn 60.
                   </div>
                 </div>
                 <div *ngIf="!checkerr">
@@ -71,7 +71,7 @@
                   <option selected [value]=0>Nữ</option>
                 </select>
                 <div *ngIf="!gender.valid && (gender.dirty || gender.touched)">
-                  <div style="color: red" [hidden]="!gender.errors.required">Trường này không được để trống
+                  <div style="color: red" [hidden]="!gender.errors.required">Trường này không được để trống.
                   </div>
                 </div>
               </div>
@@ -83,7 +83,7 @@
               <div class="col-lg-9">
                 <input type="text" id="address" class="form-control" formControlName="address">
                 <div *ngIf="!address.valid && (address.dirty || address.touched)">
-                  <div style="color: red" [hidden]="!address.errors.required">Trường này không được để trống
+                  <div style="color: red" [hidden]="!address.errors.required">Trường này không được để trống.
                   </div>
                 </div>
               </div>
@@ -95,9 +95,9 @@
               <div class="col-lg-9">
                 <input type="text" id="phone" class="form-control" formControlName="phone">
                 <div *ngIf="!phone.valid && (phone.dirty || phone.touched)">
-                  <div style="color: red" [hidden]="!phone.errors.required">Trường này không được để trống</div>
+                  <div style="color: red" [hidden]="!phone.errors.required">Trường này không được để trống.</div>
                   <div style="color: red" [hidden]="!phone.errors.pattern">Phải đúng định dạng: 090xxxxxxx hoặc
-                    091xxxxxxx
+                    091xxxxxxx.
                   </div>
                 </div>
                 <div *ngIf="!checkerr">
@@ -118,7 +118,7 @@
                   <option *ngFor="let s of positionList" [ngValue]="s">{{s.name}}</option>
                 </select>
                 <div *ngIf="!position.valid && (position.dirty || position.touched)">
-                  <div style="color: red" [hidden]="!position.errors.required">Trường này không được để trống
+                  <div style="color: red" [hidden]="!position.errors.required">Trường này không được để trống.
                   </div>
                 </div>
               </div>

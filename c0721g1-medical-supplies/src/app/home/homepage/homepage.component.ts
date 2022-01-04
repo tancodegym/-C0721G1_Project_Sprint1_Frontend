@@ -17,7 +17,7 @@ export class HomepageComponent implements OnInit {
     name: new FormControl(''),
     email: new FormControl(''),
     content: new FormControl('')
-  })
+  });
 
   constructor(private requestMailService: RequestMailService) {
   }
@@ -34,7 +34,7 @@ export class HomepageComponent implements OnInit {
   sendMail() {
     this.requestMail = this.requestForm.value;
     this.requestMailService.sendEmail(this.requestMail).subscribe();
-    this.requestForm.reset()
+    this.requestForm.reset();
   }
 
 }

@@ -82,7 +82,7 @@
         <div class="col-lg-10">
         </div>
         <div class="col-lg-2">
-          <nav aria-label="...">
+          <nav aria-label="..." *ngIf="!errMessage">
             <ul class="pagination">
               <li class="page-item" >
                 <button class="page-link" *ngIf="page > 0"  (click)="previousPage()">Trước</button>
@@ -116,7 +116,17 @@
           </button>
         </div>
         <div class="modal-body">
-          Bạn có muốn xóa nhân viên {{nameDelete}}, có mã nhân viên là {{codeDelete}} không?
+          Bạn có muốn xóa thông tin nhân viên này không?
+          <table>
+            <tr>
+              <td>Mã nhân viên: </td>
+              <td style="color: red">{{codeDelete}}</td>
+            </tr>
+            <tr>
+              <td>Tên nhân viên: </td>
+              <td style="color: red">{{nameDelete}}</td>
+            </tr>
+          </table>
         </div>
         <div class="modal-footer">
           <button data-dismiss="modal" type="button" class="btn btn-danger mr-lg-3" (click)="deleteEmployee()">Xoá</button>

@@ -46,6 +46,7 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
   }
 
 
@@ -57,23 +58,6 @@ export class CartComponent implements OnInit {
     }
   }
   moveToPaymentPage() {
-    // this.router.navigate(['/payment', JSON.stringify(this.cartList)] );
-    // console.log(JSON.stringify(this.cartList));
     this.suppliesService.saveCartListTemp(this.cartList);
   }
 }
-
-// function allStorage() {
-//
-//   // tslint:disable-next-line:prefer-const one-variable-per-declaration
-//   let values = [],
-//     // tslint:disable-next-line:prefer-const
-//     keys = Object.keys(localStorage),
-//     i = keys.length;
-//
-//   while (i--) {
-//     values.push(localStorage.getItem(keys[i]));
-//   }
-//
-//   return values;
-// }

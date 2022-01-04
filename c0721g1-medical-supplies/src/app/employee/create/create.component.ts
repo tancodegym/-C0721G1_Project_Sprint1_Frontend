@@ -83,7 +83,7 @@ export class CreateComponent implements OnInit {
             this.employeeService.createEmployee(this.employeeForm.value).subscribe(() => {
               this.checkerr = true;
               this.router.navigateByUrl('employee/list');
-              this.toastrService.success('Thêm mới thông tin nhân viên thành công', 'Tin nhắn từ hệ thống');
+              this.toastrService.success('Thêm mới thông tin nhân viên thành công.', 'Tin nhắn từ hệ thống');
             }, error => {
               this.checkerr = false;
               this.handleError(error);
@@ -94,7 +94,7 @@ export class CreateComponent implements OnInit {
     } else {
       this.employeeService.createEmployee(this.employeeForm.value).subscribe(() => {
         this.router.navigateByUrl('employee/list');
-        this.toastrService.success('Thêm mới thông tin nhân viên thành công', 'Tin nhắn từ hệ thống');
+        this.toastrService.success('Thêm mới thông tin nhân viên thành công.', 'Tin nhắn từ hệ thống');
         this.checkerr = true;
         }, error => {
           this.checkerr = false;

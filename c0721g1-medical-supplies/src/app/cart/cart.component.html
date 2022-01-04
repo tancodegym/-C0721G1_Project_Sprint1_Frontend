@@ -1,7 +1,6 @@
 <div class="container-fluid" style="background-image: url(https://hoaidoan.vn/wp-content/uploads/2021/03/background-dep-5.png)" >
   <div class="row text-center" >
     <div class="col-lg-2">
-
     </div>
     <div class="col-lg-8">
       <h1>GIỎ HÀNG</h1>
@@ -25,7 +24,7 @@
 
             <td style="vertical-align: middle" scope="row ">{{i+1}}</td>
             <!--            <td style="vertical-align: middle" scope="row ">{{supplies.id}}</td>-->
-            <td><img src="{{supplies.image}}" height="100px" width="100px" /></td>
+            <td><a routerLink="/home/list"><img src="{{supplies.image}}" height="100px" width="100px" /></a></td>
             <td style="vertical-align: middle">{{supplies.name}}</td>
             <td style="vertical-align: middle">{{supplies.price}}</td>
             <td style="vertical-align: middle">
@@ -50,7 +49,6 @@
   <div class="row text-center">
     <div class="col-12">
       <a  [routerLink]="['/payment',totalMoney]" (click)="moveToPaymentPage()" class="btn btn-primary" id="thanhToan">Thanh toán</a>
-      <!--      <a href="" (click)="moveToPaymentPage()" class="btn btn-primary" id="thanhToan">Thanh toán</a>-->
     </div>`
   </div>
 </div>

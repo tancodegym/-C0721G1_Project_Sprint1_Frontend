@@ -20,9 +20,21 @@ export class HeaderComponent implements OnInit {
   constructor(private matDialog: MatDialog,
               private tokenStorageService: TokenStorageService,
               private router: Router) {
+    this.checkLoggedIn();
   }
 
   ngOnInit(): void {
+  }
+
+  checkLoggedIn() {
+    if (this.tokenStorageService.getUser()) {
+      this.username = this.tokenStorageService.getUser().username;
+      this.idEmployee = this.tokenStorageService.getUser().employee.id;
+      this.currentUser = this.tokenStorageService.getUser();
+      this.nameEmployee = this.tokenStorageService.getUser().employee.name;
+      this.isLoggedIn = true;
+      this.isLoginFail = false;
+    }
   }
 
   openLoginDialog() {

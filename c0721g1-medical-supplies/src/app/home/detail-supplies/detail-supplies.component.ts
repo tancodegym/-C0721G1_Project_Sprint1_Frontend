@@ -26,6 +26,7 @@ export class DetailSuppliesComponent implements OnInit {
     this.suppliesService.findById(this.idSupplies).subscribe(value => {
       this.supplies = value;
     });
+    window.scrollTo(0, 0);
   }
 
   addToCart() {

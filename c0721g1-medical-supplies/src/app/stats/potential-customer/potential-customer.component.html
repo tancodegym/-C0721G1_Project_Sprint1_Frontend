@@ -6,34 +6,38 @@
     </div>
     <div class="col-lg-10">
       <h2 class="text-center" style="margin:20px">MÀN HÌNH THỐNG KÊ KHÁCH HÀNG TIỀM NĂNG</h2>
-      <h2 *ngIf="check" class="text-center text-danger" style="margin:30px">Dữ liệu không tồn tại trong khoảng thời gian này</h2>
+
+      <h2 *ngIf="check" class="text-center text-danger" style="margin:30px">Dữ liệu không tồn tại trong khoảng thời gian {{startDate}} đến {{endDate}}</h2>
 
       <!--    search box-->
       <div class="row">
-        <div class="col-lg-5"></div>
-        <div class="col-lg-7">
+        <div class="col-6"></div>
+        <div class="col-6">
           <div class="row">
-            <div class="col-lg-6 form-group mb-3"></div>
-            <div class="col-lg-4 form-group mb-3">
+            <div class="col-xs-12 col-12 col-md-4 form-group mb-3">
               <input class="form-control"  #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue">
             </div>
-            <div class="col-lg-2 form-group mb-3">
+            <div class="col-xs-12 col-12 col-md-3 form-group mb-3">
               <button class="btn btn-success" style="background: #058af0" (click)="search()" [attr.aria-expanded]="drp.isOpen" type="button">Tìm kiếm</button>
             </div>
           </div>
         </div>
       </div>
 
+
       <!--chart JS-->
       <div class="row" style="margin:50px">
-        <div class="col-lg-3"></div>
-        <div class="col-lg-6">
+        <div class="col-2"></div>
+        <div class="col-8">
           <div>
             <canvas id="myChart"></canvas>
           </div>
         </div>
-        <div class="col-lg-3"></div>
+        <div class="col-2"></div>
       </div>
+
+
+
       <table class="table table-hover table-striped container">
         <thead>
         <tr>
@@ -52,7 +56,13 @@
         </tr>
         </tbody>
       </table>
+      <div class="row" style="margin:30px">
+        <div class="col-12 text-center">
+          <button type="submit" class="fas fa-print btn btn-primary" style="width: 80px;height: 36px; margin-right: 15px">In</button>
+          <button type="submit" class="btn btn-secondary">Trở về</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
-

@@ -5,6 +5,8 @@ import {TokenStorageService} from '../../service/token-storage.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialogRef} from '@angular/material/dialog';
+import {CookieService} from 'ngx-cookie-service';
+import {LoginRemember} from '../../model/LoginRemember';
 
 /*
 Creator: PhuocPD
@@ -21,13 +23,13 @@ export class LoginComponent implements OnInit {
     username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(10), Validators.pattern('^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){2,8}[a-zA-Z0-9]$')]),
     // tslint:disable-next-line:max-line-length
     password: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10), Validators.pattern('^[a-zA-Z0-9]{3,10}$')]),
-    rememberMe: new FormControl('')
+    remember: new FormControl(false)
   });
   username: string;
   successMessage = '';
   roles: string[] = [];
   returnUrl: string;
-  flag = false;
+  loginRemember: LoginRemember;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -35,10 +37,18 @@ export class LoginComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private toastrService: ToastrService,
-              private matDialogRef: MatDialogRef<LoginComponent>) {
+              private matDialogRef: MatDialogRef<LoginComponent>,
+              private cookieService: CookieService) {
+    if (cookieService.get('remember') === 'Yes') {
+      this.loginForm.value.username = this.cookieService.get('username');
+      this.loginForm.value.password = this.cookieService.get('password');
+      this.loginRemember = this.loginForm.value;
+
+    }
   }
 
   ngOnInit(): void {
+    this.loginForm.setValue(this.loginRemember);
     this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl;
     if (this.tokenStorageService.getToken()) {
       const user = this.tokenStorageService.getUser();
@@ -50,13 +60,18 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.authService.login(this.loginForm.value).subscribe(value => {
-      if (this.loginForm.value.rememberMe) {
-        this.tokenStorageService.saveTokenSession(value.token);
-        this.tokenStorageService.saveUserSession(value);
-        this.flag = true;
-      } else {
+      if (this.loginForm.value.remember) {
+        this.cookieService.set('remember', 'Yes', 365);
+        this.cookieService.set('username', this.loginForm.value.username, 365);
+        this.cookieService.set('password', this.loginForm.value.password, 365);
         this.tokenStorageService.saveTokenLocal(value.token);
         this.tokenStorageService.saveUserLocal(value);
+      } else {
+        this.cookieService.set('remember', 'No');
+        this.cookieService.set('username', '');
+        this.cookieService.set('password', '');
+        this.tokenStorageService.saveTokenSession(value.token);
+        this.tokenStorageService.saveUserSession(value);
       }
       this.authService.isLoggedIn = true;
       this.roles = this.tokenStorageService.getUser().roles;
@@ -67,10 +82,14 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/system');
       }
       this.matDialogRef.close();
-      this.toastrService.success('Đăng nhập thành công', 'Tin nhắn từ hệ thống');
+      this.toastrService.success('Đăng nhập thành công.', 'Tin nhắn từ hệ thống');
     }, error => {
-      this.toastrService.error('Đăng nhập thất bại', 'Tin nhắn từ hệ thống');
+      this.toastrService.error('Đăng nhập thất bại.', 'Tin nhắn từ hệ thống');
       this.authService.isLoggedIn = false;
     });
+  }
+
+  cancel() {
+    this.router.navigateByUrl('/home');
   }
 }
