@@ -104,43 +104,30 @@ export class ListComponent implements OnInit {
 
   previousPage() {
     this.page--;
-    this.searchForm = new FormGroup({
-        code: new FormControl(''),
-        name: new FormControl(''),
-        suppliesType: new FormControl(''),
-        page: new FormControl(this.page),
-        size: new FormControl(this.size),
-      }
-    );
+    this.searchForm.controls.page.setValue(this.page);
     this.ngOnInit();
   }
 
   nextPage() {
     this.page++;
-    this.searchForm = new FormGroup({
-        code: new FormControl(''),
-        name: new FormControl(''),
-        suppliesType: new FormControl(''),
-        page: new FormControl(this.page),
-        size: new FormControl(this.size),
-      }
-    );
+    this.searchForm.controls.page.setValue(this.page);
     this.ngOnInit();
   }
 
   searchSupplies() {
     this.page = 0;
+    this.searchForm.controls.page.setValue(this.page);
     this.pageSuppliesDTO = this.searchForm.value;
     this.suppliesService.getListSupplies(this.pageSuppliesDTO).subscribe(value => {
-      this.pageSupplies = value;
-      this.suppliesList = value.content;
-      // console.log(this.employeeList);
-      this.ngOnInit();
-    },
-    error => {
-      this.suppliesList = [];
-      this.errMessage = 'Không có dữ liệu cần tìm';
-    }
-  );
+        this.errMessage = null;
+        this.pageSupplies = value;
+        this.suppliesList = value.content;
+        this.ngOnInit();
+      },
+      error => {
+        this.suppliesList = [];
+        this.errMessage = 'Không có dữ liệu cần tìm';
+      }
+    );
   }
 }

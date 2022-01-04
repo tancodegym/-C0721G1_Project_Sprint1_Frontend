@@ -86,6 +86,7 @@ export class ListComponent implements OnInit {
 
   searchEmployee() {
     this.page = 0;
+    this.searchForm.controls.page.setValue(this.page);
     this.pageEmployeeDTO = this.searchForm.value;
     this.employeeService.getListEmployee(this.pageEmployeeDTO).subscribe(value => {
       this.pageEmployee = value;

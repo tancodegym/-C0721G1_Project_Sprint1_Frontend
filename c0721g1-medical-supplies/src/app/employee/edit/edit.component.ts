@@ -9,6 +9,7 @@ import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
 import {Position} from '../../model/position';
+import {Employee} from '../../model/employee';
 
 @Component({
   selector: 'app-edit',
@@ -26,7 +27,7 @@ export class EditComponent implements OnInit {
   }
 
   // tslint:disable-next-line:ban-types
-  employee: any;
+  employee: Employee;
   positionList: Position[];
   public errorDB = [];
   // tslint:disable-next-line:ban-types
@@ -54,11 +55,15 @@ export class EditComponent implements OnInit {
         const idEmp = +paramMap.get('id');
         // tslint:disable-next-line:no-shadowed-variable
         this.employeeService.findById(idEmp).subscribe(next => {
+          // @ts-ignore
           this.employee = next;
           if (this.employee.image !== null) {
             this.urlImg = this.employee.image;
           }
           this.employeeForm.setValue(this.employee);
+        }, error => {
+          this.router.navigateByUrl('employee/list');
+          this.toastrService.success('Không tìm thấy id.', 'Tin nhắn từ hệ thống');
         });
       });
     });
@@ -84,6 +89,7 @@ export class EditComponent implements OnInit {
           fileRef.getDownloadURL().subscribe((url) => {
             // tslint:disable-next-line:max-line-length
             this.employeeForm.patchValue({image: url + ''});
+            this.employeeForm.get('code').setValue(this.employee.code);
             this.employeeService.updateEmployee(this.employeeForm.value).subscribe(() => {
               this.router.navigateByUrl('employee/list');
               this.toastrService.success('Cập nhật thông tin nhân viên thành công.', 'Tin nhắn từ hệ thống');
@@ -96,6 +102,7 @@ export class EditComponent implements OnInit {
         })
       ).subscribe();
     } else {
+      this.employeeForm.get('code').setValue(this.employee.code);
       this.employeeService.updateEmployee(this.employeeForm.value).subscribe(() => {
         this.router.navigateByUrl('employee/list');
         this.toastrService.success('Cập nhật thông tin nhân viên thành công.', 'Tin nhắn từ hệ thống');

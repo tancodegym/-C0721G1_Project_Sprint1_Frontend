@@ -1,6 +1,6 @@
 // @ts-ignore
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Producer} from '../../model/producer';
 import {SuppliesType} from '../../model/supplies-type';
 import {SuppliesService} from '../../service/supplies.service';
@@ -13,6 +13,7 @@ import {ToastrService} from 'ngx-toastr';
 import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
+import {addMonths, addYears, differenceInDays, differenceInMonths, differenceInYears} from 'date-fns';
 
 @Component({
   selector: 'app-create',
@@ -31,18 +32,17 @@ export class CreateComponent implements OnInit {
   // @ts-ignore
   suppliesForm: FormGroup = new FormGroup({
       code: new FormControl(''),
-      name: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required,
-        Validators.pattern('^[0-9]+$'), Validators.min(0)]),
+      name: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(5)]),
+      price: new FormControl('', [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]),
       producer: new FormControl('', [Validators.required]),
       suppliesType: new FormControl('', [Validators.required]),
       // tslint:disable-next-line:max-line-length
       productionDate: new FormControl('', [Validators.required, Validators.pattern('^(?:19\\d{2}|20\\d{2})[-/.](?:0[1-9]|1[012])[-/.](?:0[1-9]|[12][0-9]|3[01])$')]),
       // tslint:disable-next-line:max-line-length
-      expiryDate: new FormControl('', [Validators.required, Validators.pattern('^(?:19\\d{2}|20\\d{2})[-/.](?:0[1-9]|1[012])[-/.](?:0[1-9]|[12][0-9]|3[01])$')]),
-      introduce: new FormControl('', [Validators.required]),
-      technicalInformation: new FormControl('', [Validators.required]),
-      image: new FormControl(),
+      expiryDate: new FormControl('', [Validators.required, this.validateExpiryDate, Validators.pattern('^(?:19\\d{2}|20\\d{2})[-/.](?:0[1-9]|1[012])[-/.](?:0[1-9]|[12][0-9]|3[01])$')]),
+      introduce: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(500)]),
+      technicalInformation: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(500)]),
+      image: new FormControl()
     }
   );
 
@@ -92,10 +92,12 @@ export class CreateComponent implements OnInit {
           fileRef.getDownloadURL().subscribe((url) => {
             // tslint:disable-next-line:max-line-length
             this.suppliesForm.patchValue({image: url + ''});
+            this.suppliesForm.get('code').setValue(null);
             this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
               this.router.navigateByUrl('supplies/list');
               this.t.success('Thêm mới thông tin vật tư thành công', 'Tin nhắn từ hệ thống');
               this.checkError = true;
+              // tslint:disable-next-line:no-shadowed-variable
             }, error => {
               this.checkError = false;
               this.handleError(error);
@@ -104,10 +106,12 @@ export class CreateComponent implements OnInit {
         })
       ).subscribe();
     } else {
+      this.suppliesForm.get('code').setValue(null);
       this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
           this.router.navigateByUrl('supplies/list');
           this.t.success('Thêm mới thông tin vật tư thành công', 'Tin nhắn từ hệ thống');
           this.checkError = true;
+          // tslint:disable-next-line:no-shadowed-variable
         }, error => {
           this.checkError = false;
           this.handleError(error);
@@ -164,4 +168,22 @@ export class CreateComponent implements OnInit {
   get image() {
     return this.suppliesForm.get('image');
   }
+
+  validateExpiryDate(expiryDate: AbstractControl) {
+    return isExpiryDate(expiryDate.value) ? null : {errorExpiryDate: true};
+  }
+}
+
+function isExpiryDate(date) {
+  let diff = getDiffToNow(date);
+  diff = Math.abs(diff);
+  return (diff / 365) >= 1;
+}
+
+function getDiffToNow(diff: string | number | Date): number {
+  const result: string[] = [];
+  const now = new Date();
+  diff = new Date(diff);
+  const days1 = differenceInDays(now, diff);
+  return days1;
 }

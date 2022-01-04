@@ -15,6 +15,15 @@ export class ListSuppliesComponent implements OnInit {
   totalPage: number;
   errMessage: string;
 
+  search(id) {
+    this.suppliesService.searchSupplies(this.page, id).subscribe(value => {
+      console.log(value);
+      this.suppliesList = value.content;
+
+      this.page = 0;
+    });
+  }
+
   constructor(private suppliesService: SuppliesService,
               private router: Router) {
   }
@@ -29,8 +38,7 @@ export class ListSuppliesComponent implements OnInit {
       this.errMessage = 'KHÔNG CÓ DỮ LIỆU SẢN PHẨM ĐƯỢC CẬP NHẬP!';
     });
     this.getSuppliesList();
-    AOS.init({
-    });
+    AOS.init({});
 
   }
 
@@ -39,6 +47,7 @@ export class ListSuppliesComponent implements OnInit {
       this.suppliesList = value.content;
     });
   }
+
   nextPage() {
     this.page += 1;
     this.ngOnInit();

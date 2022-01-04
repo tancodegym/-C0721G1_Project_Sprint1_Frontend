@@ -26,9 +26,9 @@
               <div class="col-lg-9">
                 <input type="text" id="ten-vat-tu" class="form-control" formControlName="name">
                 <div *ngIf="!name.valid && (name.dirty || name.touched)">
-                  <div style="color:red" [hidden]="!name.errors.maxLength">
-                    Trường này không aaaaaaađược để trống!
-                  </div>
+                  <div style="color:red" [hidden]="!name.errors.required">Vui lòng nhâp tên vật tư.</div>
+                  <div style="color:red" [hidden]="!name.errors.minlength">Tên vật tư chứ ít nhất 5 ký tự.</div>
+                  <div style="color:red" [hidden]="!name.errors.maxlength">Tên  vật tư chứa tối đa 50 ký tự.</div>
                 </div>
               </div>
             </div>
@@ -42,7 +42,7 @@
                   <option *ngFor="let s of suppliesTypes" [ngValue]="s">{{s.name}}</option>
                 </select>
                 <div *ngIf="!suppliesType.valid && (suppliesType.dirty || suppliesType.touched)">
-                  <div style="color: red" [hidden]="!suppliesType.errors.required">Trường này không được để trống!</div>
+                  <div style="color: red" [hidden]="!suppliesType.errors.required">Vui lòng nhập loại vật tư.</div>
                 </div>
               </div>
             </div>
@@ -54,13 +54,13 @@
                 <input type="text" min="0" id="gia-thanh" class="form-control" formControlName="price">
                 <div *ngIf="!price.valid && (price.dirty|| price.touched)">
                   <div style="color: red" [hidden]="!price.errors.required">
-                    Trường này không được để trống!
+                    Vui lòng nhật giá thành.
                   </div>
                   <div style="color: red" [hidden]="!price.errors.pattern">
-                    Trường này chỉ được nhập số!
+                   Giá thành phải chỉ được nhập só.
                   </div>
                   <div style="color: red" [hidden]="!price.errors.min">
-                    Giá thành phải lớn hơn 0!
+                    Giá thành phải lớn hơn 0.
                   </div>
                 </div>
               </div>
@@ -72,9 +72,9 @@
               <div class="col-lg-9">
                 <input type="date" id="ngay-san-xuat" class="form-control" formControlName="productionDate">
                 <div *ngIf="!productionDate.valid && (productionDate.dirty || productionDate.touched)">
-                  <div style="color: red" [hidden]="!productionDate.errors.required">Trường này không được để trống!
+                  <div style="color: red" [hidden]="!productionDate.errors.required">Vui lòng nhập ngày sản xuất.
                   </div>
-                  <div style="color: red" [hidden]="!productionDate.errors.pattern">Phải đúng định dạng: dd/MM/yyyy!
+                  <div style="color: red" [hidden]="!productionDate.errors.pattern">Phải đúng định dạng: dd/MM/yyyy.
                   </div>
                 </div>
                 <div *ngIf="!checkError">
@@ -93,8 +93,10 @@
               <div class="col-lg-9">
                 <input type="date" id="han-su-dung" class="form-control" formControlName="expiryDate">
                 <div *ngIf="!expiryDate.valid && (expiryDate.dirty || expiryDate.touched)">
-                  <div style="color: red" [hidden]="!expiryDate.errors.required">Trường này không được để trống!</div>
-                  <div style="color: red" [hidden]="!expiryDate.errors.pattern">Phải đúng định dạng: dd/MM/yyyy!</div>
+                  <div style="color: red" [hidden]="!expiryDate.errors.required">Vui lòng nhập hạn sử dụng.</div>
+                  <div style="color: red" [hidden]="!expiryDate.errors.pattern">Phải đúng định dạng: dd/MM/yyyy.</div>
+                  <div style="color: red" [hidden]="!expiryDate.hasError('errorExpiryDate')">
+                    Hạn sử dụng phải sau ngày hiện tại 1 năm.</div>
                 </div>
                 <div *ngIf="!checkError">
                   <div style="color: red" *ngFor="let s of errorDatabase">
@@ -115,7 +117,7 @@
                   <option *ngFor="let producer of producers" [ngValue]="producer">{{producer.name}}</option>
                 </select>
                 <div *ngIf="!producer.valid && (producer.dirty ||producer.touched)">
-                  <div style="color: red" [hidden]="!producer.errors.required">Trường này không được để trống!</div>
+                  <div style="color: red" [hidden]="!producer.errors.required">Vui lòng chọn nhà cung cấp.</div>
                 </div>
               </div>
             </div>
@@ -126,7 +128,9 @@
               <div class="col-lg-9">
                 <textarea id="mo-ta" class="form-control" rows="2" cols="40" formControlName="introduce"></textarea>
                 <div *ngIf="!introduce.valid && (introduce.dirty ||introduce.touched)">
-                  <div style="color: red" [hidden]="!introduce.errors.required">Trường này không được để trống!</div>
+                  <div style="color: red" [hidden]="!introduce.errors.required">Vui lòng nhập phần giới thiệu.</div>
+                  <div style="color: red" [hidden]="!introduce.errors.minlength">Giới thiệu có ít nhất 5 ký tự</div>
+                  <div style="color: red" [hidden]="!introduce.errors.maxlength">Giới thiệu không vượt quá 500 ký tự</div>
                 </div>
               </div>
             </div>
@@ -138,9 +142,9 @@
                 <textarea id="thong-tin" class="form-control" rows="2" cols="40"
                       formControlName="technicalInformation"></textarea>
                 <div *ngIf="!technicalInformation.valid && (technicalInformation.dirty ||technicalInformation.touched)">
-                  <div style="color: red" [hidden]="!technicalInformation.errors.required">Trường này không được để
-                    trống!
-                  </div>
+                  <div style="color: red" [hidden]="!technicalInformation.errors.required">Vui lòng nhập Thông tin kỹ thuật.</div>
+                  <div style="color: red" [hidden]="!technicalInformation.errors.minlength">Thông tin kỹ thuật có ít nhất 5ký tự.</div>
+                  <div style="color: red" [hidden]="!technicalInformation.errors.maxlength">Thông tin kỹ thuật không vượt quá 500 ký tự</div>
                 </div>
               </div>
             </div>

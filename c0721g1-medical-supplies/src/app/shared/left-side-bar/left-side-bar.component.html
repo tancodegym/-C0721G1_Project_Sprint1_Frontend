@@ -9,7 +9,7 @@
       <ul class="sub-menu collapse" id="system">
         <li><a routerLink="/auth/register">Tạo tài khoản</a></li>
         <li><a routerLink="/employee/change-password/{{id}}">Đổi mật khẩu</a></li>
-        <li><a>Ngôn ngữ</a></li>
+        <li><a routerLink="/system/maintenance">Ngôn ngữ</a></li>
       </ul>
       <li data-toggle="collapse" data-target="#category" class="collapsed">
         <a><i class="fas fa-toolbox"></i> Danh mục <span class="arrow"></span></a>
@@ -20,18 +20,18 @@
         </li>
         <ul class="sub-menu collapse" id="information">
           <li><a routerLink="/employee/list">Thông tin nhân viên</a></li>
-          <li><a>Thông tin khách hàng</a></li>
+          <li><a routerLink="/system/maintenance">Thông tin khách hàng</a></li>
           <li><a routerLink="/supplies/list">Thông tin vật tư</a></li>
         </ul>
         <li data-toggle="collapse" data-target="#warehouse" class="collapsed">
           <a><i class="fas fa-warehouse"></i> Quản lý kho <span class="arrow"></span></a>
         </li>
         <ul class="sub-menu collapse" id="warehouse">
-          <li><a>Nhập kho</a></li>
-          <li><a>Xuất kho</a></li>
+          <li><a routerLink="/system/maintenance">Nhập kho</a></li>
+          <li><a routerLink="/system/maintenance">Xuất kho</a></li>
         </ul>
         <li data-toggle="collapse" data-target="#salary" class="collapsed">
-          <a><i class="fas fa-money-check-alt"></i> Quản lý lương <span class="arrow"></span></a>
+          <a routerLink="/system/maintenance"><i class="fas fa-money-check-alt"></i> Quản lý lương <span class="arrow"></span></a>
         </li>
       </ul>
       <li data-toggle="collapse" data-target="#statistical" class="collapsed">
@@ -43,7 +43,7 @@
         <li><a routerLink="/stats/potential-customer">Khách hàng tiềm năng</a></li>
       </ul>
       <li data-toggle="collapse" data-target="#support" class="collapsed">
-        <a><i class="fas fa-question"></i> Trợ giúp <span class="arrow"></span></a>
+        <a routerLink="/system/maintenance"><i class="fas fa-question"></i> Trợ giúp <span class="arrow"></span></a>
       </li>
     </ul>
   </div>

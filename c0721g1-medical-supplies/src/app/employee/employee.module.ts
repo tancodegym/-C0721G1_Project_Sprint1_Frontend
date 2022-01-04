@@ -10,17 +10,18 @@ import {ChangePasswordComponent} from './change-password/change-password.compone
 import {DetailEditComponent} from './detail-edit/detail-edit.component';
 import {SharedModule} from '../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { TruncateTextPipe } from './truncate-text.pipe';
 
 
 @NgModule({
-  declarations: [ListComponent, CreateComponent, EditComponent, DetailComponent, ChangePasswordComponent, DetailEditComponent],
-  imports: [
-    CommonModule,
-    EmployeeRoutingModule,
-    SharedModule,
-    ReactiveFormsModule,
-    FormsModule
-  ]
+  declarations: [ListComponent, CreateComponent, EditComponent, DetailComponent, ChangePasswordComponent, DetailEditComponent, TruncateTextPipe],
+    imports: [
+        CommonModule,
+        EmployeeRoutingModule,
+        SharedModule,
+        ReactiveFormsModule,
+        FormsModule
+    ]
 })
 export class EmployeeModule {
 }

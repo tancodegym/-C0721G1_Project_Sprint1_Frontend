@@ -38,7 +38,7 @@
                 <input type="text" id="name" class="form-control" formControlName="name">
                 <div *ngIf="!name.valid && (name.pristine || name.touched)">
                   <div style="color:red" [hidden]="!name.errors.required">
-                    Trường này không được để trống
+                    Tên nhân viên không được để trống
                   </div>
                 </div>
               </div>
@@ -50,7 +50,7 @@
               <div class="col-lg-9">
                 <input type="date" id="birthday" class="form-control" formControlName="birthday">
                 <div *ngIf="!birthday.valid && (birthday.dirty ||birthday.touched)">
-                  <div style="color: red" [hidden]="!birthday.errors.required">Trường này không được để trống</div>
+                  <div style="color: red" [hidden]="!birthday.errors.required">Ngày sinh không được để trống</div>
                   <div style="color: red" [hidden]="!birthday.errors.pattern">Phải đúng định dạng: dd/MM/yyyy</div>
                 </div>
               </div>
@@ -64,7 +64,7 @@
                   <img id="output" [src]="urlImage" width="150"
                        height="150"/>
                   <input type="file" accept="image/*" onchange="loadFile(event)"
-                         id="avarta" name="myfile"
+                         id="avartar" name="myfile"
                          style="display:none" (change)="showPreview($event)">
                 </label>
               </div>
@@ -82,7 +82,7 @@
                   <option selected [value]=0>Nữ</option>
                 </select>
                 <div *ngIf="!gender.valid && (gender.dirty || gender.touched)">
-                  <div style="color: red" [hidden]="!gender.errors.required">Trường này không được để trống
+                  <div style="color: red" [hidden]="!gender.errors.required">Giới tính không được để trống
                   </div>
                 </div>
               </div>
@@ -95,8 +95,10 @@
               <div class="col-lg-9">
                 <input type="text" id="phone" class="form-control" formControlName="phone">
                 <div *ngIf="!phone.valid && (phone.dirty ||phone.touched)">
-                  <div style="color: red" [hidden]="!phone.errors.required">Trường này không được để trống</div>
-                  <div style="color: red" [hidden]="!phone.errors.pattern">Phải đúng định dạng</div>
+                  <div style="color: red" [hidden]="!phone.errors.required">Số điện thoại không được để trống</div>
+                  <div style="color: red" [hidden]="!phone.errors.pattern">Số điện thoại phải bắt đầu bằng 090xxxxxxx
+                    hoặc 091xxxxxxx
+                  </div>
                 </div>
               </div>
             </div>
@@ -109,7 +111,7 @@
                 <input type="text" id="address" class="form-control" formControlName="address">
                 <div *ngIf="!address.valid && (address.dirty || address.touched)">
                   <div style="color:red" [hidden]="!address.errors.required">
-                    Trường này không được để trống
+                    Địa chỉ không được để trống
                   </div>
                 </div>
               </div>
@@ -124,16 +126,21 @@
                   <option *ngFor="let p of positions" [ngValue]="p">{{p.name}}</option>
                 </select>
                 <div *ngIf="!position.valid && (position.dirty ||position.touched)">
-                  <div style="color: red" [hidden]="!position.errors.required">Trường này không được để trống</div>
+                  <div style="color: red" [hidden]="!position.errors.required">Chức vụ không được để trống</div>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <div class="col-lg-3"></div>
               <div class="col-lg-9">
-                <button type="submit" (click)="submit()" class="btn btn-primary mr-lg-3" [disabled]="!employeeDetailEditForm.valid">Cập nhật</button>
-                <button type="button" class="btn btn-secondary" *ngIf="role === 'admin'" routerLink="/employee/list">Quay lại</button>
-                <button type="button" class="btn btn-secondary" *ngIf="role === 'user'" routerLink="/system">Quay lại</button>
+                <button type="submit" (click)="submit()" class="btn btn-primary mr-lg-3"
+                        [disabled]="!employeeDetailEditForm.valid">Cập nhật
+                </button>
+                <button type="button" class="btn btn-secondary" *ngIf="role === 'admin'" routerLink="/employee/list">
+                  Quay lại
+                </button>
+                <button type="button" class="btn btn-secondary" *ngIf="role === 'user'" routerLink="/system">Quay lại
+                </button>
               </div>
             </div>
           </form>

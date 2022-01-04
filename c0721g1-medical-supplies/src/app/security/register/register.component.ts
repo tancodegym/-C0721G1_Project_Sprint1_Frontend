@@ -17,9 +17,9 @@ export class RegisterComponent implements OnInit {
 
   registerForm = new FormGroup({
     // tslint:disable-next-line:max-line-length
-    username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(10), Validators.pattern('^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){2,8}[a-zA-Z0-9]$')]),
+    username: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){4,18}[a-zA-Z0-9]$')]),
     // tslint:disable-next-line:max-line-length
-    password: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10), Validators.pattern('^[a-zA-Z0-9]{3,10}$')]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('^[a-zA-Z0-9]{6,20}$')]),
     role: new FormControl('', [Validators.required])
   });
   validateUsernameMessage = '';

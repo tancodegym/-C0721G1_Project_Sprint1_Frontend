@@ -47,11 +47,11 @@
         <tr *ngFor="let emp of employeeList index as i" class="text-center">
           <td>{{i + 1}}</td>
           <td>{{emp.code}}</td>
-          <td>{{emp.name}}</td>
+          <td [innerHTML]="emp.name | truncateText: 15" title="{{emp.name}}"></td>
           <td>{{emp.birthday | date: 'dd-MM-yyyy'}}</td>
           <td *ngIf="emp.gender==1">Nam</td>
           <td *ngIf="emp.gender==0">Nữ</td>
-          <td>{{emp.address}}</td>
+          <td [innerHTML]="emp.address | truncateText: 15" title="{{emp.address}}"></td>
           <td>{{emp.phone}}</td>
           <td><p *ngIf="emp.user">{{emp.user.username}}</p></td>
           <td>{{emp.position.name}}</td>

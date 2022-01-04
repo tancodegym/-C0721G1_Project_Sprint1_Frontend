@@ -15,26 +15,26 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    SharedModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    ToastrModule.forRoot({
-      timeOut: 2000,
-      closeButton: true,
-      progressBar: true,
-      progressAnimation: 'increasing'
-    }),
-    MatButtonModule,
-    BsDatepickerModule.forRoot()
-  ],
-  providers: [authInterceptorProviders, CookieService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        SharedModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        ToastrModule.forRoot({
+            timeOut: 2000,
+            closeButton: true,
+            progressBar: true,
+            progressAnimation: 'increasing'
+        }),
+        MatButtonModule,
+        BsDatepickerModule.forRoot()
+    ],
+    providers: [authInterceptorProviders, CookieService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

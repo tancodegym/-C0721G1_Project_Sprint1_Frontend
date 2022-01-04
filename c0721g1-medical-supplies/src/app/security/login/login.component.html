@@ -20,10 +20,10 @@
             Vui lòng nhập Tên đăng nhập.
           </div>
           <div [hidden]="!loginForm.controls.username?.errors.minlength">
-            Tên đăng nhập phải có ít nhất 4 ký tự.
+            Tên đăng nhập phải có ít nhất 6 ký tự.
           </div>
           <div [hidden]="!loginForm.controls.username?.errors.maxlength">
-            Tên đăng nhập không vượt quá 10 ký tự.
+            Tên đăng nhập không vượt quá 20 ký tự.
           </div>
           <div [hidden]="!loginForm.controls.username?.errors.pattern">
             Tên đăng nhập phải bao gồm chữ và số.
@@ -46,10 +46,10 @@
             Vui lòng nhập Mật khẩu.
           </div>
           <div [hidden]="!loginForm.controls.password?.errors.minlength">
-            Mật khẩu phải có ít nhất 3 ký tự.
+            Mật khẩu phải có ít nhất 6 ký tự.
           </div>
           <div [hidden]="!loginForm.controls.password?.errors.maxlength">
-            Mật khẩu không vượt quá 10 ký tự.
+            Mật khẩu không vượt quá 20 ký tự.
           </div>
           <div [hidden]="!loginForm.controls.password?.errors.pattern">
             Mật khẩu phải bao gồm chữ hoặc số, không bao gồm các ký tự đặc biệt.

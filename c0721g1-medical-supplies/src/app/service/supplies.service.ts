@@ -80,4 +80,7 @@ export class SuppliesService {
   findAll(): Observable<any> {
     return this.httpClient.get<any>(this.API_URL + 'public/home/list');
   }
+  searchSupplies(page: number, id: number): Observable<any> {
+    return this.httpClient.get<any>(this.API_URL + 'public/list/' + id + '/' + page);
+  }
 }

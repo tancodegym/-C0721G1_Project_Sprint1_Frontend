@@ -7,16 +7,16 @@ import { EditComponent } from './edit/edit.component';
 import { CreateComponent } from './create/create.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
-
+import { TruncateTextPipe } from './truncate-text.pipe';
 
 @NgModule({
-  declarations: [ListComponent, EditComponent, CreateComponent],
-  imports: [
-    CommonModule,
-    SuppliesRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    SharedModule
-  ]
+  declarations: [ListComponent, EditComponent, CreateComponent, TruncateTextPipe],
+    imports: [
+        CommonModule,
+        SuppliesRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        SharedModule
+    ]
 })
 export class SuppliesModule { }

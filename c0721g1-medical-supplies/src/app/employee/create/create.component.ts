@@ -40,7 +40,8 @@ export class CreateComponent implements OnInit {
       Validators.minLength(2), Validators.maxLength(30)])),
     birthday: new FormControl('', Validators.compose([Validators.required, this.checkDateOfBirth])),
     image: new FormControl(),
-    address: new FormControl('', Validators.compose([Validators.required])),
+    address: new FormControl('', Validators.compose([Validators.required,
+      Validators.minLength(5), Validators.maxLength(30)])),
     phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^((090)|(091))[\\d]{7}$')])),
     gender: new FormControl('', Validators.compose([Validators.required])),
     position: new FormControl('', Validators.compose([Validators.required]))
@@ -80,6 +81,7 @@ export class CreateComponent implements OnInit {
           fileRef.getDownloadURL().subscribe((url) => {
             // tslint:disable-next-line:max-line-length
             this.employeeForm.patchValue({image: url + ''});
+            this.employeeForm.get('code').setValue(null);
             this.employeeService.createEmployee(this.employeeForm.value).subscribe(() => {
               this.checkerr = true;
               this.router.navigateByUrl('employee/list');
@@ -92,6 +94,7 @@ export class CreateComponent implements OnInit {
         })
       ).subscribe();
     } else {
+      this.employeeForm.get('code').setValue(null);
       this.employeeService.createEmployee(this.employeeForm.value).subscribe(() => {
         this.router.navigateByUrl('employee/list');
         this.toastrService.success('Thêm mới thông tin nhân viên thành công.', 'Tin nhắn từ hệ thống');

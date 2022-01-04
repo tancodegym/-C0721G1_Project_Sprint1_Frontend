@@ -47,12 +47,12 @@
         <tr *ngFor="let sup of suppliesList index as i" class="text-center">
           <td>{{i + 1}}</td>
           <td>{{sup.code}}</td>
-          <td>{{sup.name}}</td>
+          <td [innerHTML]="sup.name | truncateText: 15" title="{{sup.name}}"></td>
           <td>{{sup.suppliesType.name}}</td>
           <td>{{sup.price}}</td>
           <td>{{sup.production_date | date: 'dd-MM-yyyy'}}</td>
           <td>{{sup.expiry_date | date: 'dd-MM-yyyy'}}</td>
-          <td>{{sup.producer.name}}</td>
+          <td [innerHTML]="sup.producer.name | truncateText: 15" title="{{sup.producer.name}}"></td>
           <td>
             <button style="width: 100%" class=" btn-edit btn btn-warning " *ngIf="sup.status==1">VT mới
             </button>
