@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
   }
 
   openLoginDialog() {
-    const dialogLogin = this.matDialog.open(LoginComponent, {height: '450px', width: '650px'});
+    const dialogLogin = this.matDialog.open(LoginComponent, {height: '490px', width: '600px'});
     dialogLogin.afterClosed().subscribe(value => {
       if (this.tokenStorageService.getToken()) {
         this.username = this.tokenStorageService.getUser().username;

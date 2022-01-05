@@ -16,11 +16,17 @@ export class FinancialComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private financialService: FinancialService,
               private stastService: StatsService) {
+    this.orderMoney = financialService.getTotal();
+    console.log(this.orderMoney);
+    if (this.orderMoney === undefined) {
+      this.orderMoney = 0;
+    }
     this.checkSearch = this.stastService.getCheck();
     if (this.checkSearch === 0) {
       this.financialService.getAll().subscribe(
         value => {
           this.financial = value;
+          this.income = this.financial.income + this.orderMoney;
           this.revenue = this.financial.income;
           this.totalCost = (this.financial.refund + this.financial.cancelled + this.financial.importMoney);
           this.profit = (this.revenue - this.totalCost);
@@ -31,8 +37,8 @@ export class FinancialComponent implements OnInit {
     }
   }
 
-  @ViewChild(BsDatepickerDirective, { static: false }) datepicker?: BsDatepickerDirective;
-
+  @ViewChild(BsDatepickerDirective, {static: false}) datepicker?: BsDatepickerDirective;
+  orderMoney = 0;
   financial: FinancialStats;
   bsValue = new Date();
   date: string;
@@ -51,6 +57,7 @@ export class FinancialComponent implements OnInit {
   check = false;
   dateSearch: string;
   checkSearch: number;
+  income: number;
 
   chart = null;
 
@@ -122,7 +129,7 @@ export class FinancialComponent implements OnInit {
         datasets: [{
           label: 'My First Dataset',
           // tslint:disable-next-line:max-line-length
-          data: [this.financial.income, this.financial.returnMoney, this.financial.importMoney, this.financial.refund, this.financial.cancelled],
+          data: [this.income, this.financial.returnMoney, this.financial.importMoney, this.financial.refund, this.financial.cancelled],
           backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(75, 192, 192)',
@@ -141,7 +148,7 @@ export class FinancialComponent implements OnInit {
       this.date = this.bsValue.getFullYear().toString()
         + '-0' + (this.bsValue.getMonth() + 1).toString()
         + '-0' + this.bsValue.getDate().toString();
-    } else if (this.bsValue.getMonth() <  9) {
+    } else if (this.bsValue.getMonth() < 9) {
       this.date = this.bsValue.getFullYear().toString()
         + '-0' + (this.bsValue.getMonth() + 1).toString()
         + '-' + this.bsValue.getDate().toString();
@@ -188,6 +195,7 @@ export class FinancialComponent implements OnInit {
   onPrint() {
     window.print();
   }
+
   ngOnInit(): void {
   }
 }

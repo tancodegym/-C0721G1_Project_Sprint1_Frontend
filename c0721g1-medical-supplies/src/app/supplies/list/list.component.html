@@ -4,7 +4,7 @@
     <div class="col-lg-2">
       <app-left-side-bar></app-left-side-bar>
     </div>
-    <div class="col-lg-10">
+    <div class="col-lg-10" style="padding-left: 0">
       <nav class="navbar navbar-light">
         <a class="btn">
           <button class="btn btn-success " style="background: #058af0" routerLink="/supplies/create">Thêm mới vật tư Y
@@ -34,7 +34,7 @@
           <th>Mã vật tư</th>
           <th>Tên vật tư</th>
           <th>Loại vật tư</th>
-          <th>Giá thành</th>
+          <th>Giá thành (VND)</th>
           <th>Ngày sản xuất</th>
           <th>Hạn sử dụng</th>
           <th>Nhà cung cấp</th>
@@ -49,14 +49,14 @@
           <td>{{sup.code}}</td>
           <td [innerHTML]="sup.name | truncateText: 15" title="{{sup.name}}"></td>
           <td>{{sup.suppliesType.name}}</td>
-          <td>{{sup.price}}</td>
+          <td>{{sup.price | number}}</td>
           <td>{{sup.production_date | date: 'dd-MM-yyyy'}}</td>
           <td>{{sup.expiry_date | date: 'dd-MM-yyyy'}}</td>
           <td [innerHTML]="sup.producer.name | truncateText: 15" title="{{sup.producer.name}}"></td>
           <td>
-            <button style="width: 100%" class=" btn-edit btn btn-warning " *ngIf="sup.status==1">VT mới
+            <button style="width: 100%; text-align: center" class="badge badge-warning  " *ngIf="sup.status==1" title="Vật tư mới">VT mới
             </button>
-            <button style="width: 100%" class=" btn-edit btn btn-info" *ngIf="sup.status==0">VT cũ
+            <button style="width: 100%; text-align: center" class="badge badge-info " *ngIf="sup.status==0" title="Vật tư cũ">VT cũ
             </button>
           </td>
           <td style="text-align: center">
@@ -80,7 +80,7 @@
         <div class="col-lg-9">
         </div>
         <div class="col-lg-3">
-          <nav aria-label="...">
+          <nav aria-label="..." *ngIf="!errMessage" style="float: right">
             <ul class="pagination">
               <li class="page-item">
                 <button class="page-link" *ngIf="page > 0" (click)="previousPage()">Trước</button>
@@ -96,12 +96,12 @@
                 </button>
               </li>
               <li class="page-item">
-                <button class="page-link" *ngIf="page < 2 && page == 0" [value]="1" #page3
+                <button class="page-link" *ngIf="page < 2 && page == 0 && pageSupplies.totalPages > 1" [value]="1" #page3
                         (click)="setPage(page3.value)">2
                 </button>
               </li>
               <li class="page-item active" aria-current="page">
-                <button class="page-link" *ngIf="page < 2 && page != 0" [value]="1" #page4
+                <button class="page-link" *ngIf="page < 2 && page != 0 && pageSupplies.totalPages > 1" [value]="1" #page4
                         (click)="setPage(page4.value)">2
                 </button>
               </li>
@@ -123,7 +123,7 @@
 
               <li class="page-item"><p class="page-link" *ngIf="page < pageSupplies.totalPages -3 ">...</p></li>
               <li class="page-item">
-                <button class="page-link" *ngIf="page < pageSupplies.totalPages - 1"
+                <button class="page-link" *ngIf="page < pageSupplies.totalPages - 1 && pageSupplies.totalPages > 2"
                         [value]="pageSupplies.totalPages - 1" #page9
                         (click)="setPage(page9.value)">{{pageSupplies.totalPages}}</button>
               </li>

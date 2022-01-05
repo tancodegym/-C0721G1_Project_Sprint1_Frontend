@@ -43,7 +43,8 @@ export class EditComponent implements OnInit {
   suppliesTypes: SuppliesType[] = [];
   selectedImage: any = null;
   private id: number;
-  urlImage = 'https://i.imgur.com/7Vtlcpx.png';
+  urlImage = 'https://i.imgur.com/v5mtVAD.png';
+  priceBinding: string;
 
   constructor(private suppliesService: SuppliesService,
               private suppliesTypeService: SuppliesTypeService,

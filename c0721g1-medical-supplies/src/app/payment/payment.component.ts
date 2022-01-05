@@ -9,6 +9,7 @@ import {CustomerTransfer} from '../model/customerTransfer';
 import {SuppliesService} from '../service/supplies.service';
 import {Cart} from '../model/cart';
 import {Payment} from '../model/payment';
+import {FinancialService} from '../service/financial.service';
 
 declare var paypal;
 
@@ -21,6 +22,7 @@ declare var paypal;
 export class PaymentComponent implements OnInit {
   constructor(
     private router: Router,
+    private financialService: FinancialService,
     private suppliesService: SuppliesService,
     private activatedRoute: ActivatedRoute,
     private toastrService: ToastrService,
@@ -119,6 +121,7 @@ export class PaymentComponent implements OnInit {
         localStorage.clear();
         // tslint:disable-next-line:no-unused-expression
         this.toastrService.success('Bạn đã đặt hàng thành công, vui lòng kiểm tra email');
+        this.financialService.saveNewOrder(this.total);
       },
       error => {
       }

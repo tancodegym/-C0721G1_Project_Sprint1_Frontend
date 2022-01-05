@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {FinancialStats} from '../model/FinancialStats';
@@ -15,7 +15,18 @@ export class FinancialService {
 
   }
 
-  getAll(): Observable<FinancialStats  | any> {
+  totalMoney: number;
+
+  saveNewOrder(total: any): void {
+    this.totalMoney = total;
+  }
+
+  getTotal(): any {
+    console.log(this.totalMoney);
+    return this.totalMoney;
+  }
+
+  getAll(): Observable<FinancialStats | any> {
     return this.http.get<FinancialStats | any>(this.API + '/user/stats/financial-stats');
   }
 

@@ -32,7 +32,7 @@
                 <button *ngIf="isLoginFail" mat-button (click)="openLoginDialog()" class="btn btn-primary">
                   <i class="fas fa-sign-in-alt"></i>
                 </button>
-                <a class="nav-link" *ngIf="isLoggedIn" style="display: inline; color: black; padding-left: 0" [routerLink]="['/employee/detail/', idEmployee]"><span>{{nameEmployee}}</span></a>
+                <a class="nav-link" *ngIf="isLoggedIn" style="display: inline; color: blue; padding-left: 0" [routerLink]="['/employee/detail/', idEmployee]"><span>{{nameEmployee}}</span></a>
                 <button *ngIf="isLoggedIn" class="btn btn-secondary" (click)="logOut()">
                   <i class="fas fa-sign-out-alt"></i>
                 </button>

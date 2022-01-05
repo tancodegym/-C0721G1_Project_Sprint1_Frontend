@@ -50,7 +50,10 @@
                 <label for="gia-thanh" >Giá thành<span style="color: red">(*)</span></label>
               </div>
               <div class="col-lg-9">
-                <input type="text" min="0" id="gia-thanh" class="form-control" formControlName="price">
+                <input type="text" min="0" [(ngModel)]="priceBinding" id="gia-thanh" class="form-control" formControlName="price">
+                <small *ngIf="priceBinding">
+                  {{priceBinding |number}} VND
+                </small>
                 <div *ngIf="!price.valid && (price.dirty|| price.touched)">
                   <div style="color: red" [hidden]="!price.errors.required">
                     Vui lòng nhập giá thành.

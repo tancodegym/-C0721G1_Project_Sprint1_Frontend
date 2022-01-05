@@ -121,7 +121,7 @@
                 <label for="position" class="mr-3">Chức vụ<span style="color: red">(*)</span></label>
               </div>
               <div class="col-lg-9">
-                <select id="position" [compareWith]="comparePosition" class="form-control" formControlName="position">
+                <select id="position" [compareWith]="comparePosition" class="form-control" formControlName="position" disabled>
                   <option value="" selected>Chọn chức vụ</option>
                   <option *ngFor="let p of positions" [ngValue]="p">{{p.name}}</option>
                 </select>

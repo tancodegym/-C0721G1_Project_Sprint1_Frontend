@@ -4,7 +4,7 @@
     <div class="col-lg-2">
       <app-left-side-bar></app-left-side-bar>
     </div>
-    <div class="col-lg-10">
+    <div class="col-lg-10" style="padding-left: 0">
       <nav class="navbar navbar-light">
         <a class="btn">
           <button class="btn btn-success " style="background: #058af0" routerLink="/employee/create">Thêm mới nhân
@@ -85,7 +85,7 @@
         <div class="col-lg-9">
         </div>
         <div class="col-lg-3">
-          <nav aria-label="...">
+          <nav aria-label="..." *ngIf="!errMessage" style="float: right">
             <ul class="pagination">
               <li class="page-item">
                 <button class="page-link" *ngIf="page > 0" (click)="previousPage()">Trước</button>
@@ -96,17 +96,17 @@
                 </button>
               </li>
               <li class="page-item">
-                <button class="page-link" *ngIf="page < 2 && page != 0" [value]="0" #page2
+                <button class="page-link" *ngIf="page < 2 && page != 0 " [value]="0" #page2
                         (click)="setPage(page2.value)">1
                 </button>
               </li>
               <li class="page-item">
-                <button class="page-link" *ngIf="page < 2 && page == 0" [value]="1" #page3
+                <button class="page-link" *ngIf="page < 2 && page == 0 && pageEmployee.totalPages > 1" [value]="1" #page3
                         (click)="setPage(page3.value)">2
                 </button>
               </li>
               <li class="page-item active" aria-current="page">
-                <button class="page-link" *ngIf="page < 2 && page != 0" [value]="1" #page4
+                <button class="page-link" *ngIf="page < 2 && page != 0 && pageEmployee.totalPages > 1" [value]="1" #page4
                         (click)="setPage(page4.value)">2
                 </button>
               </li>
@@ -129,7 +129,7 @@
 
               <li class="page-item"><p class="page-link" *ngIf="page <  pageEmployee.totalPages - 3 ">...</p></li>
               <li class="page-item">
-                <button class="page-link" *ngIf="page < pageEmployee.totalPages - 1"
+                <button class="page-link" *ngIf="page < pageEmployee.totalPages - 1 && pageEmployee.totalPages > 2"
                         [value]="pageEmployee.totalPages - 1" #page9
                         (click)="setPage(page9.value)">{{pageEmployee.totalPages}}</button>
               </li>

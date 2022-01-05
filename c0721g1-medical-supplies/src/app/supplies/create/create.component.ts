@@ -46,6 +46,7 @@ export class CreateComponent implements OnInit {
       image: new FormControl()
     }
   );
+  priceBinding: string ;
 
   constructor(private suppliesService: SuppliesService,
               private suppliesTypeService: SuppliesTypeService,

@@ -41,7 +41,9 @@
               <div class="product-img"><a routerLink="/home/detail/{{item.id}}" data-abc="true"> <img
                 src="{{item.image}}" width="100%" height="100%"> </a>
                 <div style="text-align: center; font-size: large; padding-top: 5px">
-                  <span>{{item.name}} : {{item.price | number}} (VNĐ) </span>
+                  <span style="padding-bottom: 2%">{{item.name}}</span>
+                  <br>
+                  <span><strong>Đơn giá:</strong>  {{item.price | number}} (VNĐ) </span>
                 </div>
               </div>
             </div>
@@ -53,7 +55,7 @@
         </div>
         <div class="col-lg-3">
 
-          <nav aria-label="...">
+          <nav aria-label="..." style="float: right">
             <ul class="pagination">
               <li class="page-item">
                 <button class="page-link" *ngIf="page > 0" (click)="previousPage()">Trước</button>
