@@ -50,7 +50,6 @@ export class CreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.positionService.getListPosition().subscribe(next => {
-      console.log(next);
       this.positionList = next;
       // tslint:disable-next-line:no-shadowed-variable
       this.employeeService.getCode().subscribe(next => {
@@ -71,7 +70,6 @@ export class CreateComponent implements OnInit {
   submit() {
     // upload image to firebase
     this.employee = this.employeeForm.value;
-    console.log(this.selectedImage);
     if (this.selectedImage != null) {
       const nameImg = this.getCurrentDateTime() + this.selectedImage;
       const fileRef = this.storage.ref(nameImg);

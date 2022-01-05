@@ -1,8 +1,9 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {Component, HostListener, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {FinancialStats} from '../../model/FinancialStats';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {FinancialService} from '../../service/financial.service';
 import {StatsService} from '../../service/stats.service';
+import {BsDatepickerDirective} from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-financial',
@@ -20,7 +21,6 @@ export class FinancialComponent implements OnInit {
       this.financialService.getAll().subscribe(
         value => {
           this.financial = value;
-          console.log(this.financial);
           this.revenue = this.financial.income;
           this.totalCost = (this.financial.refund + this.financial.cancelled + this.financial.importMoney);
           this.profit = (this.revenue - this.totalCost);
@@ -30,6 +30,8 @@ export class FinancialComponent implements OnInit {
       );
     }
   }
+
+  @ViewChild(BsDatepickerDirective, { static: false }) datepicker?: BsDatepickerDirective;
 
   financial: FinancialStats;
   bsValue = new Date();
@@ -53,6 +55,12 @@ export class FinancialComponent implements OnInit {
   chart = null;
 
   chartDetail = null;
+
+
+  @HostListener('window:scroll')
+  onScrollEvent() {
+    this.datepicker?.hide();
+  }
 
   // chart doanh thu
   createRevenueChart(labels, data, myChart1) {
@@ -177,6 +185,9 @@ export class FinancialComponent implements OnInit {
     );
   }
 
+  onPrint() {
+    window.print();
+  }
   ngOnInit(): void {
   }
 }

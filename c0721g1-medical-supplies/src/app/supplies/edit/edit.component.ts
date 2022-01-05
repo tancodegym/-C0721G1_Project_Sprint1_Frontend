@@ -67,7 +67,7 @@ export class EditComponent implements OnInit {
       }
       this.suppliesEditForm.setValue(this.supplies);
     }, error => {
-      this.router.navigateByUrl('/supplies/list').then(r => this.t.success('Không tìm thấy Id'));
+      this.router.navigateByUrl('/supplies/list').then(r => this.t.error('Không tìm thấy id', 'Tin nhắn từ hệ thống'));
     });
   }
 

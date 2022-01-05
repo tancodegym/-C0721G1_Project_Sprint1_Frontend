@@ -31,7 +31,8 @@ export class CreateComponent implements OnInit {
   newCode: string;
   // @ts-ignore
   suppliesForm: FormGroup = new FormGroup({
-      code: new FormControl(''),
+      id: new FormControl(),
+      code: new FormControl(),
       name: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(5)]),
       price: new FormControl('', [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]),
       producer: new FormControl('', [Validators.required]),
@@ -92,7 +93,6 @@ export class CreateComponent implements OnInit {
           fileRef.getDownloadURL().subscribe((url) => {
             // tslint:disable-next-line:max-line-length
             this.suppliesForm.patchValue({image: url + ''});
-            this.suppliesForm.get('code').setValue(null);
             this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
               this.router.navigateByUrl('supplies/list');
               this.t.success('Thêm mới thông tin vật tư thành công', 'Tin nhắn từ hệ thống');
@@ -106,7 +106,7 @@ export class CreateComponent implements OnInit {
         })
       ).subscribe();
     } else {
-      this.suppliesForm.get('code').setValue(null);
+
       this.suppliesService.save(this.suppliesForm.value).subscribe(() => {
           this.router.navigateByUrl('supplies/list');
           this.t.success('Thêm mới thông tin vật tư thành công', 'Tin nhắn từ hệ thống');
@@ -115,7 +115,6 @@ export class CreateComponent implements OnInit {
         }, error => {
           this.checkError = false;
           this.handleError(error);
-          console.log(error);
         }
       );
     }

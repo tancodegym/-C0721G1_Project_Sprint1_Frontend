@@ -77,20 +77,72 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-10">
+        <div class="col-lg-9">
         </div>
-        <div class="col-lg-2">
-          <nav aria-label="..." *ngIf="!errMessage">
+        <div class="col-lg-3">
+          <nav aria-label="...">
             <ul class="pagination">
               <li class="page-item">
                 <button class="page-link" *ngIf="page > 0" (click)="previousPage()">Trước</button>
               </li>
-              <li class="page-item"><p class="page-link">{{page + 1}}/{{pageSupplies.totalPages}}</p></li>
+              <li class="page-item active" aria-current="page">
+                <button class="page-link" *ngIf="page < 2 && page == 0" [value]="0" #page1
+                        (click)="setPage(page1.value)">1
+                </button>
+              </li>
+              <li class="page-item">
+                <button class="page-link" *ngIf="page < 2 && page != 0" [value]="0" #page2
+                        (click)="setPage(page2.value)">1
+                </button>
+              </li>
+              <li class="page-item">
+                <button class="page-link" *ngIf="page < 2 && page == 0" [value]="1" #page3
+                        (click)="setPage(page3.value)">2
+                </button>
+              </li>
+              <li class="page-item active" aria-current="page">
+                <button class="page-link" *ngIf="page < 2 && page != 0" [value]="1" #page4
+                        (click)="setPage(page4.value)">2
+                </button>
+              </li>
+              <li class="page-item">
+                <button class="page-link" *ngIf="page < 2 && pageSupplies.totalPages > 3" [value]="2" #page5 (click)="setPage(page5.value)">3</button>
+              </li>
+              <li class="page-item">
+                <button class="page-link" *ngIf="page > 1" [value]="page - 1" #page6
+                        (click)="setPage(page6.value)">{{page}}</button>
+              </li>
+              <li class="page-item active" aria-current="page">
+                <button class="page-link" *ngIf="page > 1" [value]="page" #page7
+                        (click)="setPage(page7.value)">{{page + 1}}</button>
+              </li>
+              <li class="page-item">
+                <button class="page-link" *ngIf="page < (pageSupplies.totalPages - 2) && page > 1" [value]="page + 1"
+                        #page8 (click)="setPage(page8.value)">{{page + 2}}</button>
+              </li>
+
+              <li class="page-item"><p class="page-link" *ngIf="page < pageSupplies.totalPages -3 ">...</p></li>
+              <li class="page-item">
+                <button class="page-link" *ngIf="page < pageSupplies.totalPages - 1"
+                        [value]="pageSupplies.totalPages - 1" #page9
+                        (click)="setPage(page9.value)">{{pageSupplies.totalPages}}</button>
+              </li>
               <li class="page-item">
                 <button class="page-link" *ngIf="page + 1 < pageSupplies.totalPages" (click)="nextPage()">Sau</button>
               </li>
             </ul>
           </nav>
+<!--          <nav aria-label="..." *ngIf="!errMessage">-->
+<!--            <ul class="pagination">-->
+<!--              <li class="page-item">-->
+<!--                <button class="page-link" *ngIf="page > 0" (click)="previousPage()">Trước</button>-->
+<!--              </li>-->
+<!--              <li class="page-item"><p class="page-link">{{page + 1}}/{{pageSupplies.totalPages}}</p></li>-->
+<!--              <li class="page-item">-->
+<!--                <button class="page-link" *ngIf="page + 1 < pageSupplies.totalPages" (click)="nextPage()">Sau</button>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </nav>-->
         </div>
       </div>
       <!--    </div>-->

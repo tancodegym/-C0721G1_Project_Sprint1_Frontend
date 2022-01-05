@@ -8,11 +8,11 @@
         <h2 style="color: green"><strong>{{supplies.name}}</strong></h2>
         <p>{{supplies.introduce}}</p>
         <span style="font-size: 30px;color: dodgerblue">
-              <a href="https://www.facebook.com"><i class="fab fa-facebook-f icon" ></i></a>
-          <a href="https://www.twitter.com"><i style="margin-left: 10px" class="fab fa-twitter icon"></i></a>
-          <a href="https://www.google.com"><i style="margin-left: 10px" class="fab fa-google icon"></i></a>
-          <a href="https://www.gmail.com"><i style="margin-left: 10px" class="fas fa-envelope-square icon"></i></a>
-          <a href="https://www.linkedin.com"><i style="margin-left: 10px" class="fab fa-linkedin-in icon"></i></a>
+          <a target="_blank" href="https://www.facebook.com"><i class="fab fa-facebook-f icon" ></i></a>
+          <a target="_blank" href="https://www.twitter.com"><i style="margin-left: 10px" class="fab fa-twitter icon"></i></a>
+          <a target="_blank" href="https://www.google.com"><i style="margin-left: 10px" class="fab fa-google icon"></i></a>
+          <a target="_blank" href="https://www.gmail.com"><i style="margin-left: 10px" class="fas fa-envelope-square icon"></i></a>
+          <a target="_blank" href="https://www.linkedin.com"><i style="margin-left: 10px" class="fab fa-linkedin-in icon"></i></a>
                 </span><br><br>
         <a (click)="addToCart()" class="btn btn-primary btn-block"
            style="text-decoration: none; font-size: 20px;display: inline"><i class="fas fa-cart-plus"></i>
@@ -45,11 +45,11 @@
     </div>
     <div class="row container-fluid align-items-center">
       <div class="col-4">
-        <img src="https://vienyte.vn/wp-content/themes/bob/thumb.php?src=https://vienyte.vn/wp-content/uploads/2021/06/may-tao-oxy-7-lit-hidgeem-plus-maytaooxyyte-vn-images-logo.jpg&w=280&h=280&zc=1&q=95"
+        <img  (click)="moveToDetail(21)"  src="https://i.imgur.com/G41pwGs.jpg"
              alt="" style="width:80px">
       </div>
       <div class="col-8 text-center">
-        <p>Máy tạo oxi</p>
+        <a  routerLink="home/detail/21"><p>Máy tạo Oxi gia đình</p></a>
       </div>
 
     </div>
@@ -57,47 +57,47 @@
 
     <div class="row container-fluid align-items-center">
       <div class="col-4">
-        <img src="https://cdn.tgdd.vn/Products/Images/5473/209852/may-loc-khong-khi-xiaomi-mi-pro-fjy4013gl-1-org.jpg"
+        <img  (click)="moveToDetail(11)" src="https://salt.tikicdn.com/cache/400x400/ts/product/3b/65/e8/ce282db9dcf973abb8ee967732ddf45f.jpg.webp"
              alt="" style="width:80px">
       </div>
       <div class="col-8 text-center">
-        <p>Máy lọc không khí Ozawa</p>
+        <a  routerLink="home/detail/11">  <p>Khẩu trang 4D</p></a>
       </div>
 
     </div>
     <br>
 
-    <div class="row container-fluid align-items-center">
+    <div   class="row container-fluid align-items-center">
       <div class="col-4">
-        <img src="https://media-cdn.laodong.vn/storage/newsportal/2021/9/11/952354/Nhan-Sam.jpg?w=888&h=592&crop=auto&scale=both"
+        <img (click)="moveToDetail(13)" src="https://images.fpt.shop/unsafe/fit-in/600x600/filters:quality(90):fill(white)/nhathuoclongchau.com/images/product/2021/07/00009723-berocca-7737-60e3_large.jpg"
              alt="" style="width:80px">
       </div>
       <div class="col-8 text-center">
-        <p>Nhân sâm ngàn năm</p>
+        <a  routerLink="home/detail/13">  <p>Viên Sủi Berocca</p></a>
       </div>
 
     </div>
     <br>
 
-    <div class="row container-fluid align-items-center">
-      <div class="col-4">
-        <img src="https://vn-live-05.slatic.net/p/a76ac7bb11fa4b8e5b64a942110ad6fb.jpg_720x720q80.jpg_.webp"
-             alt="" style="width:80px">
-      </div>
-      <div class="col-8 text-center">
-        <p>Khẩu trang siêu kháng khuẩn</p>
-      </div>
+<!--    <div class="row container-fluid align-items-center">-->
+<!--      <div class="col-4">-->
+<!--        <img src="https://vn-live-05.slatic.net/p/a76ac7bb11fa4b8e5b64a942110ad6fb.jpg_720x720q80.jpg_.webp"-->
+<!--             alt="" style="width:80px">-->
+<!--      </div>-->
+<!--      <div class="col-8 text-center">-->
+<!--        <p>Khẩu trang siêu kháng khuẩn</p>-->
+<!--      </div>-->
 
-    </div>
-    <br>
-    <div class="row container-fluid align-items-center">
-      <div class="col-4">
-        <img src="http://bignanotech.com.vn/uploads/Product/BIGNANOTECH/mang_loc_khang_khuan/manglocmeltblown-02.jpg"
-             alt="" style="width:80px">
-      </div>
-      <div class="col-8 text-center">
-        <p>Vải lọc kháng khuẩn</p>
-      </div>
-    </div>
+<!--    </div>-->
+<!--    <br>-->
+<!--    <div class="row container-fluid align-items-center">-->
+<!--      <div class="col-4">-->
+<!--        <img src="http://bignanotech.com.vn/uploads/Product/BIGNANOTECH/mang_loc_khang_khuan/manglocmeltblown-02.jpg"-->
+<!--             alt="" style="width:80px">-->
+<!--      </div>-->
+<!--      <div class="col-8 text-center">-->
+<!--        <p>Vải lọc kháng khuẩn</p>-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </div>

@@ -21,8 +21,10 @@ export class SuppliesStatsService {
   }
 
   searchSuppliesStats(startDate: string, endDate: string): Observable<SuppliesStats | any> {
+    console.log(startDate);
+    console.log(endDate);
     // tslint:disable-next-line:max-line-length
-    return this.http.get<SuppliesStats | any>(this.API + '/user/stats/supplies-stats/fetch?startDate=' + startDate + '&endDate=' + endDate);
+    return this.http.get<SuppliesStats | any>(this.API + '/user/stats/supplies-stats/fetch/' + startDate + '/' + endDate);
   }
 
 }

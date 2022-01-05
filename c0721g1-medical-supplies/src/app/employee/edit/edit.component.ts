@@ -63,7 +63,7 @@ export class EditComponent implements OnInit {
           this.employeeForm.setValue(this.employee);
         }, error => {
           this.router.navigateByUrl('employee/list');
-          this.toastrService.success('Không tìm thấy id.', 'Tin nhắn từ hệ thống');
+          this.toastrService.error('Không tìm thấy id.', 'Tin nhắn từ hệ thống');
         });
       });
     });

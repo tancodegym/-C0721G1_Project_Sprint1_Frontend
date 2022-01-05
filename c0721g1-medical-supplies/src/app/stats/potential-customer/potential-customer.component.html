@@ -7,10 +7,10 @@
     <div class="col-lg-10">
       <h2 class="text-center" style="margin:20px">MÀN HÌNH THỐNG KÊ KHÁCH HÀNG TIỀM NĂNG</h2>
 
-      <h2 *ngIf="check" class="text-center text-danger" style="margin:30px">Dữ liệu không tồn tại trong khoảng thời gian {{startDate}} đến {{endDate}}</h2>
+      <h2 *ngIf="check" class="text-center text-danger" style="margin:30px">Dữ liệu không tồn tại trong khoảng thời gian này</h2>
 
       <!--    search box-->
-      <div class="row">
+      <div *ngIf="!check" class="row">
         <div class="col-6"></div>
         <div class="col-6">
           <div class="row">
@@ -26,7 +26,7 @@
 
 
       <!--chart JS-->
-      <div class="row" style="margin:50px">
+      <div *ngIf="!check" class="row" style="margin:50px">
         <div class="col-2"></div>
         <div class="col-8">
           <div>
@@ -35,31 +35,43 @@
         </div>
         <div class="col-2"></div>
       </div>
-
-
-
-      <table class="table table-hover table-striped container">
-        <thead>
-        <tr>
-          <th>Mã khách hàng</th>
-          <th>Tên khách hàng</th>
-          <th>Tổng số lượng đơn hàng</th>
-          <th>Tổng giá trị</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let items of potentialArr">
-          <td>{{items.code}}</td>
-          <td>{{items.name}}</td>
-          <td>{{items.quantity}}</td>
-          <td>{{items.total}}</td>
-        </tr>
-        </tbody>
-      </table>
+      <div class="row">
+        <div class="col-lg-12">
+          <table *ngIf="!check" class="table table-hover table-striped container">
+            <thead>
+            <tr>
+              <th>Mã khách hàng</th>
+              <th>Tên khách hàng</th>
+              <th>Tổng số lượng đơn hàng</th>
+              <th>Tổng giá trị</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let items of potentialArr | paginate: { itemsPerPage: 3, currentPage: page }">
+              <td>{{items.code}}</td>
+              <td>{{items.name}}</td>
+              <td>{{items.quantity}} Đơn</td>
+              <td>{{items.total | number}} VND</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8"></div>
+        <div class="col-lg-4">
+          <pagination-controls previousLabel="Trước" nextLabel="Sau"
+                               responsive="true" *ngIf="!check"   (pageChange)="page = $event"></pagination-controls>
+        </div>
+      </div>
       <div class="row" style="margin:30px">
         <div class="col-12 text-center">
-          <button type="submit" class="fas fa-print btn btn-primary" style="width: 80px;height: 36px; margin-right: 15px">In</button>
-          <button type="submit" class="btn btn-secondary">Trở về</button>
+          <div class="print">
+            <button  (click)="onPrint()" class="fas fa-print btn btn-primary"
+                     style="width: 80px;height: 36px; margin-right: 15px;display: inline">In
+            </button>
+            <button type="button" class="btn btn-secondary" routerLink="/system">Quay lại</button>
+          </div>
         </div>
       </div>
 

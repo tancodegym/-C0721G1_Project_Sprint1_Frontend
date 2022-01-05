@@ -98,4 +98,19 @@ export class ListComponent implements OnInit {
         this.errMessage = 'Không có dữ liệu cần tìm.';
       });
   }
+  setPage(pages: string) {
+    this.page = Number(pages);
+    this.searchForm.controls.page.setValue(this.page);
+    this.pageEmployeeDTO = this.searchForm.value;
+    this.employeeService.getListEmployee(this.pageEmployeeDTO).subscribe(value => {
+        this.errMessage = null;
+        this.pageEmployee = value;
+        this.employeeList = value.content;
+        this.ngOnInit();
+      },
+      error => {
+        this.employeeList = [];
+        this.errMessage = 'Không có dữ liệu cần tìm';
+      });
+  }
 }

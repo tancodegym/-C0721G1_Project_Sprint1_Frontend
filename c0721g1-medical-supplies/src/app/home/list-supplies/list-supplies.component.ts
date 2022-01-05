@@ -14,39 +14,47 @@ export class ListSuppliesComponent implements OnInit {
   page = 0;
   totalPage: number;
   errMessage: string;
-
+  id = 0;
   search(id) {
-    this.suppliesService.searchSupplies(this.page, id).subscribe(value => {
-      console.log(value);
-      this.suppliesList = value.content;
-
-      this.page = 0;
-    });
+    this.page = 0;
+    this.id = id;
+    this.ngOnInit();
+  }
+  getListSupplies() {
+    if (this.id === 0) {
+      this.suppliesService.getSuppliesList(this.page).subscribe(value => {
+        console.log(value);
+        this.suppliesList = value.content;
+        this.totalPage = value.totalPages;
+      }, error => {
+        this.suppliesList = [];
+        this.errMessage = 'KHÔNG CÓ DỮ LIỆU SẢN PHẨM ĐƯỢC CẬP NHẬP!';
+      });
+    } else {
+      this.suppliesService.searchSupplies(this.page, this.id).subscribe(value => {
+        this.totalPage = value.totalPages;
+        this.suppliesList = value.content;
+      });
+    }
   }
 
   constructor(private suppliesService: SuppliesService,
               private router: Router) {
+    window.scrollTo(0, 0);
   }
 
   ngOnInit(): void {
-    this.suppliesService.getSuppliesList(this.page).subscribe(value => {
-      console.log(value);
-      this.suppliesList = value.content;
-      this.totalPage = value.totalPages;
-    }, error => {
-      this.suppliesList = [];
-      this.errMessage = 'KHÔNG CÓ DỮ LIỆU SẢN PHẨM ĐƯỢC CẬP NHẬP!';
-    });
+    this.getListSupplies();
     this.getSuppliesList();
     AOS.init({});
 
   }
 
   getSuppliesList() {
-    this.suppliesService.findAll().subscribe(value => {
-      this.suppliesList = value.content;
-    });
-  }
+        this.suppliesService.findAll().subscribe(value => {
+          this.suppliesList = value.content;
+      });
+}
 
   nextPage() {
     this.page += 1;
@@ -60,6 +68,11 @@ export class ListSuppliesComponent implements OnInit {
 
   lastPage() {
     this.page = this.totalPage - 1;
+    this.ngOnInit();
+  }
+
+  setPage(pages: string) {
+    this.page = Number(pages);
     this.ngOnInit();
   }
 }

@@ -59,6 +59,9 @@ export class DetailEditComponent implements OnInit {
               @Inject(AngularFireStorage) private storage: AngularFireStorage,
               private toastrService: ToastrService,
               private tokenStorageService: TokenStorageService) {
+    if (this.tokenStorageService.getUser().employee.id !== Number(this.activatedRoute.snapshot.params.id)) {
+      this.router.navigateByUrl('/auth/forbidden');
+    }
     this.id = this.activatedRoute.snapshot.params.id;
     this.findById();
     if (this.tokenStorageService.getUser().roles.length === 2) {

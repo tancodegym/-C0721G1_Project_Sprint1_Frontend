@@ -3,6 +3,7 @@
   margin: auto;
   width: 100%;
 ">
+  <button (click)="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-arrow-alt-circle-up"></i></button>
   <div class="col-lg-12" id="middle" style="padding-left: 0px; padding-right: 0px ">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
@@ -79,8 +80,8 @@
           <img src="https://truongthinhphatholding.com.vn/wp-content/uploads/2020/07/Group-174-1.png" alt="Avatar"
                class="image" style="width:100%">
           <div class="middle">
-            <div class="text-main">
-              <a routerLink="/home/list">
+            <div class="text-main hover-text">
+              <a style="color: black" routerLink="/home/list">
                 THIẾT BỊ Y TẾ
               </a>
             </div>
@@ -92,8 +93,8 @@
           <img src="https://truongthinhphatholding.com.vn/wp-content/uploads/2020/07/Group-175-1-1.png"
                alt="Avatar" class="image" style="width:100%">
           <div class="middle">
-            <div class="text-main">
-              <a routerLink="/home/list">
+            <div class="text-main hover-text">
+              <a style="color: black" routerLink="/home/list">
                 SẢN PHẨM CHĂM SÓC SỨC KHOẺ
               </a>
             </div>
@@ -105,8 +106,8 @@
           <img src="https://truongthinhphatholding.com.vn/wp-content/uploads/2020/07/Group-176-1.png" alt="Avatar"
                class="image" style="width:100%">
           <div class="middle">
-            <div class="text-main">
-              <a routerLink="/home/list">
+            <div class="text-main hover-text">
+              <a style="color: black" routerLink="/home/list">
                 THIẾT BỊ Y TẾ & VẬT TƯ TIÊU HAO
               </a>
             </div>
@@ -136,96 +137,20 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-2"></div>
-          <div class="col-8">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-8">
             <div class="row">
-              <div class="col-3">
-                <img href=""
-                     src="https://truongthinhphatholding.com.vn/wp-content/uploads/2020/07/khau-trang-3-lop.jpg"
-                     width="100%" class="seller">
+              <div class="col-lg-3" style="padding-left: 5%; padding-right: 5%" *ngFor="let item of suppliesList">
+                <a routerLink="/home/detail/{{item.id}}"> <img src="{{item.image}}" style="width: 100%"></a>
                 <div style="text-align: center">
                   <br>
-                  <a class="seller" style="color: black; font-weight: bold" href="">KHẨU TRANG THƯỜNG
-                    3 & 4 LỚP</a>
+                  <a class="seller" style="color: black; font-weight: bold; font-size: 16px"
+                     routerLink="/home/detail/{{item.id}}">{{item.name}}</a>
                 </div>
               </div>
-              <div class="col-3">
-                <img src="https://truongthinhphatholding.com.vn/wp-content/uploads/2020/07/Untitled-2.jpg"
-                     width="100%" class="seller">
-                <br>
-                <div style="text-align: center">
-                  <br>
-                  <a class="seller" style="color: black; font-weight: bold" href="">ÁO CHOÀNG BẢO HỘ Y
-                    TẾ</a>
-                </div>
-              </div>
-              <div class="col-3">
-                <img src="https://truongthinhphatholding.com.vn/wp-content/uploads/2020/07/khau-trang-famapro.jpg"
-                     width="100%" class="seller">
-                <br>
-                <div style="text-align: center">
-                  <br>
-                  <a class="seller" style="color: black; font-weight: bold" href="">KHẨU TRANG FAMAPRO
-                    VN95 KHÔNG VAN THỞ</a>
-                </div>
-              </div>
-              <div class="col-3">
-                <img src="https://truongthinhphatholding.com.vn/wp-content/uploads/2020/07/khau-trang-em-be.jpg"
-                     width="100%" class="seller">
-                <br>
-                <div style="text-align: center">
-                  <br>
-                  <a class="seller" style="color: black; font-weight: bold" href="">KHẨU TRANG TRẺ
-                    EM</a>
-                </div>
-              </div>
-            </div>
-            <br>
-            <br>
-            <div class="row">
-              <div class="col-3">
-                <img href=""
-                     src="https://truongthinhphatholding.com.vn/wp-content/uploads/2020/07/do-bao-ho-y-te.jpg"
-                     width="100%" class="seller">
-                <br>
-                <div style="text-align: center">
-                  <br>
-                  <a class="seller" style="color: black; font-weight: bold" href="">TRỌN BỘ BẢO HỘ Y
-                    TẾ</a>
-                </div>
-              </div>
-              <div class="col-3">
-                <img src="https://truongthinhphatholding.com.vn/wp-content/uploads/2020/07/Untitled-1.jpg"
-                     width="100%" class="seller">
-                <br>
-                <div style="text-align: center">
-                  <br>
-                  <a class="seller" style="color: black; font-weight: bold" href="">GIÀY VÀ MŨ BẢO HỘ
-                    Y TẾ</a>
-                </div>
-              </div>
-              <div class="col-3 seller">
-                <img src="https://truongthinhphatholding.com.vn/wp-content/uploads/2020/07/Gloves.jpg"
-                     width="100%">
-                <br>
-                <div style="text-align: center">
-                  <br>
-                  <a style="color: black; font-weight: bold" href="">GĂNG TAY</a>
-                </div>
-              </div>
-              <div class="col-3">
-                <img src="https://truongthinhphatholding.com.vn/wp-content/uploads/2020/07/linh-chi-tao-do.jpg"
-                     width="100%" class="seller">
-                <br>
-                <div style="text-align: center">
-                  <br>
-                  <a class="seller" style="color: black; font-weight: bold" href="">LINH CHI TÁO
-                    ĐỎ</a>
-                </div>
-              </div>
-              <div class="col-2"></div>
             </div>
           </div>
+          <div class="col-lg-2"></div>
         </div>
       </section>
     </div>
@@ -277,9 +202,9 @@
   </div>
   <div>
     <div class="row contact-box"
-      style="background-image: url(https://media.istockphoto.com/vectors/abstract-uneven-backbrond-vector-id1145351600?k=20&m=1145351600&s=612x612&w=0&h=5qa_xhjsoK2Cw2-ZQHKPRqn1Y0sw-zQAHgktaEfWc1M=);
+         style="background-image: url(https://media.istockphoto.com/vectors/abstract-uneven-backbrond-vector-id1145351600?k=20&m=1145351600&s=612x612&w=0&h=5qa_xhjsoK2Cw2-ZQHKPRqn1Y0sw-zQAHgktaEfWc1M=);
       background-size: cover">
-      <div class="col-lg-12" style="text-align: center; padding-top: 30px" >
+      <div class="col-lg-12" style="text-align: center; padding-top: 30px">
           <span style="font-weight: bolder; font-size: xx-large; font-family: 'Lucida Grande'">
               ĐỊA ĐIỂM CÔNG TY
           </span>
@@ -297,11 +222,39 @@
         <div class="col-lg-5">
           <div class="form-contact">
             <form [formGroup]="requestForm" id="form1" (ngSubmit)="sendMail()">
-              <input formControlName="name" type="text" id="fname" name="fname" placeholder="Họ tên"><br>
-              <input formControlName="email" type="text" id="femail" name="femail" placeholder="Địa chỉ Email"><br>
-              <input formControlName="content" type="text" id="fcontent" name="fcontent" placeholder="Nội dung yêu cầu"><br>
-              <div style="text-align: center; margin-bottom: 10px" >
-                <input type="submit" value="Gửi yêu cầu">
+              <input formControlName="name" type="text" id="fname" name="fname" placeholder="Họ tên">
+              <div style="color: red"
+                   *ngIf="!requestForm.controls.name.valid && (requestForm.controls.name.dirty ||
+  requestForm.controls.name.touched)">
+                <div [hidden]="!requestForm.get('name').errors.required">
+                  Họ và tên không được để trống !
+                </div>
+              </div>
+              <br>
+              <input formControlName="email" type="text" id="femail" name="femail" placeholder="Địa chỉ Email">
+              <div style="color: red"
+                   *ngIf="!requestForm.controls.email.valid && (requestForm.controls.email.dirty ||
+  requestForm.controls.email.touched)">
+                <div [hidden]="!requestForm.get('email').errors.required">
+                  Email không được để trống!
+                </div>
+                <div [hidden]="!requestForm.get('email').errors.pattern">
+                  Vui lòng nhập đúng định dạng email!
+                </div>
+              </div>
+              <br>
+              <input formControlName="content" type="text" id="fcontent" name="fcontent"
+                     placeholder="Nội dung yêu cầu">
+              <div style="color: red"
+                   *ngIf="!requestForm.controls.content.valid && (requestForm.controls.content.dirty ||
+                    requestForm.controls.content.touched)">
+                <div [hidden]="!requestForm.get('content').errors.required">
+                  Nội dung không được để trống !
+                </div>
+              </div>
+              <br>
+              <div style="text-align: center; margin-bottom: 10px">
+                <button [disabled]="!requestForm.valid" class="btn btn-primary" value="Gửi yêu cầu">Gửi yêu cầu</button>
               </div>
             </form>
           </div>

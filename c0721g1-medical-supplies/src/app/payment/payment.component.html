@@ -17,6 +17,7 @@
               <div *ngIf="!name.valid && (name.dirty ||name.touched)">
                 <div style="color:red" [hidden]="!name.errors.required">Tên không được để trống</div>
                 <div style="color:red" [hidden]="!name.hasError('errorName')">Họ và tên phải đúng định dạng (Không chứa chữ số)</div>
+                <div style="color:red" [hidden]="!name.errors.maxlength">Họ và tên phải nhỏ hơn 50 kí tự</div>
               </div>
             </td>
 
@@ -24,10 +25,15 @@
           <tr>
             <td><h4 style="display: inline">Địa chỉ<span style="color: red">(*)</span></h4></td>
             <td>
-              <select class="form-control" style="font-size: 20px" formControlName="address">
-                <option value="">Chọn tỉnh thành</option>
+              <input placeholder="Chọn tỉnh thành" class="form-control" style="font-size: 20px"
+                     formControlName="address" list="address" />
+              <datalist id="address">
                 <option *ngFor="let address of addressList" [ngValue]="address">{{address.name}}</option>
-              </select>
+              </datalist>
+              <!--            <select class="form-control" style="font-size: 20px" formControlName="address">-->
+              <!--              <option value="">Chọn tỉnh thành</option>-->
+              <!--              <option *ngFor="let address of addressList" [ngValue]="address">{{address.name}}</option>-->
+              <!--            </select>-->
               <div *ngIf="!address.valid && (address.dirty ||address.touched)">
                 <div style="color:red" [hidden]="!address.errors.required">Vui lòng nhập địa chỉ</div>
               </div>
@@ -51,6 +57,7 @@
               <div *ngIf="!email.valid && (email.dirty ||email.touched)">
                 <div style="color:red" [hidden]="!email.errors.required">Email không được để trống</div>
                 <div style="color:red" [hidden]="!email.errors.pattern">Sai định dạng email ( Ví dụ: abcxye@gmail.com,...)</div>
+                <div style="color:red" [hidden]="!email.errors.maxlength">Email phải nhỏ hơn 50 kí tự</div>
               </div>
             </td>
           </tr>
@@ -59,15 +66,15 @@
             <td ><div  #paypal></div></td>
           </tr>
         </table>
-        <h4>Tổng tiền:<span>{{total}}</span></h4>
+        <h4>Tổng tiền:<span>{{total|number}}</span></h4>
+        <!--  button Quay lại giỏ hàng-->
+        <button (click)="moveToCartPage()" type="button" class="btn btn-secondary btn-lg">Quay lại giỏ hàng</button>
         <!-- Button bật modal xác nhận đơn hàng -->
-        <button [disabled]="!customerForm.valid" style="margin-left: 10px" type="button" class="btn btn-primary mr-lg-3" data-toggle="modal" data-target="#modelId">
+        <button [disabled]="!customerForm.valid" style="margin-left: 10px" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelId">
           Thanh toán trực tiếp
         </button>
         <!--Button bật modal thanh toán online  -->
-        <button [disabled]="!customerForm.valid" style="margin-left: 10px" type="button" class="btn btn-primary mr-lg-3" (click)="checkPaypal()">Thanh toán online</button>
-        <!--  button Quay lại giỏ hàng-->
-        <button (click)="moveToCartPage()" type="button" class="btn btn-secondary">Quay lại giỏ hàng</button>
+        <button [disabled]="!customerForm.valid" style="margin-left: 10px" type="button" class="btn btn-success btn-lg" (click)="checkPaypal()">Thanh toán online</button>
       </form>
 
     </div>
@@ -86,11 +93,11 @@
         </button>
       </div>
       <div class="modal-body">
-        Đơn hàng của bạn tổng cộng là {{total}} VNĐ, bạn có muốn đặt đơn hàng này không ?
+        Đơn hàng của bạn tổng cộng là {{total|number}} VNĐ, bạn có muốn đặt đơn hàng này không ?
       </div>
       <div class="modal-footer">
-        <button data-dismiss="modal" type="button" (click)="payment()" class="btn btn-success mr-lg-3">Thanh toán</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        <button data-dismiss="modal" type="button" (click)="payment()" class="btn btn-success">Thanh toán</button>
       </div>
     </div>
   </div>

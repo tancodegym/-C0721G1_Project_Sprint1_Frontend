@@ -130,4 +130,20 @@ export class ListComponent implements OnInit {
       }
     );
   }
+  setPage(pages: string) {
+    this.page = Number(pages);
+    this.searchForm.controls.page.setValue(this.page);
+    this.pageSuppliesDTO = this.searchForm.value;
+    this.suppliesService.getListSupplies(this.pageSuppliesDTO).subscribe(value => {
+        this.errMessage = null;
+        this.pageSupplies = value;
+        this.suppliesList = value.content;
+        this.ngOnInit();
+      },
+      error => {
+        this.suppliesList = [];
+        this.errMessage = 'Không có dữ liệu cần tìm';
+      }
+    );
+  }
 }

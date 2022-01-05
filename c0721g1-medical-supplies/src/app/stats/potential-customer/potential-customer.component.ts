@@ -31,6 +31,7 @@ export class PotentialCustomerComponent implements OnInit {
   bsValue = new Date();
   check = false;
   labels: [];
+  page = 1;
 
   data = {
     labels: []
@@ -87,7 +88,9 @@ export class PotentialCustomerComponent implements OnInit {
       }
     });
   }
-
+  onPrint() {
+    window.print();
+  }
   search() {
     if (this.bsRangeValue[0].getMonth() < 9 && this.bsRangeValue[0].getDate() < 10) {
       this.startDate = this.bsRangeValue[0].getFullYear().toString()

@@ -4,6 +4,7 @@ import {Supplies} from '../model/supplies';
 import {SuppliesService} from '../service/supplies.service';
 import {Cart} from '../model/cart';
 import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 // @ts-ignore
 @Component({
@@ -12,15 +13,21 @@ import {Router} from '@angular/router';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
+  constructor(
+    private suppliesService: SuppliesService,
+    private router: Router,
+    private toastrService: ToastrService
+  ) {
+    this.getCartList();
+  }
   suppliesIdList: string[] = [];
   quantity: number [] = [];
   cartList: Cart[] = [];
   totalMoney = 0;
-
-  constructor(
-    private suppliesService: SuppliesService,
-    private router: Router
-  ) {
+  idDeleteCart = 0;
+  nameDeleteCart = '';
+  p = 1;
+  getCartList() {
     this.suppliesIdList = Object.keys(localStorage);
     this.getQuantity();
     // tslint:disable-next-line:prefer-for-of
@@ -32,9 +39,10 @@ export class CartComponent implements OnInit {
           cart.name = value.name;
           cart.price = value.price;
           cart.image = value.image;
-          cart.quantity = 1;
+          console.log(localStorage.getItem(String(cart.id)));
+          cart.quantity = Number(localStorage.getItem(String(cart.id)));
           this.cartList.push(cart);
-          this.getTotalMoney();
+          this.getTotalMoney(cart.id, cart.quantity);
         });
     }
   }
@@ -44,20 +52,35 @@ export class CartComponent implements OnInit {
       this.quantity.push(i);
     }
   }
-
   ngOnInit(): void {
-    window.scrollTo(0, 0);
   }
 
 
-  getTotalMoney() {
+  getTotalMoney(id: number, quantity: number) {
+    // @ts-ignore
+    localStorage.setItem(String(id), String(quantity));
     this.totalMoney = 0;
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.cartList.length; i++) {
       this.totalMoney += this.cartList[i].quantity * this.cartList[i].price;
     }
   }
+
   moveToPaymentPage() {
     this.suppliesService.saveCartListTemp(this.cartList);
+  }
+
+  deleteCart(id: number) {
+    localStorage.removeItem(String(id));
+    this.router.navigateByUrl('/home/list').then(e => {
+      if (e) {
+        this.router.navigateByUrl('/cart');
+      }
+    });
+  }
+
+  addIdToDelete(id: number, name: string) {
+    this.idDeleteCart = id;
+    this.nameDeleteCart = name;
   }
 }

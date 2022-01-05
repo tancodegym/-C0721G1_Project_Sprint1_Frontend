@@ -74,7 +74,7 @@ export class SuppliesService {
   }
 
   getCode(): (any) {
-    return this.httpClient.get(this.API_URL + 'admin/supplies/code', this.httpOptions);
+    return this.httpClient.get<any>(this.API_URL + 'admin/supplies/code', this.httpOptions);
   }
 
   findAll(): Observable<any> {
@@ -82,5 +82,8 @@ export class SuppliesService {
   }
   searchSupplies(page: number, id: number): Observable<any> {
     return this.httpClient.get<any>(this.API_URL + 'public/list/' + id + '/' + page);
+  }
+  findAllSupplies(): Observable<any> {
+    return this.httpClient.get<any>(this.API_URL + 'public/list');
   }
 }

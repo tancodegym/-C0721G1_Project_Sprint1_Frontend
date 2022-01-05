@@ -62,9 +62,9 @@ export class PaymentComponent implements OnInit {
   flag: boolean;
   addressList: Address[] = [];
   customerForm: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required, this.validateName]),
-    phone: new FormControl('', [Validators.required, Validators.pattern(/0(\d){9}$/)]),
-    email: new FormControl('', [Validators.required,
+    name: new FormControl('', [Validators.required, this.validateName, Validators.maxLength(50)]),
+    phone: new FormControl('', [Validators.required, Validators.pattern(/^0(\d){9}$/)]),
+    email: new FormControl('', [Validators.required, Validators.maxLength(50),
       Validators.pattern(/^[a-z]+[a-zA-Z0-9]+@[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+\\.*[a-zA-Z0-9])*/)]),
     address: new FormControl('', [Validators.required, this.validateName]),
   });
@@ -87,23 +87,9 @@ export class PaymentComponent implements OnInit {
         const order = await actions.order.capture();
         this.paidFor = true;
         // @ts-ignore
-        // this.payment();
-        this.customerTransfer = this.customerForm.value;
-        // @ts-ignore
-        const pay = new Payment( this.cartList, this.customerTransfer );
-        this.suppliesService.payment(pay).subscribe(
-          value => {
-            localStorage.clear();
-            this.router.navigateByUrl('/home');
-            // tslint:disable-next-line:no-unused-expression
-            this.toastrService.success('Bạn đã đặt hàng thành công, vui lòng kiểm tra email', 'Tin nhắn từ hệ thống');
-          },
-          error => {
-          }
-        );
+        this.payment();
         this.router.navigateByUrl('/home/list');
-        localStorage.clear();
-        this.toastrService.success('Bạn đã thanh toán thành công, vui lòng kiểm tra email', 'Tin nhắn từ hệ thống');
+        this.toastrService.success('Bạn đã thanh toán thành công, vui lòng kiểm tra email');
       },
       onError: err => {
       }
@@ -116,14 +102,23 @@ export class PaymentComponent implements OnInit {
   }
   payment() {
     this.customerTransfer = this.customerForm.value;
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.addressList.length ; i++) {
+      // @ts-ignore
+      if ( this.addressList[i].name === this.customerTransfer.address ) {
+        this.customerTransfer.address = this.addressList[i];
+        console.log(this.customerTransfer);
+        break;
+      }
+    }
     // @ts-ignore
     const pay = new Payment( this.cartList, this.customerTransfer );
     this.suppliesService.payment(pay).subscribe(
       value => {
+        this.moveHomePage();
         localStorage.clear();
-        this.router.navigateByUrl('/home');
         // tslint:disable-next-line:no-unused-expression
-        this.toastrService.success('Bạn đã đặt hàng thành công, vui lòng kiểm tra email', 'Tin nhắn từ hệ thống');
+        this.toastrService.success('Bạn đã đặt hàng thành công, vui lòng kiểm tra email');
       },
       error => {
       }
@@ -131,11 +126,11 @@ export class PaymentComponent implements OnInit {
   }
 
   clickTC() {
-    this.toastrService.success('Bạn đã thanh toán thành công, vui lòng kiểm tra email', 'Tin nhắn từ hệ thống');
+    this.toastrService.success('Bạn đã thanh toán thành công, vui lòng kiểm tra email');
   }
 
   moveHomePage() {
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/home/list');
   }
 
   moveToCartPage() {

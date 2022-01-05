@@ -30,6 +30,7 @@ export class SuppliesComponent implements OnInit {
   ctx: any;
   check = false;
   labels: [];
+  page = 1;
 
 
   data = {
@@ -159,5 +160,9 @@ export class SuppliesComponent implements OnInit {
 
     }
 
+  }
+
+  onPrint() {
+    window.print();
   }
 }

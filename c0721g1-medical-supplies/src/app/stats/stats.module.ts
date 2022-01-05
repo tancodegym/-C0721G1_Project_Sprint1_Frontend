@@ -9,6 +9,7 @@ import { TrendingSuppliesComponent } from './trending-supplies/trending-supplies
 import {FormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
     StatsRoutingModule,
     FormsModule,
     SharedModule,
-    BsDatepickerModule
+    BsDatepickerModule,
+    NgxPaginationModule
   ]
 })
 export class StatsModule { }
