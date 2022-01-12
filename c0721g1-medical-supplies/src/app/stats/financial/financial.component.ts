@@ -4,6 +4,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {FinancialService} from '../../service/financial.service';
 import {StatsService} from '../../service/stats.service';
 import {BsDatepickerDirective} from 'ngx-bootstrap/datepicker';
+import {TotalMoneyService} from '../../service/total-money.service';
 
 @Component({
   selector: 'app-financial',
@@ -15,18 +16,20 @@ export class FinancialComponent implements OnInit {
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private financialService: FinancialService,
+              private totalService: TotalMoneyService,
               private stastService: StatsService) {
-    this.orderMoney = financialService.getTotal();
-    console.log(this.orderMoney);
-    if (this.orderMoney === undefined) {
-      this.orderMoney = 0;
-    }
+    this.totalService.getAll().subscribe(value => {
+      this.totalMoney = value;
+      console.log(this.totalMoney);
+    })
     this.checkSearch = this.stastService.getCheck();
     if (this.checkSearch === 0) {
       this.financialService.getAll().subscribe(
         value => {
           this.financial = value;
-          this.income = this.financial.income + this.orderMoney;
+          this.financial.income += this.totalMoney;
+          console.log(this.financial.income);
+          this.income = this.financial.income;
           this.revenue = this.financial.income;
           this.totalCost = (this.financial.refund + this.financial.cancelled + this.financial.importMoney);
           this.profit = (this.revenue - this.totalCost);
@@ -58,7 +61,7 @@ export class FinancialComponent implements OnInit {
   dateSearch: string;
   checkSearch: number;
   income: number;
-
+  totalMoney: number;
   chart = null;
 
   chartDetail = null;

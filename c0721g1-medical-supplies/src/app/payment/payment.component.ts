@@ -10,6 +10,8 @@ import {SuppliesService} from '../service/supplies.service';
 import {Cart} from '../model/cart';
 import {Payment} from '../model/payment';
 import {FinancialService} from '../service/financial.service';
+import {TotalMoneyService} from '../service/total-money.service';
+import {DataService} from '../service/data.service';
 
 declare var paypal;
 
@@ -23,9 +25,11 @@ export class PaymentComponent implements OnInit {
   constructor(
     private router: Router,
     private financialService: FinancialService,
+    private totalService: TotalMoneyService,
     private suppliesService: SuppliesService,
     private activatedRoute: ActivatedRoute,
     private toastrService: ToastrService,
+    private dataService: DataService,
     private addressService: AddressService) {
     this.cartList = this.suppliesService.getCartList();
     this.getTotalMoney();
@@ -62,6 +66,9 @@ export class PaymentComponent implements OnInit {
   paidFor = false;
   total: number;
   flag: boolean;
+  message: string;
+  suppliesIdList: string[] = [];
+  numberOfSupplies = 0;
   addressList: Address[] = [];
   customerForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, this.validateName, Validators.maxLength(50)]),
@@ -71,6 +78,7 @@ export class PaymentComponent implements OnInit {
     address: new FormControl('', [Validators.required, this.validateName]),
   });
   ngOnInit(): void {
+    this.dataService.currentMessage.subscribe(message => this.message = message);
     paypal.Buttons({
       createOrder: (data, actions) => {
         return actions.order.create({
@@ -122,6 +130,8 @@ export class PaymentComponent implements OnInit {
         // tslint:disable-next-line:no-unused-expression
         this.toastrService.success('Bạn đã đặt hàng thành công, vui lòng kiểm tra email');
         this.financialService.saveNewOrder(this.total);
+        this.totalService.save(this.total).subscribe();
+        this.newMessage();
       },
       error => {
       }
@@ -150,6 +160,11 @@ export class PaymentComponent implements OnInit {
     for (let i = 0; i < this.cartList.length; i++) {
       this.total += this.cartList[i].quantity * this.cartList[i].price;
     }
+  }
+  newMessage() {
+    this.suppliesIdList = Object.keys(localStorage);
+    this.numberOfSupplies = this.suppliesIdList.length;
+    this.dataService.changeMessage('' + this.numberOfSupplies);
   }
 
 }

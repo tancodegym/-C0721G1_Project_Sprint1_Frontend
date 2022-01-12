@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {RequestMail} from '../../model/RequestMail';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -6,6 +6,7 @@ import {RequestMailService} from '../../service/request-mail.service';
 import * as AOS from 'aos';
 import {SuppliesService} from '../../service/supplies.service';
 import {Supplies} from '../../model/supplies';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-homepage',
@@ -21,7 +22,8 @@ export class HomepageComponent implements OnInit {
     email: new FormControl('', [Validators.required,
       Validators.pattern('^[a-z]+[a-zA-Z0-9]+@[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+\\.*[a-zA-Z0-9])*')]),
     content: new FormControl('', Validators.required)
-  })
+  });
+
   scrollFunction() {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
       document.getElementById('myBtn').style.display = 'block';
@@ -31,7 +33,8 @@ export class HomepageComponent implements OnInit {
   }
 
   constructor(private requestMailService: RequestMailService,
-              private suppliesService: SuppliesService ) {
+              private toastrService: ToastrService,
+              private suppliesService: SuppliesService) {
     this.suppliesService.findAllSupplies().subscribe(value => {
       this.suppliesList = value;
     });
@@ -51,7 +54,11 @@ export class HomepageComponent implements OnInit {
 
   sendMail() {
     this.requestMail = this.requestForm.value;
-    this.requestMailService.sendEmail(this.requestMail).subscribe();
+    this.requestMailService.sendEmail(this.requestMail).subscribe(
+      next => {
+        this.toastrService.success('Đã gửi yêu cầu thành công. Vui lòng kiểm tra email.', 'Tin nhắn từ hệ thống');
+      }
+    );
     this.requestForm.reset();
   }
 

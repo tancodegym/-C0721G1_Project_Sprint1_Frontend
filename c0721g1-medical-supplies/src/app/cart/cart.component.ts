@@ -5,6 +5,7 @@ import {SuppliesService} from '../service/supplies.service';
 import {Cart} from '../model/cart';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {DataService} from '../service/data.service';
 
 // @ts-ignore
 @Component({
@@ -16,17 +17,20 @@ export class CartComponent implements OnInit {
   constructor(
     private suppliesService: SuppliesService,
     private router: Router,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private data: DataService
   ) {
     this.getCartList();
   }
-  suppliesIdList: string[] = [];
   quantity: number [] = [];
   cartList: Cart[] = [];
   totalMoney = 0;
   idDeleteCart = 0;
   nameDeleteCart = '';
   p = 1;
+  message: string;
+  suppliesIdList: string[] = [];
+  numberOfSupplies = 0;
   getCartList() {
     this.suppliesIdList = Object.keys(localStorage);
     this.getQuantity();
@@ -53,6 +57,7 @@ export class CartComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    this.data.currentMessage.subscribe(message => this.message = message);
   }
 
 
@@ -77,10 +82,16 @@ export class CartComponent implements OnInit {
         this.router.navigateByUrl('/cart');
       }
     });
+    this.newMessage();
   }
 
   addIdToDelete(id: number, name: string) {
     this.idDeleteCart = id;
     this.nameDeleteCart = name;
+  }
+  newMessage() {
+    this.suppliesIdList = Object.keys(localStorage);
+    this.numberOfSupplies = this.suppliesIdList.length;
+    this.data.changeMessage('' + this.numberOfSupplies);
   }
 }

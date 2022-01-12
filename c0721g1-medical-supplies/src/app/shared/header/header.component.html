@@ -26,7 +26,11 @@
                 </button>
               </li>
               <li class="nav-item" style="padding-right: 5px">
-                <button class="btn btn-primary" routerLink="/cart"><i class="fas fa-shopping-cart"></i></button>
+                <button class="btn icon-button btn-primary" routerLink="/cart">
+
+                  <i class="fas fa-shopping-cart"></i>
+                  <span *ngIf="message>0" class="icon-button__badge">{{message}}</span>
+                </button>
               </li>
               <li class="nav-item" style="padding-right: 5px">
                 <button *ngIf="isLoginFail" mat-button (click)="openLoginDialog()" class="btn btn-primary">

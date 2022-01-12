@@ -6,7 +6,7 @@
       </div>
       <div class="col-8" style="font-size: 20px">
         <h2 style="color: green"><strong>{{supplies.name}}</strong></h2>
-        <p>{{supplies.introduce}}</p>
+        <p style=" text-align:justify;line-height: initial">{{supplies.introduce}}</p>
         <span style="font-size: 30px;color: dodgerblue">
           <a target="_blank" href="https://www.facebook.com"><i class="fab fa-facebook-f icon" ></i></a>
           <a target="_blank" href="https://www.twitter.com"><i style="margin-left: 10px" class="fab fa-twitter icon"></i></a>
@@ -14,7 +14,7 @@
           <a target="_blank" href="https://www.gmail.com"><i style="margin-left: 10px" class="fas fa-envelope-square icon"></i></a>
           <a target="_blank" href="https://www.linkedin.com"><i style="margin-left: 10px" class="fab fa-linkedin-in icon"></i></a>
                 </span><br><br>
-        <a (click)="addToCart()" class="btn btn-primary btn-block"
+        <a (click)="addToCart()" class="btn btn-primary btn-block text-light"
            style="text-decoration: none; font-size: 20px;display: inline"><i class="fas fa-cart-plus"></i>
           Thêm vào giỏ hàng </a><br>
         <a routerLink="/home/list"  class="btn btn-secondary"
@@ -33,9 +33,9 @@
     <div class="row" style="background-color: lightcyan; margin-top: 4px">
       <div class="col-12">
         <p style="font-size: 20px;font-weight: bold">* Giới thiệu:</p>
-        <p>{{supplies.introduce}}</p>
-        <p style="font-size: 20px;font-weight: bold">* Thông tin kĩ thuật:</p>
-        <p>{{supplies.technicalInformation}}</p>
+        <p style="margin-left: 15px;text-align:justify;line-height: normal">{{supplies.introduce}}</p>
+        <p style="font-size: 20px;margin-left: 15px;font-weight: bold">* Thông tin kĩ thuật:</p>
+        <p style="margin-left: 15px;text-align:justify;line-height: normal">{{supplies.technicalInformation}}</p>
       </div>
     </div>
   </div>

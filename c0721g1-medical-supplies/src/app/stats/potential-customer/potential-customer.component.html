@@ -10,18 +10,14 @@
       <h2 *ngIf="check" class="text-center text-danger" style="margin:30px">Dữ liệu không tồn tại trong khoảng thời gian này</h2>
 
       <!--    search box-->
-      <div *ngIf="!check" class="row">
-        <div class="col-6"></div>
-        <div class="col-6">
-          <div class="row">
-            <div class="col-xs-12 col-12 col-md-4 form-group mb-3">
-              <input class="form-control"  #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue">
-            </div>
-            <div class="col-xs-12 col-12 col-md-3 form-group mb-3">
-              <button class="btn btn-success" style="background: #058af0" (click)="search()" [attr.aria-expanded]="drp.isOpen" type="button">Tìm kiếm</button>
-            </div>
-          </div>
+      <div *ngIf="!check" class="row" style="vertical-align: center">
+        <div class="col-4"></div>
+        <div class="col-4" style="padding-left: 50px" >
+          <input style="width: 210px; display: inline; margin-right: 20px"
+                 placeholder="Chọn ngày" class="form-control"  #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue">
+          <button class="btn btn-success" style="background: #058af0" (click)="search()" [attr.aria-expanded]="drp.isOpen" >Tìm kiếm</button>
         </div>
+        <div class="col-4"></div>
       </div>
 
 

@@ -1,4 +1,4 @@
-<div class="container-fluid" style="background-image: url(https://hoaidoan.vn/wp-content/uploads/2021/03/background-dep-5.png)" >
+<div class="container-fluid" style="background-image: url(https://hoaidoan.vn/wp-content/uploads/2021/03/background-dep-5.png);background-size: cover" >
   <div class="row">
     <div class="col-12">
       <h2 class="text-center">THANH TOÁN</h2>
@@ -25,15 +25,11 @@
           <tr>
             <td><h4 style="display: inline">Địa chỉ<span style="color: red">(*)</span></h4></td>
             <td>
-              <input placeholder="Chọn tỉnh thành" class="form-control" style="font-size: 20px"
+              <input placeholder="Chọn tỉnh thành" class="form-control"
                      formControlName="address" list="address" />
               <datalist id="address">
                 <option *ngFor="let address of addressList" [ngValue]="address">{{address.name}}</option>
               </datalist>
-              <!--            <select class="form-control" style="font-size: 20px" formControlName="address">-->
-              <!--              <option value="">Chọn tỉnh thành</option>-->
-              <!--              <option *ngFor="let address of addressList" [ngValue]="address">{{address.name}}</option>-->
-              <!--            </select>-->
               <div *ngIf="!address.valid && (address.dirty ||address.touched)">
                 <div style="color:red" [hidden]="!address.errors.required">Vui lòng nhập địa chỉ</div>
               </div>
@@ -66,15 +62,16 @@
             <td ><div  #paypal></div></td>
           </tr>
         </table>
-        <h4>Tổng tiền:<span>{{total|number}}</span></h4>
+        <h1 class="font-weight-bold">Tổng tiền: <span>{{total|number}}</span></h1>
         <!--  button Quay lại giỏ hàng-->
-        <button (click)="moveToCartPage()" type="button" class="btn btn-secondary btn-lg">Quay lại giỏ hàng</button>
+        <button  (click)="moveToCartPage()" type="button" class="btn btn-secondary btn-lg">Quay lại giỏ hàng</button>
         <!-- Button bật modal xác nhận đơn hàng -->
-        <button [disabled]="!customerForm.valid" style="margin-left: 10px" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelId">
+        <button [disabled]="!customerForm.valid" style="margin-left: 15px" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelId">
           Thanh toán trực tiếp
         </button>
         <!--Button bật modal thanh toán online  -->
-        <button [disabled]="!customerForm.valid" style="margin-left: 10px" type="button" class="btn btn-success btn-lg" (click)="checkPaypal()">Thanh toán online</button>
+        <button  [disabled]="!customerForm.valid" style="margin-left: 15px" type="button" class="btn btn-success btn-lg" (click)="checkPaypal()">Thanh toán online</button>
+        <br><br><br><br>
       </form>
 
     </div>

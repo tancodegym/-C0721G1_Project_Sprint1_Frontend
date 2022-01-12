@@ -3,6 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {LoginComponent} from '../../security/login/login.component';
 import {TokenStorageService} from '../../service/token-storage.service';
 import {Router} from '@angular/router';
+import {DataService} from '../../service/data.service';
 
 @Component({
   selector: 'app-header',
@@ -16,14 +17,18 @@ export class HeaderComponent implements OnInit {
   idEmployee: number;
   currentUser: any;
   nameEmployee: string;
+  message = 0;
 
   constructor(private matDialog: MatDialog,
+              private data: DataService,
               private tokenStorageService: TokenStorageService,
               private router: Router) {
     this.checkLoggedIn();
   }
 
   ngOnInit(): void {
+    this.data.currentMessage.subscribe(message => this.message = (Number(message) - 1)
+    );
   }
 
   checkLoggedIn() {
@@ -38,7 +43,7 @@ export class HeaderComponent implements OnInit {
   }
 
   openLoginDialog() {
-    const dialogLogin = this.matDialog.open(LoginComponent, {height: '490px', width: '600px'});
+    const dialogLogin = this.matDialog.open(LoginComponent, {height: '480px', width: '600px'});
     dialogLogin.afterClosed().subscribe(value => {
       if (this.tokenStorageService.getToken()) {
         this.username = this.tokenStorageService.getUser().username;
